@@ -1,0 +1,525 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Terra Digital Power Holdings Limited · 领地数字能源控股有限公司</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wght@600;700;800;900&family=Inter:wght@400;500;600;700&family=Noto+Sans+SC:wght@400;500;700;900&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#06070a;
+    --bg-panel:#0a0c11;
+    --bg-panel-2:#0e1117;
+    --line:#1b1f27;
+    --line-2:#272d38;
+    --text:#eef0f3;
+    --text-dim:#8b93a3;
+    --text-faint:#4b525e;
+    --accent:#2f6bff;
+    --accent-bright:#5b8aff;
+    --accent-soft:rgba(47,107,255,.12);
+    --accent-line:rgba(47,107,255,.45);
+    --ok:#34d399;
+
+    --font-display:'Archivo','Noto Sans SC',sans-serif;
+    --font-body:'Inter','Noto Sans SC',sans-serif;
+    --font-mono:'IBM Plex Mono',monospace;
+
+    --space-1:.5rem;--space-2:1rem;--space-3:1.5rem;--space-4:2.25rem;
+    --space-5:3.5rem;--space-6:5rem;--space-7:7rem;
+    --container:1200px;
+  }
+  *{box-sizing:border-box;margin:0;padding:0;}
+  html{scroll-behavior:smooth;}
+  body{background:var(--bg);color:var(--text);font-family:var(--font-body);line-height:1.6;-webkit-font-smoothing:antialiased;overflow-x:hidden;}
+  a{color:inherit;text-decoration:none;}
+  ul{list-style:none;}
+  .icon{width:20px;height:20px;flex-shrink:0;}
+  .wrap{max-width:var(--container);margin-inline:auto;padding-inline:clamp(1.25rem,4vw,3rem);}
+  ::selection{background:var(--accent);color:#fff;}
+  :focus-visible{outline:2px solid var(--accent-bright);outline-offset:3px;}
+
+  .atmosphere{
+    position:fixed;inset:0;z-index:0;pointer-events:none;
+    background-image:linear-gradient(var(--line) 1px, transparent 1px),linear-gradient(90deg, var(--line) 1px, transparent 1px);
+    background-size:72px 72px;
+    -webkit-mask-image:radial-gradient(ellipse 80% 55% at 50% 0%, black 25%, transparent 70%);
+    mask-image:radial-gradient(ellipse 80% 55% at 50% 0%, black 25%, transparent 70%);
+    opacity:.4;
+  }
+  .glow{position:fixed;width:50vw;height:50vw;max-width:760px;max-height:760px;border-radius:50%;filter:blur(140px);z-index:0;pointer-events:none;opacity:.16;background:var(--accent);top:-16%;right:-12%;}
+  section, header, footer{position:relative;z-index:1;}
+
+  /* status bar */
+  .statusbar{border-bottom:1px solid var(--line);background:var(--bg-panel);}
+  .statusbar .wrap{display:flex;align-items:center;justify-content:space-between;padding-block:.55rem;font-family:var(--font-mono);font-size:.72rem;letter-spacing:.05em;color:var(--text-dim);}
+  .status-live{display:flex;align-items:center;gap:.5rem;}
+  .status-dot{width:6px;height:6px;border-radius:50%;background:var(--ok);box-shadow:0 0 8px var(--ok);animation:pulseDot 2s ease-in-out infinite;}
+  @keyframes pulseDot{0%,100%{opacity:1;}50%{opacity:.35;}}
+  .clocks{display:flex;gap:1.4rem;}
+  .clock-item{display:flex;gap:.4rem;align-items:baseline;}
+  .clock-label{color:var(--text-faint);}
+  .clock-value{color:var(--text);}
+  @media (max-width:640px){ .clocks{display:none;} }
+
+  /* nav */
+  .nav{position:sticky;top:0;z-index:50;backdrop-filter:blur(14px);background:rgba(6,7,10,.78);border-bottom:1px solid var(--line);}
+  .nav .wrap{display:flex;align-items:center;justify-content:space-between;padding-block:1rem;}
+  .brand{display:flex;align-items:center;gap:.65rem;}
+  .brand-name{font-family:var(--font-display);font-weight:800;font-size:.92rem;letter-spacing:.01em;line-height:1.15;}
+  .brand-name small{display:block;font-family:var(--font-mono);font-weight:400;font-size:.6rem;letter-spacing:.14em;color:var(--text-faint);margin-top:.2rem;}
+  .nav-links{display:flex;align-items:center;gap:clamp(1rem,2.5vw,2rem);}
+  .nav-links a{font-family:var(--font-mono);font-size:.74rem;letter-spacing:.08em;text-transform:uppercase;color:var(--text-dim);transition:color .2s ease;}
+  .nav-links a:hover{color:var(--text);}
+  .lang-btn{font-family:var(--font-mono);font-size:.72rem;letter-spacing:.06em;color:var(--text);background:var(--bg-panel-2);border:1px solid var(--line-2);padding:.45rem .8rem;border-radius:4px;cursor:pointer;transition:border-color .2s ease, color .2s ease;}
+  .lang-btn:hover{border-color:var(--accent);color:var(--accent-bright);}
+
+  /* hero */
+  .hero{padding-top:clamp(3.5rem,9vw,6rem);padding-bottom:var(--space-5);}
+  .eyebrow{display:inline-flex;align-items:center;gap:.5rem;font-family:var(--font-mono);font-size:.72rem;letter-spacing:.18em;color:var(--text-dim);text-transform:uppercase;margin-bottom:var(--space-3);}
+  .eyebrow::before{content:'';width:14px;height:1px;background:var(--accent);}
+  .hero h1{font-family:var(--font-display);font-weight:900;font-size:clamp(2.1rem,5.6vw,4.4rem);line-height:1.08;letter-spacing:-.015em;max-width:18ch;}
+  .hero h1 .accent{color:var(--accent-bright);}
+  .hero .h2{margin-top:var(--space-3);max-width:58ch;font-size:clamp(1rem,1.5vw,1.15rem);color:var(--text-dim);}
+  .hero-cta{display:flex;flex-wrap:wrap;gap:.9rem;margin-top:var(--space-4);}
+  .btn{display:inline-flex;align-items:center;gap:.5rem;font-family:var(--font-body);font-weight:600;font-size:.9rem;padding:.85rem 1.4rem;border-radius:6px;transition:transform .2s ease, box-shadow .2s ease, border-color .2s ease, background .2s ease;}
+  .btn--primary{background:var(--accent);color:#fff;}
+  .btn--primary:hover{transform:translateY(-2px);box-shadow:0 14px 30px -12px rgba(47,107,255,.55);background:var(--accent-bright);}
+  .btn--ghost{border:1px solid var(--line-2);color:var(--text);}
+  .btn--ghost:hover{border-color:var(--accent);color:var(--accent-bright);transform:translateY(-2px);}
+
+  /* stat dashboard */
+  .stats{margin-top:var(--space-6);display:grid;grid-template-columns:repeat(3,1fr);border:1px solid var(--line);border-radius:10px;overflow:hidden;}
+  .stat{padding:var(--space-4) var(--space-3);border-left:1px solid var(--line);background:var(--bg-panel);}
+  .stat:first-child{border-left:none;}
+  .stat-num{font-family:var(--font-mono);font-weight:600;font-size:clamp(1.6rem,3.4vw,2.4rem);color:var(--accent-bright);letter-spacing:-.01em;}
+  .stat-label{margin-top:.5rem;font-size:.82rem;color:var(--text-dim);}
+  @media (max-width:720px){ .stats{grid-template-columns:1fr;} .stat{border-left:none;border-top:1px solid var(--line);} .stat:first-child{border-top:none;} }
+
+  /* ticker */
+  .ticker{border-bottom:1px solid var(--line);background:var(--bg-panel);overflow:hidden;padding-block:.85rem;}
+  .ticker-track{display:flex;width:max-content;animation:scroll 30s linear infinite;}
+  .ticker-item{font-family:var(--font-mono);font-size:.74rem;letter-spacing:.08em;color:var(--text-dim);white-space:nowrap;padding-inline:1.3rem;display:flex;align-items:center;gap:1.3rem;}
+  .ticker-item::after{content:'/';color:var(--line-2);}
+  @keyframes scroll{from{transform:translateX(0);}to{transform:translateX(-50%);}}
+
+  /* section shared */
+  .section{padding-block:var(--space-7);}
+  .section-head{max-width:680px;margin-bottom:var(--space-5);}
+  .section-head h2{font-family:var(--font-display);font-weight:800;font-size:clamp(1.6rem,3.2vw,2.4rem);line-height:1.18;margin-top:.6rem;letter-spacing:-.01em;}
+  .section-head p{margin-top:.8rem;color:var(--text-dim);font-size:.98rem;max-width:56ch;}
+
+  /* business matrix */
+  .matrix{display:grid;grid-template-columns:1fr auto 1fr;align-items:stretch;gap:0;}
+  .matrix-card{background:var(--bg-panel);border:1px solid var(--line);border-radius:10px;padding:var(--space-4);display:flex;flex-direction:column;}
+  .matrix-link{display:flex;align-items:center;justify-content:center;padding-inline:var(--space-3);}
+  .matrix-connector{width:60px;height:1px;background:var(--line-2);position:relative;}
+  .matrix-connector .pulse{position:absolute;top:50%;left:-4px;width:6px;height:6px;border-radius:50%;background:var(--accent-bright);box-shadow:0 0 10px var(--accent-bright);transform:translateY(-50%);animation:travel 2.4s linear infinite;}
+  @keyframes travel{from{left:-4px;}to{left:100%;}}
+  .matrix-tag{font-family:var(--font-mono);font-size:.7rem;letter-spacing:.1em;color:var(--accent-bright);text-transform:uppercase;}
+  .matrix-brand{font-family:var(--font-mono);font-size:.72rem;color:var(--text-faint);margin-top:.3rem;}
+  .matrix-card h3{font-family:var(--font-display);font-weight:700;font-size:1.28rem;margin-top:var(--space-2);line-height:1.3;}
+  .matrix-card p{color:var(--text-dim);margin-top:.8rem;font-size:.92rem;flex:1;}
+  .matrix-specs{display:flex;flex-wrap:wrap;gap:.5rem;margin-top:var(--space-3);}
+  .spec-tag{font-family:var(--font-mono);font-size:.7rem;letter-spacing:.04em;color:var(--text-dim);border:1px solid var(--line-2);padding:.35rem .65rem;border-radius:4px;}
+  @media (max-width:860px){ .matrix{grid-template-columns:1fr;} .matrix-link{padding-block:var(--space-3);} .matrix-connector{width:1px;height:48px;} .matrix-connector .pulse{left:50%;top:-4px;transform:translateX(-50%);animation-name:travelV;} @keyframes travelV{from{top:-4px;}to{top:100%;}} }
+
+  /* advantages */
+  .advantage{display:grid;grid-template-columns:220px 1fr;gap:var(--space-4);padding-block:var(--space-5);border-top:1px solid var(--line);}
+  .advantage:last-child{border-bottom:1px solid var(--line);}
+  .advantage-num{font-family:var(--font-mono);font-size:.78rem;color:var(--text-faint);}
+  .advantage-eyebrow{font-family:var(--font-mono);font-size:.74rem;letter-spacing:.1em;color:var(--accent-bright);text-transform:uppercase;margin-top:.6rem;}
+  .advantage h3{font-family:var(--font-display);font-weight:700;font-size:clamp(1.3rem,2.4vw,1.7rem);margin-top:var(--space-2);max-width:14ch;}
+  .advantage-body p{color:var(--text-dim);max-width:62ch;font-size:.98rem;}
+  .advantage-tags{display:flex;flex-wrap:wrap;gap:.5rem;margin-top:var(--space-3);}
+  @media (max-width:760px){ .advantage{grid-template-columns:1fr;gap:var(--space-2);} }
+
+  /* hubs */
+  .hub-grid{display:flex;align-items:stretch;gap:0;margin-top:var(--space-5);}
+  .hub-col{flex:1;display:flex;flex-direction:column;gap:.75rem;justify-content:center;}
+  .hub-col-head{font-family:var(--font-mono);font-size:.7rem;letter-spacing:.1em;color:var(--text-faint);text-transform:uppercase;margin-bottom:.4rem;}
+  .node-chip{border:1px solid var(--line-2);background:var(--bg-panel);padding:.85rem 1rem;border-radius:7px;font-size:.86rem;display:flex;align-items:center;gap:.6rem;}
+  .node-chip .dot{width:6px;height:6px;border-radius:50%;background:var(--text-faint);flex-shrink:0;}
+  .node-chip--final{border-color:var(--accent-line);background:var(--accent-soft);box-shadow:0 0 24px -8px rgba(47,107,255,.4);}
+  .node-chip--final .dot{background:var(--accent-bright);box-shadow:0 0 8px var(--accent-bright);}
+  .node-chip--final strong{color:var(--accent-bright);}
+  .hub-link{flex:0 0 60px;display:flex;align-items:center;justify-content:center;}
+  @media (max-width:860px){ .hub-grid{flex-direction:column;} .hub-link{flex:0 0 40px;} .hub-link .matrix-connector{width:1px;height:40px;} .hub-link .pulse{left:50%;top:-4px;transform:translateX(-50%);animation-name:travelV;} }
+
+  /* about / compliance footer strip not needed separate, footer below */
+  footer{padding-block:var(--space-5);border-top:1px solid var(--line);}
+  .footer-top{display:flex;justify-content:space-between;align-items:flex-start;flex-wrap:wrap;gap:var(--space-3);margin-bottom:var(--space-3);}
+  .footer-brand{font-family:var(--font-display);font-weight:700;font-size:.95rem;}
+  .footer-sub{font-family:var(--font-mono);font-size:.72rem;color:var(--text-faint);margin-top:.4rem;max-width:42ch;line-height:1.7;}
+  .footer-meta{font-family:var(--font-mono);font-size:.7rem;color:var(--text-faint);text-align:right;}
+
+  @media (prefers-reduced-motion:reduce){ *{animation:none !important;transition:none !important;} }
+</style>
+</head>
+<body>
+
+<div class="atmosphere"></div>
+<div class="glow"></div>
+
+<div class="statusbar">
+  <div class="wrap">
+    <div class="status-live"><span class="status-dot"></span><span data-i18n="status.live">网络实时运行中 · NETWORK LIVE</span></div>
+    <div class="clocks">
+      <div class="clock-item"><span class="clock-label">NYC</span><span class="clock-value" id="clockNY">--:--:--</span></div>
+      <div class="clock-item"><span class="clock-label">HKG</span><span class="clock-value" id="clockHK">--:--:--</span></div>
+    </div>
+  </div>
+</div>
+
+<header class="nav">
+  <div class="wrap">
+    <div class="brand">
+      <svg width="30" height="30" viewBox="0 0 30 30" fill="none">
+        <rect x="1" y="1" width="28" height="28" rx="5" stroke="#2f6bff" stroke-width="1.4"/>
+        <path d="M9 20 L15 9 L21 20" stroke="#5b8aff" stroke-width="1.6" stroke-linejoin="round" fill="none"/>
+        <path d="M11.5 16h7" stroke="#5b8aff" stroke-width="1.6"/>
+      </svg>
+      <div class="brand-name">
+        <span data-i18n="brand.name">领地数字能源</span>
+        <small data-i18n="brand.sub">TERRA DIGITAL POWER HOLDINGS</small>
+      </div>
+    </div>
+    <nav class="nav-links">
+      <a href="#business" data-i18n="nav.business">业务</a>
+      <a href="#advantage" data-i18n="nav.advantage">优势</a>
+      <a href="#hubs" data-i18n="nav.hubs">节点</a>
+      <a href="#contact" data-i18n="nav.contact">联系</a>
+      <button class="lang-btn" id="langToggle" type="button">EN</button>
+    </nav>
+  </div>
+</header>
+
+<main>
+  <section class="hero">
+    <div class="wrap">
+      <p class="eyebrow" data-i18n="hero.eyebrow">全球算力与能源基础设施</p>
+      <h1 data-i18n-html="hero.headline">重新定义全球<span class="accent">算力</span>与能源的物理边界</h1>
+      <p class="h2" data-i18n="hero.sub">依托 13 亿度分布式绿电底座，构建全合规的跨境智能算力与数字要素转口枢纽。</p>
+      <div class="hero-cta">
+        <a class="btn btn--primary" href="#contact" data-i18n="hero.cta1">接入算电网络</a>
+        <a class="btn btn--ghost" href="#contact" data-i18n="hero.cta2">获取合规算力</a>
+      </div>
+
+      <div class="stats">
+        <div class="stat">
+          <div class="stat-num"><span id="statKwh">0</span></div>
+          <div class="stat-label" data-i18n="stats.kwh">年度调度绿电 (kWh)</div>
+        </div>
+        <div class="stat">
+          <div class="stat-num" data-i18n="stats.dualhub.num">Dual-Hub</div>
+          <div class="stat-label" data-i18n="stats.dualhub.label">两地双轨运营 (内地与香港)</div>
+        </div>
+        <div class="stat">
+          <div class="stat-num"><span id="statPct">0</span>%</div>
+          <div class="stat-label" data-i18n="stats.pct">离岸合规资产流转</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="ticker">
+    <div class="ticker-track" id="tickerTrack"></div>
+  </div>
+
+  <section class="section" id="business">
+    <div class="wrap">
+      <div class="section-head">
+        <p class="eyebrow" data-i18n="business.eyebrow">核心业务矩阵</p>
+        <h2 data-i18n="business.heading">Core Business Engines</h2>
+      </div>
+
+      <div class="matrix">
+        <div class="matrix-card">
+          <span class="matrix-tag" data-i18n="business.a.tag">板块 A · 物理底座</span>
+          <span class="matrix-brand">领地新能源 · Mainland Base</span>
+          <h3 data-i18n="business.a.title">分布式虚拟电厂(VPP)与绿电现货调度</h3>
+          <p data-i18n="business.a.body">扎根鲁鄂两省，深度链接下沉实体产业。通过极具前瞻性的算法模型与高度自动化的 SOP 团队，精准调度海量分布式绿色能源，锁定底层物理生产资料的绝对成本优势。</p>
+          <div class="matrix-specs">
+            <span class="spec-tag" data-i18n="business.a.spec1">鲁鄂两省</span>
+            <span class="spec-tag" data-i18n="business.a.spec2">VPP 调度</span>
+            <span class="spec-tag" data-i18n="business.a.spec3">绿电现货</span>
+          </div>
+        </div>
+
+        <div class="matrix-link">
+          <div class="matrix-connector"><span class="pulse"></span></div>
+        </div>
+
+        <div class="matrix-card">
+          <span class="matrix-tag" data-i18n="business.b.tag">板块 B · 离岸冲锋</span>
+          <span class="matrix-brand">Terra Digital Power · Hong Kong Hub</span>
+          <h3 data-i18n="business.b.title">跨境智能算力与数字要素转口贸易</h3>
+          <p data-i18n="business.b.body">依托香港自由港离岸金融体系与内地国家级数据特区(上海临港 / 汕头海缆站)绿色通道。实现"货不落地"的 Token 转口贸易，将内地廉价智算能源，以合规、低延迟的物理海缆分发至全球 AI 开发者与研究机构。</p>
+          <div class="matrix-specs">
+            <span class="spec-tag" data-i18n="business.b.spec1">香港自由港</span>
+            <span class="spec-tag" data-i18n="business.b.spec2">临港 · 汕头海缆</span>
+            <span class="spec-tag" data-i18n="business.b.spec3">Token 转口</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" id="advantage" style="padding-top:0">
+    <div class="wrap">
+      <div class="section-head">
+        <p class="eyebrow" data-i18n="advantage.eyebrow">非对称优势</p>
+        <h2 data-i18n="advantage.heading">The Unfair Advantage</h2>
+      </div>
+
+      <div class="advantage">
+        <div>
+          <div class="advantage-num">01</div>
+          <div class="advantage-eyebrow">Systematic Execution</div>
+        </div>
+        <div class="advantage-body">
+          <h3 data-i18n="advantage.1.title">极客级 SOP 调度</h3>
+          <p data-i18n="advantage.1.body">彻底摒弃传统人效堆叠。核心业务线索与算力分发全盘引入智能体(Agentic AI)接管，实现机器级的不间断运转。</p>
+          <div class="advantage-tags">
+            <span class="spec-tag">Agentic AI</span>
+            <span class="spec-tag" data-i18n="advantage.1.tag2">全自动调度</span>
+            <span class="spec-tag" data-i18n="advantage.1.tag3">0 停机</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="advantage">
+        <div>
+          <div class="advantage-num">02</div>
+          <div class="advantage-eyebrow">Institutional Compliance</div>
+        </div>
+        <div class="advantage-body">
+          <h3 data-i18n="advantage.2.title">华尔街级合规风控</h3>
+          <p data-i18n="advantage.2.body">创始人具备纽约州持牌 CPA 及前顶级会计师事务所华尔街金融服务部(FSO)背景。从资金路由、转让定价(TP)到离岸数据确权，提供坚不可摧的"算电出海"合规防火墙。</p>
+          <div class="advantage-tags">
+            <span class="spec-tag" data-i18n="advantage.2.tag1">纽约州持牌 CPA</span>
+            <span class="spec-tag" data-i18n="advantage.2.tag2">转让定价 TP</span>
+            <span class="spec-tag" data-i18n="advantage.2.tag3">离岸数据确权</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" id="hubs">
+    <div class="wrap">
+      <div class="section-head">
+        <p class="eyebrow" data-i18n="hubs.eyebrow">战略节点</p>
+        <h2 data-i18n="hubs.heading">Strategic Hubs</h2>
+        <p data-i18n="hubs.sub">三层节点架构，贯通资源、数据与资本。</p>
+      </div>
+
+      <div class="hub-grid">
+        <div class="hub-col">
+          <div class="hub-col-head" data-i18n="hubs.col1.head">资源腹地 · Resource Hinterland</div>
+          <div class="node-chip"><span class="dot"></span><span data-i18n="hubs.col1.item1">山东大区 · Shandong Region</span></div>
+          <div class="node-chip"><span class="dot"></span><span data-i18n="hubs.col1.item2">湖北战区 · Hubei Theatre</span></div>
+          <div class="node-chip"><span class="dot"></span><span data-i18n="hubs.col1.item3">济南枢纽 · Jinan Hub</span></div>
+        </div>
+
+        <div class="hub-link"><div class="matrix-connector"><span class="pulse"></span></div></div>
+
+        <div class="hub-col">
+          <div class="hub-col-head" data-i18n="hubs.col2.head">数据绿色通道 · Data Green Channel</div>
+          <div class="node-chip"><span class="dot"></span><span data-i18n="hubs.col2.item1">上海临港新片区 · Shanghai Lingang</span></div>
+          <div class="node-chip"><span class="dot"></span><span data-i18n="hubs.col2.item2">汕头国际海缆登陆站 · Shantou Cable Station</span></div>
+        </div>
+
+        <div class="hub-link"><div class="matrix-connector"><span class="pulse"></span></div></div>
+
+        <div class="hub-col">
+          <div class="hub-col-head" data-i18n="hubs.col3.head">离岸金融与转口中心 · Offshore Hub</div>
+          <div class="node-chip node-chip--final"><span class="dot"></span><strong data-i18n="hubs.col3.item1">中国香港 · Hong Kong SAR</strong></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" id="contact" style="padding-top:0">
+    <div class="wrap">
+      <div class="matrix-card" style="border-radius:14px;">
+        <span class="matrix-tag" data-i18n="contact.eyebrow">接入网络</span>
+        <h3 style="font-size:1.6rem;margin-top:.8rem;" data-i18n="contact.heading">与我们对话</h3>
+        <p data-i18n="contact.desc" style="max-width:60ch;">无论是算力采购还是合规出海需求，我们的团队随时为您提供解决方案。</p>
+        <div class="hero-cta" style="margin-top:var(--space-3);">
+          <a class="btn btn--primary" href="mailto:contact@terradigitalpower.com" data-i18n="contact.cta">发送邮件</a>
+        </div>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <div class="wrap">
+    <div class="footer-top">
+      <div>
+        <div class="footer-brand">Terra Digital Power Holdings Limited</div>
+        <div class="footer-sub" data-i18n="footer.names">领地数字能源控股有限公司 &amp; Leading Power</div>
+        <div class="footer-sub" data-i18n="footer.compliance">本公司严格遵守各地数据跨境传输合规指导原则及离岸金融监管条例。</div>
+      </div>
+      <div class="footer-meta">© 2026 TERRA DIGITAL POWER<br/>MAINLAND · HONG KONG · GLOBAL</div>
+    </div>
+  </div>
+</footer>
+
+<script>
+  const translations = {
+    zh:{
+      'brand.name':'领地数字能源','brand.sub':'TERRA DIGITAL POWER HOLDINGS',
+      'nav.business':'业务','nav.advantage':'优势','nav.hubs':'节点','nav.contact':'联系',
+      'status.live':'网络实时运行中 · NETWORK LIVE',
+      'hero.eyebrow':'全球算力与能源基础设施',
+      'hero.sub':'依托 13 亿度分布式绿电底座，构建全合规的跨境智能算力与数字要素转口枢纽。',
+      'hero.cta1':'接入算电网络','hero.cta2':'获取合规算力',
+      'stats.kwh':'年度调度绿电 (kWh)','stats.dualhub.num':'Dual-Hub','stats.dualhub.label':'两地双轨运营 (内地与香港)','stats.pct':'离岸合规资产流转',
+      'business.eyebrow':'核心业务矩阵','business.heading':'Core Business Engines',
+      'business.a.tag':'板块 A · 物理底座',
+      'business.a.title':'分布式虚拟电厂(VPP)与绿电现货调度',
+      'business.a.body':'扎根鲁鄂两省，深度链接下沉实体产业。通过极具前瞻性的算法模型与高度自动化的 SOP 团队，精准调度海量分布式绿色能源，锁定底层物理生产资料的绝对成本优势。',
+      'business.a.spec1':'鲁鄂两省','business.a.spec2':'VPP 调度','business.a.spec3':'绿电现货',
+      'business.b.tag':'板块 B · 离岸冲锋',
+      'business.b.title':'跨境智能算力与数字要素转口贸易',
+      'business.b.body':'依托香港自由港离岸金融体系与内地国家级数据特区(上海临港 / 汕头海缆站)绿色通道。实现"货不落地"的 Token 转口贸易，将内地廉价智算能源，以合规、低延迟的物理海缆分发至全球 AI 开发者与研究机构。',
+      'business.b.spec1':'香港自由港','business.b.spec2':'临港 · 汕头海缆','business.b.spec3':'Token 转口',
+      'advantage.eyebrow':'非对称优势','advantage.heading':'The Unfair Advantage',
+      'advantage.1.title':'极客级 SOP 调度',
+      'advantage.1.body':'彻底摒弃传统人效堆叠。核心业务线索与算力分发全盘引入智能体(Agentic AI)接管，实现机器级的不间断运转。',
+      'advantage.1.tag2':'全自动调度','advantage.1.tag3':'0 停机',
+      'advantage.2.title':'华尔街级合规风控',
+      'advantage.2.body':'创始人具备纽约州持牌 CPA 及前顶级会计师事务所华尔街金融服务部(FSO)背景。从资金路由、转让定价(TP)到离岸数据确权，提供坚不可摧的"算电出海"合规防火墙。',
+      'advantage.2.tag1':'纽约州持牌 CPA','advantage.2.tag2':'转让定价 TP','advantage.2.tag3':'离岸数据确权',
+      'hubs.eyebrow':'战略节点','hubs.heading':'Strategic Hubs','hubs.sub':'三层节点架构，贯通资源、数据与资本。',
+      'hubs.col1.head':'资源腹地 · Resource Hinterland',
+      'hubs.col1.item1':'山东大区 · Shandong Region','hubs.col1.item2':'湖北战区 · Hubei Theatre','hubs.col1.item3':'济南枢纽 · Jinan Hub',
+      'hubs.col2.head':'数据绿色通道 · Data Green Channel',
+      'hubs.col2.item1':'上海临港新片区 · Shanghai Lingang','hubs.col2.item2':'汕头国际海缆登陆站 · Shantou Cable Station',
+      'hubs.col3.head':'离岸金融与转口中心 · Offshore Hub',
+      'hubs.col3.item1':'中国香港 · Hong Kong SAR',
+      'contact.eyebrow':'接入网络','contact.heading':'与我们对话','contact.desc':'无论是算力采购还是合规出海需求，我们的团队随时为您提供解决方案。','contact.cta':'发送邮件',
+      'footer.names':'领地数字能源控股有限公司 & Leading Power',
+      'footer.compliance':'本公司严格遵守各地数据跨境传输合规指导原则及离岸金融监管条例。',
+      't1':'VPP 调度','t2':'绿电现货','t3':'Token 转口贸易','t4':'离岸合规','t5':'Agentic AI','t6':'转让定价','t7':'海缆直连','t8':'7×24 运行',
+    },
+    en:{
+      'brand.name':'Terra Digital Power','brand.sub':'领地数字能源控股',
+      'nav.business':'Business','nav.advantage':'Advantage','nav.hubs':'Hubs','nav.contact':'Contact',
+      'status.live':'NETWORK LIVE · 网络实时运行中',
+      'hero.eyebrow':'Global Compute & Energy Infrastructure',
+      'hero.sub':'Built on a 1.3-billion-kWh distributed renewable energy base, powering a fully compliant cross-border hub for intelligent compute and digital asset transshipment.',
+      'hero.cta1':'Connect to the Grid','hero.cta2':'Request Compute Capacity',
+      'stats.kwh':'Annual Dispatched Renewable Energy (kWh)','stats.dualhub.num':'Dual-Hub','stats.dualhub.label':'Dual-Track Operations (Mainland & Hong Kong)','stats.pct':'Offshore Compliant Asset Flow',
+      'business.eyebrow':'Core Business Engines','business.heading':'核心业务矩阵',
+      'business.a.tag':'Segment A · Physical Base',
+      'business.a.title':'Distributed Virtual Power Plant (VPP) & Green Spot Dispatch',
+      'business.a.body':'Rooted in Shandong and Hubei, deeply connected to grassroots industrial capacity. Forward-looking algorithmic models and a highly automated SOP team precisely dispatch large-scale distributed renewable energy, locking in an absolute cost advantage at the physical layer of production.',
+      'business.a.spec1':'Shandong & Hubei','business.a.spec2':'VPP Dispatch','business.a.spec3':'Green Spot Power',
+      'business.b.tag':'Segment B · Offshore Vanguard',
+      'business.b.title':'Cross-Border Intelligent Compute & Digital Asset Transshipment',
+      'business.b.body':'Leveraging the free-port offshore financial system of Hong Kong and green-channel access to mainland national-level data zones (Shanghai Lingang, Shantou submarine cable station). Enables cargo-free token transshipment, distributing low-cost mainland compute to global AI developers and research institutions via compliant, low-latency submarine cable infrastructure.',
+      'business.b.spec1':'HK Free Port','business.b.spec2':'Lingang · Shantou Cable','business.b.spec3':'Token Transshipment',
+      'advantage.eyebrow':'The Unfair Advantage','advantage.heading':'非对称优势',
+      'advantage.1.title':'Systematic Execution',
+      'advantage.1.body':'We reject traditional headcount-driven scaling entirely. Core business workflows and compute distribution are fully handed over to Agentic AI systems, enabling machine-grade, uninterrupted operation.',
+      'advantage.1.tag2':'Full Automation','advantage.1.tag3':'Zero Downtime',
+      'advantage.2.title':'Institutional Compliance',
+      'advantage.2.body':'Founded by a New York State licensed CPA with a background in the Wall Street Financial Services Office (FSO) of a top accounting firm. From fund routing and transfer pricing (TP) to offshore data rights, we provide an unshakeable compliance firewall for going global with compute and energy.',
+      'advantage.2.tag1':'NY Licensed CPA','advantage.2.tag2':'Transfer Pricing','advantage.2.tag3':'Offshore Data Rights',
+      'hubs.eyebrow':'Strategic Hubs','hubs.heading':'战略节点','hubs.sub':'A three-layer node architecture connecting resources, data, and capital.',
+      'hubs.col1.head':'Resource Hinterland · 资源腹地',
+      'hubs.col1.item1':'Shandong Region · 山东大区','hubs.col1.item2':'Hubei Theatre · 湖北战区','hubs.col1.item3':'Jinan Hub · 济南枢纽',
+      'hubs.col2.head':'Data Green Channel · 数据绿色通道',
+      'hubs.col2.item1':'Shanghai Lingang · 上海临港新片区','hubs.col2.item2':'Shantou Cable Station · 汕头国际海缆登陆站',
+      'hubs.col3.head':'Offshore Financial Hub · 离岸金融中心',
+      'hubs.col3.item1':'Hong Kong SAR · 中国香港',
+      'contact.eyebrow':'Get Connected','contact.heading':'Start a Conversation','contact.desc':'Whether you need compute sourcing or compliant offshore structuring, our team is ready to help.','contact.cta':'Send an Email',
+      'footer.names':'Terra Digital Power Holdings Limited & Leading Power',
+      'footer.compliance':'This company strictly complies with applicable cross-border data transfer guidelines and offshore financial regulations in all relevant jurisdictions.',
+      't1':'VPP DISPATCH','t2':'GREEN SPOT POWER','t3':'TOKEN TRANSSHIPMENT','t4':'OFFSHORE COMPLIANCE','t5':'AGENTIC AI','t6':'TRANSFER PRICING','t7':'SUBSEA CABLE LINK','t8':'7×24 OPERATIONS',
+    }
+  };
+
+  const headlineHTML = {
+    zh:'重新定义全球<span class="accent">算力</span>与能源的物理边界',
+    en:'Redefining the Physical Boundaries of Global <span class="accent">Compute</span> and Energy'
+  };
+
+  let currentLang = 'zh';
+  const langBtn = document.getElementById('langToggle');
+  const tickerTrack = document.getElementById('tickerTrack');
+  const prefersReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  function renderTicker(lang){
+    const keys = ['t1','t2','t3','t4','t5','t6','t7','t8'];
+    const items = keys.map(k => translations[lang][k]);
+    const doubled = items.concat(items);
+    tickerTrack.innerHTML = doubled.map(t => '<span class="ticker-item">'+t+'</span>').join('');
+  }
+
+  function applyLang(lang){
+    currentLang = lang;
+    document.documentElement.lang = lang === 'zh' ? 'zh-CN' : 'en';
+    document.querySelectorAll('[data-i18n]').forEach(function(el){
+      const key = el.getAttribute('data-i18n');
+      if(translations[lang][key] !== undefined) el.textContent = translations[lang][key];
+    });
+    document.querySelectorAll('[data-i18n-html]').forEach(function(el){
+      const key = el.getAttribute('data-i18n-html');
+      if(key === 'hero.headline'){ el.innerHTML = headlineHTML[lang]; }
+    });
+    langBtn.textContent = lang === 'zh' ? 'EN' : '中文';
+    renderTicker(lang);
+  }
+
+  langBtn.addEventListener('click', function(){ applyLang(currentLang === 'zh' ? 'en' : 'zh'); });
+
+  // live clocks
+  function updateClocks(){
+    const now = new Date();
+    const nyFmt = new Intl.DateTimeFormat('en-US',{timeZone:'America/New_York',hour:'2-digit',minute:'2-digit',second:'2-digit',hour12:false});
+    const hkFmt = new Intl.DateTimeFormat('en-US',{timeZone:'Asia/Hong_Kong',hour:'2-digit',minute:'2-digit',second:'2-digit',hour12:false});
+    document.getElementById('clockNY').textContent = nyFmt.format(now);
+    document.getElementById('clockHK').textContent = hkFmt.format(now);
+  }
+  updateClocks();
+  setInterval(updateClocks, 1000);
+
+  // count-up stats
+  function countUp(el, target, decimals, suffix, duration){
+    if(prefersReduced){ el.textContent = target.toFixed(decimals) + suffix; return; }
+    let start = null;
+    function step(ts){
+      if(!start) start = ts;
+      const progress = Math.min((ts-start)/duration, 1);
+      const eased = 1 - Math.pow(1-progress, 3);
+      el.textContent = (target*eased).toFixed(decimals) + suffix;
+      if(progress < 1) requestAnimationFrame(step);
+      else el.textContent = target.toFixed(decimals) + suffix;
+    }
+    requestAnimationFrame(step);
+  }
+
+  let statsTriggered = false;
+  const statsEl = document.querySelector('.stats');
+  const observer = new IntersectionObserver(function(entries){
+    entries.forEach(function(entry){
+      if(entry.isIntersecting && !statsTriggered){
+        statsTriggered = true;
+        countUp(document.getElementById('statKwh'), 1.3, 1, 'B+', 1400);
+        countUp(document.getElementById('statPct'), 100, 0, '', 1400);
+      }
+    });
+  }, {threshold:0.4});
+  if(statsEl) observer.observe(statsEl);
+
+  applyLang('zh');
+</script>
+
+</body>
+</html>
