@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Terra Digital Power Holdings Limited (TDP) · 领地数字能源控股有限公司</title>
-<meta name="description" content="领地数字能源控股有限公司(Terra Digital Power Holdings Limited, TDP)依托 13 亿度分布式绿电底座,构建全合规的跨境智能算力与 Token 转口枢纽,横跨内地与香港双轨运营。">
+<meta name="description" content="领地数字能源控股有限公司(Terra Digital Power Holdings Limited, TDP)依托香港自由贸易港，开展算力服务器转口贸易、云资源代理、Token 词元工厂投资与数字能源出海业务，衔接中国内地供给与全球市场需求。">
 <link rel="canonical" href="https://www.terradigitalpower.com/">
 <meta name="theme-color" content="#06070a">
 
@@ -44,8 +44,8 @@
   "alternateName": ["TDP", "领地数字能源控股有限公司", "Leading Power"],
   "url": "https://www.terradigitalpower.com/",
   "logo": "https://www.terradigitalpower.com/apple-touch-icon.png",
-  "description": "Terra Digital Power Holdings Limited (TDP) operates a dual-track compute and energy infrastructure business across Mainland China and Hong Kong, spanning distributed renewable power dispatch, compute server trading, and cross-border AI token transshipment.",
-  "knowsAbout": ["Distributed Virtual Power Plant", "Green Spot Power Dispatch", "Compute Server Trading", "AI Token Trading", "Cross-Border Compliance"]
+  "description": "Terra Digital Power Holdings Limited (TDP) operates a dual-track compute and energy infrastructure business across Mainland China and Hong Kong, spanning distributed renewable power dispatch, cloud platform channel agency, NVIDIA server transshipment trade, token factory investment, and cross-border AI token transshipment.",
+  "knowsAbout": ["Distributed Virtual Power Plant", "Green Spot Power Dispatch", "Tencent Cloud Channel Agency", "Alibaba Cloud Channel Agency", "NVIDIA Server Transshipment Trade", "Token Factory Investment", "AI Token Trading", "Hong Kong Free Port", "Cross-Border Compliance"]
 }
 </script>
 <style>
@@ -104,6 +104,7 @@
   .clock-label{color:var(--text-faint);}
   .clock-value{color:var(--text);}
   @media (max-width:640px){ .clocks{display:none;} }
+  @media (max-width:680px){ .nav-links a{display:none;} .nav-links{gap:.6rem;} }
 
   /* nav */
   .nav{position:sticky;top:0;z-index:50;backdrop-filter:blur(14px);background:rgba(6,7,10,.78);border-bottom:1px solid var(--line);}
@@ -117,6 +118,42 @@
   .nav-links a{font-family:var(--font-mono);font-size:.74rem;letter-spacing:.08em;text-transform:uppercase;color:var(--text-dim);transition:color .2s ease;}
   .nav-links a:hover{color:var(--text);}
   .lang-btn{font-family:var(--font-mono);font-size:.72rem;letter-spacing:.06em;color:var(--text);background:var(--bg-panel-2);border:1px solid var(--line-2);padding:.45rem .8rem;border-radius:4px;cursor:pointer;transition:border-color .2s ease, color .2s ease;}
+
+  /* share */
+  .icon-btn{display:flex;align-items:center;justify-content:center;width:34px;height:34px;border:1px solid var(--line-2);border-radius:6px;background:var(--bg-panel-2);color:var(--text-dim);cursor:pointer;transition:border-color .2s ease, color .2s ease;}
+  .icon-btn:hover{border-color:var(--accent);color:var(--accent-bright);}
+  .share-wrap{position:relative;}
+  .share-panel{position:absolute;top:calc(100% + 12px);right:0;width:248px;background:var(--bg-panel-2);border:1px solid var(--line-2);border-radius:10px;padding:1rem;box-shadow:0 24px 48px -20px rgba(0,0,0,.65);opacity:0;pointer-events:none;transform:translateY(-6px);transition:opacity .18s ease, transform .18s ease;z-index:60;}
+  .share-panel.open{opacity:1;pointer-events:auto;transform:translateY(0);}
+  .share-panel-title{font-family:var(--font-mono);font-size:.68rem;letter-spacing:.08em;color:var(--text-faint);text-transform:uppercase;}
+  .share-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:.5rem;margin-top:.7rem;}
+  .share-item{display:flex;flex-direction:column;align-items:center;gap:.35rem;padding:.65rem .2rem;border:1px solid var(--line);border-radius:8px;background:var(--bg-panel);color:var(--text-dim);font-size:.66rem;font-family:var(--font-mono);cursor:pointer;transition:border-color .2s ease, color .2s ease;}
+  .share-item:hover{border-color:var(--accent);color:var(--accent-bright);}
+  .share-icon{display:flex;align-items:center;justify-content:center;}
+  .wechat-qr{margin-top:.85rem;padding-top:.85rem;border-top:1px solid var(--line);text-align:center;}
+  .wechat-qr img{border-radius:6px;border:1px solid var(--line-2);background:#fff;padding:6px;}
+  .wechat-qr p{font-size:.66rem;color:var(--text-faint);margin-top:.5rem;}
+  .toast{position:fixed;bottom:28px;left:50%;transform:translateX(-50%) translateY(16px);background:var(--bg-panel-2);border:1px solid var(--accent-line);color:var(--text);font-family:var(--font-mono);font-size:.78rem;padding:.7rem 1.1rem;border-radius:8px;opacity:0;pointer-events:none;transition:opacity .25s ease, transform .25s ease;z-index:100;}
+  .toast.show{opacity:1;transform:translateX(-50%) translateY(0);}
+
+  /* partners */
+  .partner-category{margin-bottom:var(--space-3);}
+  .partner-category-label{font-family:var(--font-mono);font-size:.7rem;letter-spacing:.1em;color:var(--text-faint);text-transform:uppercase;margin-bottom:.7rem;}
+  .partner-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:1px;background:var(--line);border:1px solid var(--line);border-radius:10px;overflow:hidden;}
+  .partner-tile{background:var(--bg-panel);padding:1.3rem 1rem;display:flex;align-items:center;justify-content:center;text-align:center;font-family:var(--font-display);font-weight:700;font-size:.95rem;color:var(--text-dim);transition:color .2s ease, background .2s ease;}
+  .partner-tile:hover{color:var(--text);background:var(--bg-panel-2);}
+
+  /* team */
+  .team-grid{display:grid;grid-template-columns:1fr 1fr;gap:var(--space-4);}
+  .team-card{border:1px solid var(--line);background:var(--bg-panel);border-radius:12px;padding:var(--space-4);}
+  .team-head{display:flex;align-items:center;gap:.9rem;margin-bottom:var(--space-3);}
+  .team-avatar{width:48px;height:48px;border-radius:50%;border:1px solid var(--accent-line);background:var(--accent-soft);color:var(--accent-bright);font-family:var(--font-display);font-weight:700;font-size:1.05rem;display:flex;align-items:center;justify-content:center;flex-shrink:0;}
+  .team-name{font-family:var(--font-display);font-weight:700;font-size:1.05rem;}
+  .team-name .nickname{color:var(--text-faint);font-weight:400;font-size:.82rem;}
+  .team-title{font-family:var(--font-mono);font-size:.7rem;letter-spacing:.06em;color:var(--accent-bright);margin-top:.25rem;}
+  .team-tag{font-size:.8rem;color:var(--text-faint);margin-top:.1rem;margin-bottom:.6rem;}
+  .team-card p{color:var(--text-dim);font-size:.85rem;margin-top:.55rem;line-height:1.65;}
+  @media (max-width:760px){ .team-grid{grid-template-columns:1fr;} }
   .lang-btn:hover{border-color:var(--accent);color:var(--accent-bright);}
 
   /* hero */
@@ -157,6 +194,11 @@
   /* business matrix */
   .matrix{display:grid;grid-template-columns:1fr auto 1fr;align-items:stretch;gap:0;}
   .matrix-card{background:var(--bg-panel);border:1px solid var(--line);border-radius:10px;padding:var(--space-4);display:flex;flex-direction:column;}
+  .matrix-group{display:flex;flex-direction:column;gap:.85rem;}
+  .matrix-group-intro{color:var(--text-dim);font-size:.86rem;margin-top:.5rem;margin-bottom:.1rem;max-width:46ch;}
+  .mini-card{background:var(--bg-panel);border:1px solid var(--line);border-radius:10px;padding:1.1rem 1.25rem;}
+  .mini-card h4{font-family:var(--font-display);font-weight:700;font-size:1rem;line-height:1.35;}
+  .mini-card p{color:var(--text-dim);font-size:.85rem;margin-top:.5rem;}
   .matrix-link{display:flex;align-items:center;justify-content:center;padding-inline:var(--space-3);}
   .matrix-connector{width:60px;height:1px;background:var(--line-2);position:relative;}
   .matrix-connector .pulse{position:absolute;top:50%;left:-4px;width:6px;height:6px;border-radius:50%;background:var(--accent-bright);box-shadow:0 0 10px var(--accent-bright);transform:translateY(-50%);animation:travel 2.4s linear infinite;}
@@ -229,11 +271,56 @@
       <a href="#business" data-i18n="nav.business">业务</a>
       <a href="#advantage" data-i18n="nav.advantage">优势</a>
       <a href="#hubs" data-i18n="nav.hubs">节点</a>
+      <a href="#team" data-i18n="nav.team">团队</a>
       <a href="#contact" data-i18n="nav.contact">联系</a>
+      <div class="share-wrap">
+        <button class="icon-btn" id="shareBtn" type="button" aria-label="Share" aria-haspopup="true" aria-expanded="false">
+          <svg class="icon" viewBox="0 0 24 24" width="16" height="16">
+            <circle cx="6" cy="12" r="2.3" fill="none" stroke="currentColor" stroke-width="1.4"/>
+            <circle cx="17.5" cy="5.5" r="2.3" fill="none" stroke="currentColor" stroke-width="1.4"/>
+            <circle cx="17.5" cy="18.5" r="2.3" fill="none" stroke="currentColor" stroke-width="1.4"/>
+            <path d="M8.1 10.8 15.4 6.6M8.1 13.2 15.4 17.4" stroke="currentColor" stroke-width="1.4"/>
+          </svg>
+        </button>
+        <div class="share-panel" id="sharePanel">
+          <div class="share-panel-title" data-i18n="share.title">分享到</div>
+          <div class="share-grid">
+            <button class="share-item" type="button" data-channel="wechat">
+              <span class="share-icon"><svg viewBox="0 0 24 24" width="18" height="18"><path d="M9 11a7 7 0 0 1 10.5-2.6A6.4 6.4 0 0 1 22 13.4c0 3.3-3.1 6-7 6-.7 0-1.4-.1-2-.2L10.5 20l.6-2.3A6 6 0 0 1 9 13.4" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linejoin="round"/><path d="M2 9.2A6.6 6.6 0 0 1 9.6 3 6.9 6.9 0 0 1 16 7" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linejoin="round"/></svg></span>
+              <span data-i18n="share.wechat">微信</span>
+            </button>
+            <button class="share-item" type="button" data-channel="weibo">
+              <span class="share-icon"><svg viewBox="0 0 24 24" width="18" height="18"><ellipse cx="11" cy="15" rx="8" ry="5.2" fill="none" stroke="currentColor" stroke-width="1.3"/><circle cx="17.5" cy="6.5" r="2" fill="none" stroke="currentColor" stroke-width="1.3"/></svg></span>
+              <span data-i18n="share.weibo">微博</span>
+            </button>
+            <button class="share-item" type="button" data-channel="x">
+              <span class="share-icon"><svg viewBox="0 0 24 24" width="16" height="16"><path d="M4 4l16 16M20 4 4 20" stroke="currentColor" stroke-width="1.6"/></svg></span>
+              <span>X</span>
+            </button>
+            <button class="share-item" type="button" data-channel="linkedin">
+              <span class="share-icon"><svg viewBox="0 0 24 24" width="18" height="18"><rect x="3" y="3" width="18" height="18" rx="3" fill="none" stroke="currentColor" stroke-width="1.3"/><path d="M7.5 10.5v6M7.5 7.8v.1M11.5 16.5v-3.5c0-1.4 1-2.3 2.2-2.3 1.2 0 1.8.8 1.8 2.3v3.5" stroke="currentColor" stroke-width="1.3" stroke-linecap="round"/></svg></span>
+              <span>LinkedIn</span>
+            </button>
+            <button class="share-item" type="button" data-channel="email">
+              <span class="share-icon"><svg viewBox="0 0 24 24" width="18" height="18"><rect x="3" y="5" width="18" height="14" rx="2" fill="none" stroke="currentColor" stroke-width="1.3"/><path d="M4 6.5 12 13l8-6.5" fill="none" stroke="currentColor" stroke-width="1.3"/></svg></span>
+              <span data-i18n="share.email">邮件</span>
+            </button>
+            <button class="share-item" type="button" data-channel="copy">
+              <span class="share-icon"><svg viewBox="0 0 24 24" width="18" height="18"><path d="M9.5 13.5 14.5 8.5M10.5 6.5l1-1a3 3 0 0 1 4.2 4.2l-1.4 1.4M13.5 17.5l-1 1a3 3 0 0 1-4.2-4.2l1.4-1.4" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linecap="round"/></svg></span>
+              <span data-i18n="share.copy">复制链接</span>
+            </button>
+          </div>
+          <div class="wechat-qr" id="wechatQR" hidden>
+            <img id="wechatQRImg" alt="WeChat QR code" width="132" height="132">
+            <p data-i18n="share.scan">使用微信扫一扫分享</p>
+          </div>
+        </div>
+      </div>
       <button class="lang-btn" id="langToggle" type="button">EN</button>
     </nav>
   </div>
 </header>
+<div class="toast" id="toast"></div>
 
 <main>
   <section class="hero">
@@ -275,18 +362,21 @@
       <div class="section-head">
         <p class="eyebrow" data-i18n="business.eyebrow">核心业务矩阵</p>
         <h2 data-i18n="business.heading">Core Business Engines</h2>
+        <p data-i18n="business.intro">领地以香港自由贸易港为枢纽，衔接中国内地供给端与全球市场需求端，业务覆盖电力、算力硬件与 Token 资产三大层级。</p>
       </div>
 
       <div class="matrix">
-        <div class="matrix-card">
+        <div class="matrix-group">
           <span class="matrix-tag" data-i18n="business.a.tag">板块 A · 物理底座</span>
           <span class="matrix-brand">领地新能源 · Mainland Base</span>
-          <h3 data-i18n="business.a.title">分布式虚拟电厂(VPP)与绿电现货调度</h3>
-          <p data-i18n="business.a.body">扎根鲁鄂两省，深度链接下沉实体产业。通过极具前瞻性的算法模型与高度自动化的 SOP 团队，精准调度海量分布式绿色能源，锁定底层物理生产资料的绝对成本优势。</p>
-          <div class="matrix-specs">
-            <span class="spec-tag" data-i18n="business.a.spec1">鲁鄂两省</span>
-            <span class="spec-tag" data-i18n="business.a.spec2">VPP 调度</span>
-            <span class="spec-tag" data-i18n="business.a.spec3">绿电现货</span>
+
+          <div class="mini-card">
+            <h4 data-i18n="business.a1.title">分布式虚拟电厂(VPP)与绿电现货调度</h4>
+            <p data-i18n="business.a1.body">扎根鲁鄂两省电网，精准调度海量分布式绿色能源，锁定底层物理生产资料的绝对成本优势。</p>
+          </div>
+          <div class="mini-card">
+            <h4 data-i18n="business.a2.title">腾讯云 · 阿里云渠道代理</h4>
+            <p data-i18n="business.a2.body">作为腾讯云、阿里云等主流云平台的渠道代理，为企业客户提供国内合规云资源的对接与分销服务。</p>
           </div>
         </div>
 
@@ -294,15 +384,22 @@
           <div class="matrix-connector"><span class="pulse"></span></div>
         </div>
 
-        <div class="matrix-card">
+        <div class="matrix-group">
           <span class="matrix-tag" data-i18n="business.b.tag">板块 B · 离岸冲锋</span>
           <span class="matrix-brand">Terra Digital Power · Hong Kong Hub</span>
-          <h3 data-i18n="business.b.title">跨境智能算力与数字要素转口贸易</h3>
-          <p data-i18n="business.b.body">依托香港自由港离岸金融体系与内地国家级数据特区(上海临港 / 汕头海缆站)绿色通道。实现"货不落地"的 Token 转口贸易，将内地廉价智算能源，以合规、低延迟的物理海缆分发至全球 AI 开发者与研究机构。</p>
-          <div class="matrix-specs">
-            <span class="spec-tag" data-i18n="business.b.spec1">香港自由港</span>
-            <span class="spec-tag" data-i18n="business.b.spec2">临港 · 汕头海缆</span>
-            <span class="spec-tag" data-i18n="business.b.spec3">Token 转口</span>
+          <p class="matrix-group-intro" data-i18n="business.b.intro">依托香港自由贸易港"零关税、资金自由进出、数据合规中转"的制度优势，领地把内地的算力与能源供给，转化为可被全球市场吸收的标准化数字资产。</p>
+
+          <div class="mini-card">
+            <h4 data-i18n="business.b1.title">算力硬件转口贸易(英伟达服务器)</h4>
+            <p data-i18n="business.b1.body">围绕英伟达(NVIDIA)系列 AI 服务器，开展香港自由港项下"货不落地"的转口贸易，实现全球算力硬件的合规中转与分发。</p>
+          </div>
+          <div class="mini-card">
+            <h4 data-i18n="business.b2.title">Token 词元工厂投资</h4>
+            <p data-i18n="business.b2.body">对优质 AI 推理产能(词元工厂)进行产能与股权投资，提前锁定上游 Token 供给能力。</p>
+          </div>
+          <div class="mini-card">
+            <h4 data-i18n="business.b3.title">Token 词元出海(数字能源转口贸易)</h4>
+            <p data-i18n="business.b3.body">将内地富余的智算能源，以 Token 形式通过香港合规出海，形成完整的"数字能源转口贸易"闭环。</p>
           </div>
         </div>
       </div>
@@ -379,6 +476,106 @@
         <div class="hub-col">
           <div class="hub-col-head" data-i18n="hubs.col3.head">离岸金融与转口中心 · Offshore Hub</div>
           <div class="node-chip node-chip--final"><span class="dot"></span><strong data-i18n="hubs.col3.item1">中国香港 · Hong Kong SAR</strong></div>
+          <p style="font-size:.8rem;color:var(--text-faint);margin-top:.2rem;" data-i18n="hubs.col3.caption">自由贸易港 · 内地与全球市场的衔接枢纽</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" id="partners" style="padding-top:0">
+    <div class="wrap">
+      <div class="section-head">
+        <p class="eyebrow" data-i18n="partners.eyebrow">生态伙伴</p>
+        <h2 data-i18n="partners.heading">Ecosystem Partners</h2>
+      </div>
+
+      <div class="partner-category">
+        <div class="partner-category-label" data-i18n="partners.cat1">算力硬件生态 · COMPUTE HARDWARE</div>
+        <div class="partner-grid">
+          <div class="partner-tile">NVIDIA</div>
+          <div class="partner-tile" data-i18n="partners.keysight">是德科技 · Keysight</div>
+          <div class="partner-tile" data-i18n="partners.huawei">华为 · Huawei</div>
+        </div>
+      </div>
+
+      <div class="partner-category">
+        <div class="partner-category-label" data-i18n="partners.cat2">云与互联网平台 · CLOUD &amp; INTERNET</div>
+        <div class="partner-grid">
+          <div class="partner-tile" data-i18n="partners.alibaba">阿里巴巴 · Alibaba</div>
+          <div class="partner-tile" data-i18n="partners.tencent">腾讯 · Tencent</div>
+          <div class="partner-tile" data-i18n="partners.bytedance">字节跳动 · ByteDance</div>
+        </div>
+      </div>
+
+      <div class="partner-category">
+        <div class="partner-category-label" data-i18n="partners.cat3">电信基础设施 · TELECOM INFRASTRUCTURE</div>
+        <div class="partner-grid">
+          <div class="partner-tile" data-i18n="partners.ct">中国电信 · China Telecom</div>
+          <div class="partner-tile" data-i18n="partners.cm">中国移动 · China Mobile</div>
+          <div class="partner-tile" data-i18n="partners.cu">中国联通 · China Unicom</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" id="team" style="padding-top:0">
+    <div class="wrap">
+      <div class="section-head">
+        <p class="eyebrow" data-i18n="team.eyebrow">核心管理团队</p>
+        <h2 data-i18n="team.heading">Executive Leadership</h2>
+      </div>
+
+      <div class="team-grid">
+        <div class="team-card">
+          <div class="team-head">
+            <span class="team-avatar">刘</span>
+            <div>
+              <div class="team-name">刘贤深 <span class="nickname">(Jackie)</span></div>
+              <div class="team-title" data-i18n="team.1.title">董事长兼首席执行官 · Chairman &amp; CEO</div>
+            </div>
+          </div>
+          <p class="team-tag" data-i18n="team.1.tag">数字能源资产与跨境资本总架构师</p>
+          <p data-i18n="team.1.body1">拥有密歇根州立大学(MSU)学士及密歇根大学安娜堡分校(UMich)会计硕士(MAcc)背景，具备美国纽约州执业会计师(NY State CPA)资格。曾任职于安永(EY)纽约总部金融服务部(FSO)，专职负责华尔街顶级基金的税务审计与跨境架构设计。</p>
+          <p data-i18n="team.1.body2">以极具破坏力的资本配置视角，主导公司双轨制战略：对内锁定 13 亿度分布式绿电底座的物理定价权，对外构筑香港 TDP 离岸智能算力与数字要素的转口贸易枢纽，彻底打破能源与算力的物理边界。</p>
+        </div>
+
+        <div class="team-card">
+          <div class="team-head">
+            <span class="team-avatar">葛</span>
+            <div>
+              <div class="team-name">葛晨 <span class="nickname">(GE)</span></div>
+              <div class="team-title" data-i18n="team.2.title">首席运营官 · COO</div>
+            </div>
+          </div>
+          <p class="team-tag" data-i18n="team.2.tag">跨国业务流转与系统性 SOP 的执行者</p>
+          <p data-i18n="team.2.body1">具备顶级地产品牌绿城(Greentown)体系的核心操盘背景，将其高端资产运营与标准化管控经验，移植至数字能源赛道。</p>
+          <p data-i18n="team.2.body2">统筹 TDP 与内陆基本盘的全局业务流运转，负责将战略决策拆解为可执行的物理节点。搭建全天候的运营防火墙与自动化调度监控体系，确保跨法域的资金路由、合规审查与算力分发精准运行。</p>
+        </div>
+
+        <div class="team-card">
+          <div class="team-head">
+            <span class="team-avatar">王</span>
+            <div>
+              <div class="team-name">王明帅</div>
+              <div class="team-title" data-i18n="team.3.title">首席技术官 · CTO</div>
+            </div>
+          </div>
+          <p class="team-tag" data-i18n="team.3.tag">AI 原生架构师</p>
+          <p data-i18n="team.3.body1">主导团队采用大模型(LLMs)与智能体(Agent)工作流重构底层代码库，全面拥抱 AI 原生的研发模式。</p>
+          <p data-i18n="team.3.body2">从内陆虚拟电厂(VPP)的现货电价感知引擎，到离岸 Token 转口贸易的自动化计费 API，统筹业务逻辑的自动化转化，将集团的商业know-how固化为代码资产。</p>
+        </div>
+
+        <div class="team-card">
+          <div class="team-head">
+            <span class="team-avatar">曹</span>
+            <div>
+              <div class="team-name">曹超</div>
+              <div class="team-title" data-i18n="team.4.title">销售总监 · Sales Director</div>
+            </div>
+          </div>
+          <p class="team-tag" data-i18n="team.4.tag">现金流转化与算力出海的业务节点</p>
+          <p data-i18n="team.4.body1">专注于高净值客户对接与核心商业线索的转化闭环。</p>
+          <p data-i18n="team.4.body2">依托后端自动化分拣与业务流程引擎，推动市场拓展标准化执行，精准对接海外 AI 算力需求方与内陆重资产用电企业。</p>
         </div>
       </div>
     </div>
@@ -415,21 +612,27 @@
   const translations = {
     zh:{
       'brand.name':'领地数字能源','brand.sub':'TERRA DIGITAL POWER HOLDINGS (TDP)',
-      'nav.business':'业务','nav.advantage':'优势','nav.hubs':'节点','nav.contact':'联系',
+      'nav.business':'业务','nav.advantage':'优势','nav.hubs':'节点','nav.team':'团队','nav.contact':'联系',
       'status.live':'网络实时运行中 · NETWORK LIVE',
       'hero.eyebrow':'全球算力与能源基础设施',
       'hero.sub':'依托 13 亿度分布式绿电底座，构建全合规的跨境智能算力与数字要素转口枢纽。',
       'hero.cta1':'接入算电网络','hero.cta2':'获取合规算力',
       'stats.kwh':'年度调度绿电 (kWh)','stats.dualhub.num':'Dual-Hub','stats.dualhub.label':'两地双轨运营 (内地与香港)','stats.pct':'离岸合规资产流转',
       'business.eyebrow':'核心业务矩阵','business.heading':'Core Business Engines',
+      'business.intro':'领地以香港自由贸易港为枢纽，衔接中国内地供给端与全球市场需求端，业务覆盖电力、算力硬件与 Token 资产三大层级。',
       'business.a.tag':'板块 A · 物理底座',
-      'business.a.title':'分布式虚拟电厂(VPP)与绿电现货调度',
-      'business.a.body':'扎根鲁鄂两省，深度链接下沉实体产业。通过极具前瞻性的算法模型与高度自动化的 SOP 团队，精准调度海量分布式绿色能源，锁定底层物理生产资料的绝对成本优势。',
-      'business.a.spec1':'鲁鄂两省','business.a.spec2':'VPP 调度','business.a.spec3':'绿电现货',
+      'business.a1.title':'分布式虚拟电厂(VPP)与绿电现货调度',
+      'business.a1.body':'扎根鲁鄂两省电网，精准调度海量分布式绿色能源，锁定底层物理生产资料的绝对成本优势。',
+      'business.a2.title':'腾讯云 · 阿里云渠道代理',
+      'business.a2.body':'作为腾讯云、阿里云等主流云平台的渠道代理，为企业客户提供国内合规云资源的对接与分销服务。',
       'business.b.tag':'板块 B · 离岸冲锋',
-      'business.b.title':'跨境智能算力与数字要素转口贸易',
-      'business.b.body':'依托香港自由港离岸金融体系与内地国家级数据特区(上海临港 / 汕头海缆站)绿色通道。实现"货不落地"的 Token 转口贸易，将内地廉价智算能源，以合规、低延迟的物理海缆分发至全球 AI 开发者与研究机构。',
-      'business.b.spec1':'香港自由港','business.b.spec2':'临港 · 汕头海缆','business.b.spec3':'Token 转口',
+      'business.b.intro':'依托香港自由贸易港"零关税、资金自由进出、数据合规中转"的制度优势，领地把内地的算力与能源供给，转化为可被全球市场吸收的标准化数字资产。',
+      'business.b1.title':'算力硬件转口贸易(英伟达服务器)',
+      'business.b1.body':'围绕英伟达(NVIDIA)系列 AI 服务器，开展香港自由港项下"货不落地"的转口贸易，实现全球算力硬件的合规中转与分发。',
+      'business.b2.title':'Token 词元工厂投资',
+      'business.b2.body':'对优质 AI 推理产能(词元工厂)进行产能与股权投资，提前锁定上游 Token 供给能力。',
+      'business.b3.title':'Token 词元出海(数字能源转口贸易)',
+      'business.b3.body':'将内地富余的智算能源，以 Token 形式通过香港合规出海，形成完整的"数字能源转口贸易"闭环。',
       'advantage.eyebrow':'非对称优势','advantage.heading':'The Unfair Advantage',
       'advantage.1.title':'极客级 SOP 调度',
       'advantage.1.body':'彻底摒弃传统人效堆叠。核心业务线索与算力分发全盘引入智能体(Agentic AI)接管，实现机器级的不间断运转。',
@@ -437,35 +640,61 @@
       'advantage.2.title':'华尔街级合规风控',
       'advantage.2.body':'创始人具备纽约州持牌 CPA 及前顶级会计师事务所华尔街金融服务部(FSO)背景。从资金路由、转让定价(TP)到离岸数据确权，提供坚不可摧的"算电出海"合规防火墙。',
       'advantage.2.tag1':'纽约州持牌 CPA','advantage.2.tag2':'转让定价 TP','advantage.2.tag3':'离岸数据确权',
-      'hubs.eyebrow':'战略节点','hubs.heading':'Strategic Hubs','hubs.sub':'三层节点架构，贯通资源、数据与资本。',
+      'hubs.eyebrow':'战略节点','hubs.heading':'Strategic Hubs','hubs.sub':'三层节点架构，以香港自由贸易港为支点，贯通内地资源、数据通道与全球资本市场。',
       'hubs.col1.head':'资源腹地 · Resource Hinterland',
       'hubs.col1.item1':'山东大区 · Shandong Region','hubs.col1.item2':'湖北战区 · Hubei Theatre','hubs.col1.item3':'济南枢纽 · Jinan Hub',
       'hubs.col2.head':'数据绿色通道 · Data Green Channel',
       'hubs.col2.item1':'上海临港新片区 · Shanghai Lingang','hubs.col2.item2':'汕头国际海缆登陆站 · Shantou Cable Station',
       'hubs.col3.head':'离岸金融与转口中心 · Offshore Hub',
       'hubs.col3.item1':'中国香港 · Hong Kong SAR',
+      'hubs.col3.caption':'自由贸易港 · 内地与全球市场的衔接枢纽',
       'contact.eyebrow':'接入网络','contact.heading':'与我们对话','contact.desc':'无论是算力采购还是合规出海需求，我们的团队随时为您提供解决方案。','contact.cta':'发送邮件',
       'footer.names':'领地数字能源控股有限公司(TDP) & Leading Power',
       'footer.compliance':'本公司严格遵守各地数据跨境传输合规指导原则及离岸金融监管条例。',
-      't1':'VPP 调度','t2':'绿电现货','t3':'Token 转口贸易','t4':'离岸合规','t5':'Agentic AI','t6':'转让定价','t7':'海缆直连','t8':'7×24 运行',
+      'share.title':'分享到','share.wechat':'微信','share.weibo':'微博','share.email':'邮件','share.copy':'复制链接','share.scan':'使用微信扫一扫分享',
+      'partners.eyebrow':'生态伙伴','partners.heading':'Ecosystem Partners',
+      'partners.cat1':'算力硬件生态 · COMPUTE HARDWARE','partners.cat2':'云与互联网平台 · CLOUD & INTERNET','partners.cat3':'电信基础设施 · TELECOM INFRASTRUCTURE',
+      'partners.keysight':'是德科技 · Keysight','partners.huawei':'华为 · Huawei',
+      'partners.alibaba':'阿里巴巴 · Alibaba','partners.tencent':'腾讯 · Tencent','partners.bytedance':'字节跳动 · ByteDance',
+      'partners.ct':'中国电信 · China Telecom','partners.cm':'中国移动 · China Mobile','partners.cu':'中国联通 · China Unicom',
+      'team.eyebrow':'核心管理团队','team.heading':'Executive Leadership',
+      'team.1.title':'董事长兼首席执行官 · Chairman & CEO','team.1.tag':'数字能源资产与跨境资本总架构师',
+      'team.1.body1':'拥有密歇根州立大学(MSU)学士及密歇根大学安娜堡分校(UMich)会计硕士(MAcc)背景，具备美国纽约州执业会计师(NY State CPA)资格。曾任职于安永(EY)纽约总部金融服务部(FSO)，专职负责华尔街顶级基金的税务审计与跨境架构设计。',
+      'team.1.body2':'以极具破坏力的资本配置视角，主导公司双轨制战略：对内锁定 13 亿度分布式绿电底座的物理定价权，对外构筑香港 TDP 离岸智能算力与数字要素的转口贸易枢纽，彻底打破能源与算力的物理边界。',
+      'team.2.title':'首席运营官 · COO','team.2.tag':'跨国业务流转与系统性 SOP 的执行者',
+      'team.2.body1':'具备顶级地产品牌绿城(Greentown)体系的核心操盘背景，将其高端资产运营与标准化管控经验，移植至数字能源赛道。',
+      'team.2.body2':'统筹 TDP 与内陆基本盘的全局业务流运转，负责将战略决策拆解为可执行的物理节点。搭建全天候的运营防火墙与自动化调度监控体系，确保跨法域的资金路由、合规审查与算力分发精准运行。',
+      'team.3.title':'首席技术官 · CTO','team.3.tag':'AI 原生架构师',
+      'team.3.body1':'主导团队采用大模型(LLMs)与智能体(Agent)工作流重构底层代码库，全面拥抱 AI 原生的研发模式。',
+      'team.3.body2':'从内陆虚拟电厂(VPP)的现货电价感知引擎，到离岸 Token 转口贸易的自动化计费 API，统筹业务逻辑的自动化转化，将集团的商业know-how固化为代码资产。',
+      'team.4.title':'销售总监 · Sales Director','team.4.tag':'现金流转化与算力出海的业务节点',
+      'team.4.body1':'专注于高净值客户对接与核心商业线索的转化闭环。',
+      'team.4.body2':'依托后端自动化分拣与业务流程引擎，推动市场拓展标准化执行，精准对接海外 AI 算力需求方与内陆重资产用电企业。',
+      't1':'VPP 调度','t2':'绿电现货','t3':'Token 转口贸易','t4':'离岸合规','t5':'Agentic AI','t6':'转让定价','t7':'海缆直连','t8':'7×24 运行','t9':'英伟达服务器转口','t10':'云资源代理',
     },
     en:{
       'brand.name':'Terra Digital Power','brand.sub':'领地数字能源控股 (TDP)',
-      'nav.business':'Business','nav.advantage':'Advantage','nav.hubs':'Hubs','nav.contact':'Contact',
+      'nav.business':'Business','nav.advantage':'Advantage','nav.hubs':'Hubs','nav.team':'Team','nav.contact':'Contact',
       'status.live':'NETWORK LIVE · 网络实时运行中',
       'hero.eyebrow':'Global Compute & Energy Infrastructure',
       'hero.sub':'Built on a 1.3-billion-kWh distributed renewable energy base, powering a fully compliant cross-border hub for intelligent compute and digital asset transshipment.',
       'hero.cta1':'Connect to the Grid','hero.cta2':'Request Compute Capacity',
       'stats.kwh':'Annual Dispatched Renewable Energy (kWh)','stats.dualhub.num':'Dual-Hub','stats.dualhub.label':'Dual-Track Operations (Mainland & Hong Kong)','stats.pct':'Offshore Compliant Asset Flow',
       'business.eyebrow':'Core Business Engines','business.heading':'核心业务矩阵',
+      'business.intro':'Operating through the Hong Kong free port as its hub, Terra connects mainland China\u2019s supply side with global market demand across power, compute hardware, and token assets.',
       'business.a.tag':'Segment A · Physical Base',
-      'business.a.title':'Distributed Virtual Power Plant (VPP) & Green Spot Dispatch',
-      'business.a.body':'Rooted in Shandong and Hubei, deeply connected to grassroots industrial capacity. Forward-looking algorithmic models and a highly automated SOP team precisely dispatch large-scale distributed renewable energy, locking in an absolute cost advantage at the physical layer of production.',
-      'business.a.spec1':'Shandong & Hubei','business.a.spec2':'VPP Dispatch','business.a.spec3':'Green Spot Power',
+      'business.a1.title':'Distributed Virtual Power Plant (VPP) & Green Spot Dispatch',
+      'business.a1.body':'Rooted in the Shandong and Hubei power grids, precisely dispatching large-scale distributed renewable energy to lock in a cost advantage at the physical layer.',
+      'business.a2.title':'Tencent Cloud & Alibaba Cloud Channel Agency',
+      'business.a2.body':'A channel agency for leading mainland cloud platforms including Tencent Cloud and Alibaba Cloud, connecting enterprise clients to compliant domestic cloud resources.',
       'business.b.tag':'Segment B · Offshore Vanguard',
-      'business.b.title':'Cross-Border Intelligent Compute & Digital Asset Transshipment',
-      'business.b.body':'Leveraging the free-port offshore financial system of Hong Kong and green-channel access to mainland national-level data zones (Shanghai Lingang, Shantou submarine cable station). Enables cargo-free token transshipment, distributing low-cost mainland compute to global AI developers and research institutions via compliant, low-latency submarine cable infrastructure.',
-      'business.b.spec1':'HK Free Port','business.b.spec2':'Lingang · Shantou Cable','business.b.spec3':'Token Transshipment',
+      'business.b.intro':'Leveraging Hong Kong\u2019s status as a free port \u2014 zero tariffs, free capital flow, and compliant data transit \u2014 Terra converts mainland compute and energy supply into standardized digital assets the global market can absorb.',
+      'business.b1.title':'Compute Hardware Transshipment Trade (NVIDIA Servers)',
+      'business.b1.body':'Entrepot trade in NVIDIA-series AI servers under Hong Kong\u2019s free-port cargo-free mechanism, enabling compliant transit and distribution of compute hardware worldwide.',
+      'business.b2.title':'Token Factory Investment',
+      'business.b2.body':'Capacity and equity investment in high-quality AI inference facilities ("token factories"), securing upstream token supply ahead of demand.',
+      'business.b3.title':'Token Outbound (Digital Energy Transshipment Trade)',
+      'business.b3.body':'Surplus mainland compute-energy capacity is exported in token form through Hong Kong, completing a closed loop of digital energy transshipment trade.',
       'advantage.eyebrow':'The Unfair Advantage','advantage.heading':'非对称优势',
       'advantage.1.title':'Systematic Execution',
       'advantage.1.body':'We reject traditional headcount-driven scaling entirely. Core business workflows and compute distribution are fully handed over to Agentic AI systems, enabling machine-grade, uninterrupted operation.',
@@ -473,17 +702,37 @@
       'advantage.2.title':'Institutional Compliance',
       'advantage.2.body':'Founded by a New York State licensed CPA with a background in the Wall Street Financial Services Office (FSO) of a top accounting firm. From fund routing and transfer pricing (TP) to offshore data rights, we provide an unshakeable compliance firewall for going global with compute and energy.',
       'advantage.2.tag1':'NY Licensed CPA','advantage.2.tag2':'Transfer Pricing','advantage.2.tag3':'Offshore Data Rights',
-      'hubs.eyebrow':'Strategic Hubs','hubs.heading':'战略节点','hubs.sub':'A three-layer node architecture connecting resources, data, and capital.',
+      'hubs.eyebrow':'Strategic Hubs','hubs.heading':'战略节点','hubs.sub':'A three-layer node architecture, pivoting on the Hong Kong free port to connect mainland resources, data channels, and global capital markets.',
       'hubs.col1.head':'Resource Hinterland · 资源腹地',
       'hubs.col1.item1':'Shandong Region · 山东大区','hubs.col1.item2':'Hubei Theatre · 湖北战区','hubs.col1.item3':'Jinan Hub · 济南枢纽',
       'hubs.col2.head':'Data Green Channel · 数据绿色通道',
       'hubs.col2.item1':'Shanghai Lingang · 上海临港新片区','hubs.col2.item2':'Shantou Cable Station · 汕头国际海缆登陆站',
       'hubs.col3.head':'Offshore Financial Hub · 离岸金融中心',
       'hubs.col3.item1':'Hong Kong SAR · 中国香港',
+      'hubs.col3.caption':'Free Trade Port · The Hinge Between Mainland and Global Markets',
       'contact.eyebrow':'Get Connected','contact.heading':'Start a Conversation','contact.desc':'Whether you need compute sourcing or compliant offshore structuring, our team is ready to help.','contact.cta':'Send an Email',
       'footer.names':'Terra Digital Power Holdings Limited (TDP) & Leading Power',
       'footer.compliance':'This company strictly complies with applicable cross-border data transfer guidelines and offshore financial regulations in all relevant jurisdictions.',
-      't1':'VPP DISPATCH','t2':'GREEN SPOT POWER','t3':'TOKEN TRANSSHIPMENT','t4':'OFFSHORE COMPLIANCE','t5':'AGENTIC AI','t6':'TRANSFER PRICING','t7':'SUBSEA CABLE LINK','t8':'7×24 OPERATIONS',
+      'share.title':'Share','share.wechat':'WeChat','share.weibo':'Weibo','share.email':'Email','share.copy':'Copy Link','share.scan':'Scan with WeChat to share',
+      'partners.eyebrow':'Ecosystem Partners','partners.heading':'生态伙伴',
+      'partners.cat1':'Compute Hardware · 算力硬件生态','partners.cat2':'Cloud & Internet · 云与互联网平台','partners.cat3':'Telecom Infrastructure · 电信基础设施',
+      'partners.keysight':'Keysight · 是德科技','partners.huawei':'Huawei · 华为',
+      'partners.alibaba':'Alibaba · 阿里巴巴','partners.tencent':'Tencent · 腾讯','partners.bytedance':'ByteDance · 字节跳动',
+      'partners.ct':'China Telecom · 中国电信','partners.cm':'China Mobile · 中国移动','partners.cu':'China Unicom · 中国联通',
+      'team.eyebrow':'Executive Leadership','team.heading':'核心管理团队',
+      'team.1.title':'Chairman & CEO · 董事长兼首席执行官','team.1.tag':'Chief Architect of Digital Energy Assets & Cross-Border Capital',
+      'team.1.body1':'Holds a bachelor\u2019s degree from Michigan State University (MSU) and a Master of Accounting (MAcc) from the University of Michigan, Ann Arbor, and is a licensed New York State CPA. Previously with the Financial Services Office (FSO) of EY\u2019s New York headquarters, focused on tax audit and cross-border structuring for top Wall Street funds.',
+      'team.1.body2':'Drives the company\u2019s dual-track strategy with an aggressive capital-allocation lens \u2014 securing physical pricing power over a 1.3-billion-kWh distributed renewable energy base onshore, while building TDP\u2019s offshore hub for intelligent compute and digital-asset transshipment in Hong Kong, dissolving the physical boundary between energy and compute.',
+      'team.2.title':'Chief Operating Officer · 首席运营官','team.2.tag':'Operator of Cross-Border Workflows & Systematic SOPs',
+      'team.2.body1':'Brings core operating experience from the Greentown real estate group, translating its rigorous high-end asset management and standardized control discipline into the digital energy sector.',
+      'team.2.body2':'Oversees end-to-end business flow between TDP and the mainland operating base, breaking strategic decisions down into executable operational steps. Built a round-the-clock operating firewall and automated dispatch monitoring system to keep cross-jurisdiction fund routing, compliance review, and compute distribution running precisely.',
+      'team.3.title':'Chief Technology Officer · 首席技术官','team.3.tag':'AI-Native Architect',
+      'team.3.body1':'Leads the team in rebuilding the core codebase around large language models (LLMs) and agentic workflows, fully embracing an AI-native engineering approach.',
+      'team.3.body2':'From the spot-price sensing engine behind the mainland virtual power plant (VPP) to the automated billing API for offshore token transshipment, oversees the automation of business logic \u2014 turning the group\u2019s commercial know-how into durable code assets.',
+      'team.4.title':'Sales Director · 销售总监','team.4.tag':'Driving Cash Conversion & Compute Going Global',
+      'team.4.body1':'Focused on engaging high-net-worth clients and converting core commercial leads into closed business.',
+      'team.4.body2':'Backed by automated lead-routing and workflow engines, standardizes market-expansion execution and connects precisely with overseas AI compute buyers and mainland heavy-load power consumers.',
+      't1':'VPP DISPATCH','t2':'GREEN SPOT POWER','t3':'TOKEN TRANSSHIPMENT','t4':'OFFSHORE COMPLIANCE','t5':'AGENTIC AI','t6':'TRANSFER PRICING','t7':'SUBSEA CABLE LINK','t8':'7×24 OPERATIONS','t9':'NVIDIA SERVER TRANSSHIPMENT','t10':'CLOUD CHANNEL AGENCY',
     }
   };
 
@@ -498,7 +747,7 @@
   const prefersReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
   function renderTicker(lang){
-    const keys = ['t1','t2','t3','t4','t5','t6','t7','t8'];
+    const keys = ['t1','t2','t3','t4','t5','t6','t7','t8','t9','t10'];
     const items = keys.map(k => translations[lang][k]);
     const doubled = items.concat(items);
     tickerTrack.innerHTML = doubled.map(t => '<span class="ticker-item">'+t+'</span>').join('');
@@ -520,6 +769,92 @@
   }
 
   langBtn.addEventListener('click', function(){ applyLang(currentLang === 'zh' ? 'en' : 'zh'); });
+
+  // share panel
+  const shareBtn = document.getElementById('shareBtn');
+  const sharePanel = document.getElementById('sharePanel');
+  const wechatQR = document.getElementById('wechatQR');
+  const wechatQRImg = document.getElementById('wechatQRImg');
+  const toast = document.getElementById('toast');
+
+  function showToast(msg){
+    toast.textContent = msg;
+    toast.classList.add('show');
+    setTimeout(function(){ toast.classList.remove('show'); }, 2200);
+  }
+
+  function closeSharePanel(){
+    sharePanel.classList.remove('open');
+    shareBtn.setAttribute('aria-expanded', 'false');
+    wechatQR.hidden = true;
+  }
+
+  shareBtn.addEventListener('click', function(e){
+    e.stopPropagation();
+    const willOpen = !sharePanel.classList.contains('open');
+    if(willOpen){
+      sharePanel.classList.add('open');
+      shareBtn.setAttribute('aria-expanded', 'true');
+    } else {
+      closeSharePanel();
+    }
+  });
+
+  document.addEventListener('click', function(e){
+    if(sharePanel.classList.contains('open') && !sharePanel.contains(e.target) && e.target !== shareBtn){
+      closeSharePanel();
+    }
+  });
+
+  document.addEventListener('keydown', function(e){
+    if(e.key === 'Escape') closeSharePanel();
+  });
+
+  document.querySelectorAll('.share-item').forEach(function(btn){
+    btn.addEventListener('click', function(){
+      const channel = btn.getAttribute('data-channel');
+      const url = window.location.href;
+      const title = document.title;
+      const shareText = currentLang === 'zh'
+        ? '领地数字能源控股(TDP)——从瓦特到 Token，全合规的跨境智能算力与数字能源转口枢纽。'
+        : 'Terra Digital Power Holdings (TDP) — From Watts to Tokens: compliant cross-border compute and digital energy infrastructure.';
+
+      if(channel === 'wechat'){
+        wechatQRImg.src = 'https://api.qrserver.com/v1/create-qr-code/?size=200x200&margin=0&data=' + encodeURIComponent(url);
+        wechatQR.hidden = !wechatQR.hidden;
+        return;
+      }
+      wechatQR.hidden = true;
+
+      if(channel === 'weibo'){
+        window.open('https://service.weibo.com/share/share.php?url=' + encodeURIComponent(url) + '&title=' + encodeURIComponent(shareText), '_blank', 'noopener');
+      } else if(channel === 'x'){
+        window.open('https://twitter.com/intent/tweet?url=' + encodeURIComponent(url) + '&text=' + encodeURIComponent(shareText), '_blank', 'noopener');
+      } else if(channel === 'linkedin'){
+        window.open('https://www.linkedin.com/sharing/share-offsite/?url=' + encodeURIComponent(url), '_blank', 'noopener');
+      } else if(channel === 'email'){
+        window.location.href = 'mailto:?subject=' + encodeURIComponent(title) + '&body=' + encodeURIComponent(shareText + '\n\n' + url);
+      } else if(channel === 'copy'){
+        const fallbackCopy = function(){
+          const ta = document.createElement('textarea');
+          ta.value = url;
+          ta.style.position = 'fixed';
+          ta.style.opacity = '0';
+          document.body.appendChild(ta);
+          ta.select();
+          try { document.execCommand('copy'); } catch(err) {}
+          document.body.removeChild(ta);
+        };
+        if(navigator.clipboard && navigator.clipboard.writeText){
+          navigator.clipboard.writeText(url).catch(fallbackCopy);
+        } else {
+          fallbackCopy();
+        }
+        showToast(currentLang === 'zh' ? '链接已复制' : 'Link copied');
+        closeSharePanel();
+      }
+    });
+  });
 
   // live clocks
   function updateClocks(){
