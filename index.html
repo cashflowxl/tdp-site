@@ -3,8 +3,8 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>领地 AI · ChatGPT 三档方案与支付方式预览</title>
-<meta name="description" content="领地 AI 当前展示 ChatGPT Plus 1个月 ¥148、GPT 5X ¥798、GPT 20X ¥1288，以及微信支付、支付宝方式预览。支付服务待接入，当前页面不会收款或创建订单。">
+<title>领地 AI · ChatGPT 三档方案与临时人工收款</title>
+<meta name="description" content="领地 AI 当前展示 ChatGPT Plus 1个月 ¥148、GPT 5X ¥798、GPT 20X ¥1288。临时采用个人收款码并人工核对，企业支付服务待接入。">
 <link rel="canonical" href="https://www.terradigitalpower.com/">
 <meta name="theme-color" content="#f5f5f7">
 <link rel="icon" href="/favicon.ico" sizes="any">
@@ -12,13 +12,13 @@
 <link rel="apple-touch-icon" href="/apple-touch-icon.png">
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="领地 AI">
-<meta property="og:title" content="领地 AI · ChatGPT 三档方案与支付方式预览">
-<meta property="og:description" content="三档方案与微信支付、支付宝方式预览。支付服务待接入，当前页面不会收款或创建订单。">
+<meta property="og:title" content="领地 AI · ChatGPT 三档方案与临时人工收款">
+<meta property="og:description" content="三档方案与临时人工核对收款说明；企业支付服务待接入。">
 <meta property="og:url" content="https://www.terradigitalpower.com/">
 <meta property="og:locale" content="zh_CN">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="领地 AI · ChatGPT 三档方案与支付方式预览">
-<meta name="twitter:description" content="三档方案与微信支付、支付宝方式预览；支付服务待接入，当前页面不会收款或创建订单。">
+<meta name="twitter:title" content="领地 AI · ChatGPT 三档方案与临时人工收款">
+<meta name="twitter:description" content="三档方案与临时人工核对收款说明；企业支付服务待接入。">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Archivo:wght@600;700;800;900&family=Inter:wght@400;500;600;700&family=Noto+Sans+SC:wght@400;500;700;900&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
@@ -32,7 +32,7 @@
       "url": "https://www.terradigitalpower.com/",
       "name": "领地 AI",
       "alternateName": "Lingdi AI",
-      "description": "第三方 AI 工具的服务说明、方案选择、支付方式预览、风险提示与售后协调入口。支付服务待接入。"
+      "description": "第三方 AI 工具的服务说明、方案选择、临时人工核对收款说明、风险提示与售后协调入口。企业支付服务待接入。"
     },
     {
       "@type": "FAQPage",
@@ -41,7 +41,7 @@
       "name": "领地 AI 常见问题",
       "mainEntity": [
         {"@type":"Question","name":"领地 AI 是什么？","acceptedAnswer":{"@type":"Answer","text":"领地 AI 提供第三方 AI 工具的服务说明、使用场景梳理、选择指引、支付方式预览与售后协调入口。"}},
-        {"@type":"Question","name":"领地 AI 会在本页收款吗？","acceptedAnswer":{"@type":"Answer","text":"不会。微信支付和支付宝目前仅为前端选择预览；支付服务尚未接入，当前页面不会收款或创建订单。"}},
+        {"@type":"Question","name":"本页如何付款？","acceptedAnswer":{"@type":"Answer","text":"当前为临时个人收款码与人工核对流程，并非企业支付服务；付款前请联系售后确认，企业支付服务待接入。"}},
         {"@type":"Question","name":"当前展示哪些方案和价格？","acceptedAnswer":{"@type":"Answer","text":"当前展示 ChatGPT Plus 1个月开通 148元、GPT 5X 开通 798元、GPT 20X 开通 1288元。价格、库存、功能与条款可能调整，以正式开通前页面为准。"}}
       ]
     }
@@ -147,6 +147,7 @@
   .summary-kicker{display:block;color:#9a6900;font-size:.66rem;font-weight:800;letter-spacing:.08em}.checkout--summary .checkout-title{margin-top:1.2rem;color:#6e6e73;font-size:.78rem;font-weight:600}.summary-plan{margin-top:.35rem;color:#1d1d1f;font-family:var(--font-display);font-size:1.3rem;font-weight:800;line-height:1.35}
   .summary-list{list-style:none;margin-top:1.35rem;border-top:1px solid #ededf0}.summary-list li{padding:.72rem 0;border-bottom:1px solid #ededf0;color:#6e6e73;font-size:.76rem}.summary-list li:before{content:'✓';margin-right:.55rem;color:#9a6900;font-weight:800}
   .payment-preview{margin-top:1.25rem}.payment-preview-title{display:flex;align-items:center;justify-content:space-between;gap:.75rem;color:#6e6e73;font-size:.74rem;font-weight:700}.payment-preview-title span{color:#9a6900;font-size:.64rem;font-weight:800}.payment-methods{display:grid;grid-template-columns:1fr 1fr;gap:.65rem;margin-top:.7rem}.payment-method{min-height:56px;padding:.65rem;border:1px solid #dcdce1;border-radius:10px;background:#fff;color:#1d1d1f;cursor:pointer;font-weight:700;transition:.18s ease}.payment-method:hover{border-color:#b7b7bc;background:#fcfcfd}.payment-method[aria-pressed="true"]{border-color:#e0a934;background:#fff8e8;box-shadow:0 0 0 1px rgba(247,189,78,.25)}.payment-method small{display:block;margin-top:.12rem;color:#8e8e93;font-size:.6rem;font-weight:500}.payment-status{margin-top:.65rem;color:#8e8e93;font-size:.68rem;line-height:1.5}.payment-status strong{color:#785200}
+  .temporary-payment{margin-top:1rem;padding:1rem;border:1px solid #ead7a9;border-radius:12px;background:#fffdfa}.temporary-payment h4{margin:0;color:#785200;font-size:.8rem}.temporary-payment p{margin:.42rem 0 0;color:#73706a;font-size:.68rem;line-height:1.55}.payment-qr{display:block;width:100%;margin-top:.8rem;border-radius:9px;background:#fff}.payment-qr[hidden]{display:none}.payment-reference{margin-top:.75rem;padding:.65rem .7rem;border-radius:8px;background:#fff4d6;color:#785200;font-size:.68rem;line-height:1.55}.temporary-action{display:block;margin-top:.7rem;color:#6e6e73;font-size:.68rem;line-height:1.55}
   .checkout--summary .checkout-action{text-align:left}.checkout--summary .btn{width:100%;min-height:54px}.checkout--summary .checkout-action small{max-width:none;text-align:center}
 
   .risk-panel{padding:clamp(1.5rem,3vw,2.3rem);border-color:#ead7a9;border-radius:14px;background:#fffdfa;box-shadow:none}.risk-heading{font-family:var(--font-body);font-weight:800}.risk-item{padding:1.15rem 0}.risk-item p{line-height:1.7}
@@ -180,7 +181,7 @@
 </head>
 <body>
 <div class="atmosphere"></div><div class="glow"></div>
-<div class="topline"><div class="wrap"><span><strong>本地预览</strong> · 支付服务待接入，当前页面不会收款或创建订单</span></div></div>
+<div class="topline"><div class="wrap"><span><strong>临时人工核对</strong> · 当前使用个人收款码，企业支付服务待接入</span></div></div>
 <header class="nav">
   <div class="wrap">
     <a class="brand" href="/" aria-label="领地 AI 首页"><span class="badge">AI</span><span class="brand-name">领地 AI<small>BY TERRA DIGITAL POWER</small></span></a>
@@ -198,14 +199,14 @@
       <div class="flow" aria-label="开通流程">
         <div class="flow-item"><span class="flow-num">STEP 01</span><strong>理解服务</strong><p>确认领地 AI 的商品说明、支付状态与服务边界。</p></div>
         <div class="flow-item"><span class="flow-num">STEP 02</span><strong>选择场景</strong><p>按使用频率和协作方式做初步选择。</p></div>
-        <div class="flow-item"><span class="flow-num">STEP 03</span><strong>预览支付方式</strong><p>选择微信支付或支付宝；当前不可付款。</p></div>
+        <div class="flow-item"><span class="flow-num">STEP 03</span><strong>扫码并人工核对</strong><p>临时个人收款码；付款后联系售后核对。</p></div>
       </div>
     </div>
   </section>
 
   <section class="section" id="service">
     <div class="wrap">
-      <div class="section-head"><p class="eyebrow">WHAT WE DO</p><h2>服务说明</h2><p>领地 AI 帮助你把需求、方案、支付方式和售后路径理清。当前版本为静态前端预览，不具备收款、订单或自动采购能力。</p></div>
+      <div class="section-head"><p class="eyebrow">WHAT WE DO</p><h2>服务说明</h2><p>领地 AI 帮助你把需求、方案、支付方式和售后路径理清。当前临时采用个人收款码与人工核对；企业支付与自动订单能力尚未接入。</p></div>
       <div class="service-grid">
         <article class="service-card"><span>01 · BEFORE</span><h3>开通前说明</h3><p>说明常见使用场景、选择逻辑、服务边界和注意事项，减少信息不对称。</p></article>
         <article class="service-card"><span>02 · SELECT</span><h3>场景化选择</h3><p>依据个人体验、高频工作或团队协作等需求给出非强制性的选择参考。</p></article>
@@ -228,8 +229,8 @@
           <p class="price-notice"><span>动态提示</span>当前为人工核对的静态展示价，不代表实时价格或库存；价格、库存、功能与条款可能调整，以未来正式开通前页面为准 · 最近人工核对：<time id="pricingVerifiedAt" datetime="2026-08-11">2026-08-11</time></p>
         </div>
         <aside class="checkout checkout--summary" aria-live="polite">
-          <div><span class="summary-kicker">ORDER PREVIEW</span><div class="checkout-title">当前选择</div><div class="summary-plan" id="selectedPlan" data-target-plan>ChatGPT Plus 1个月 · ¥148</div><ul class="summary-list"><li>不会在本页收款或创建订单</li><li>不会收集姓名、手机号或账号资料</li><li>支付主体与正式支付服务尚未确定</li></ul><div class="payment-preview"><div class="payment-preview-title">支付方式预览 <span>待接入</span></div><div class="payment-methods" role="group" aria-label="支付方式预览"><button class="payment-method" type="button" data-payment-method="wechat" aria-pressed="true">微信支付<small>仅选择预览</small></button><button class="payment-method" type="button" data-payment-method="alipay" aria-pressed="false">支付宝<small>仅选择预览</small></button></div><p class="payment-status"><strong>当前选择：<span data-target-payment>微信支付</span></strong><br>未接入 SDK、API、支付码、商户号或支付密钥。</p></div></div>
-          <div class="checkout-action"><button class="btn btn-primary payment-preview-cta" type="button" disabled>支付服务待接入</button><small>当前页面不会收款或创建订单，选择结果不会保存或发送。</small></div>
+          <div><span class="summary-kicker">ORDER PREVIEW</span><div class="checkout-title">当前选择</div><div class="summary-plan" id="selectedPlan" data-target-plan>ChatGPT Plus 1个月 · ¥148</div><ul class="summary-list"><li>不自动创建订单或确认到账</li><li>不会收集账号密码、验证码或登录凭据</li><li>当前为个人收款码，企业支付待接入</li></ul><div class="payment-preview"><div class="payment-preview-title">临时支付方式 <span>人工核对</span></div><div class="payment-methods" role="group" aria-label="临时支付方式"><button class="payment-method" type="button" data-payment-method="wechat" aria-pressed="true">微信支付<small>扫码后人工核对</small></button><button class="payment-method" type="button" data-payment-method="alipay" aria-pressed="false">支付宝<small>扫码后人工核对</small></button></div><p class="payment-status"><strong>当前选择：<span data-target-payment>微信支付</span></strong><br>付款前请核对金额；本页不含支付接口、商户号或自动回调。</p></div><div class="temporary-payment"><h4>临时个人收款码</h4><p>仅作过渡使用，不代表企业收款主体。付款后请联系售后，提供付款时间、金额和不含敏感信息的截图。</p><img class="payment-qr" data-payment-qr="wechat" src="/wechat-temporary-payment.jpg" alt="微信临时个人收款码"><img class="payment-qr" data-payment-qr="alipay" src="/alipay-temporary-payment.jpg" alt="支付宝临时个人收款码" hidden><div class="payment-reference">付款备注建议：领地 AI + 当前方案名称</div></div></div>
+          <div class="checkout-action"><a class="btn btn-primary" href="#support">我已付款，联系售后核对</a><small>临时人工核对，不自动发货或确认到账。</small></div>
         </aside>
       </div>
     </div>
@@ -237,7 +238,7 @@
 
   <section class="section" id="risk">
     <div class="wrap">
-      <div class="section-head"><p class="eyebrow">READ BEFORE PAYING</p><h2>开通前风险提示</h2><p>当前页面不能付款。正式支付能力上线前，需先确认收款主体、支付服务、订单条款与隐私说明；届时仍请再次核对实时商品信息。</p></div>
+      <div class="section-head"><p class="eyebrow">READ BEFORE PAYING</p><h2>开通前风险提示</h2><p>当前为临时个人收款与人工核对。企业支付能力上线前，请先联系售后确认商品信息、金额、交付与退款安排。</p></div>
       <div class="risk-panel">
         <div class="risk-heading">IMPORTANT · 请完整阅读</div>
         <div class="risk-list">
@@ -245,7 +246,7 @@
           <div class="risk-item"><strong>商品与价格会变化</strong><p>商品名称、功能、配额、价格、库存和服务条款可能调整，以未来正式开通前页面为准。</p></div>
           <div class="risk-item"><strong>账户与服务存在不确定性</strong><p>第三方服务可能受平台政策、地区限制、风控或维护影响，存在变更、中断或不可用风险。</p></div>
           <div class="risk-item"><strong>严禁提交敏感凭据</strong><p>不要向任何售后人员提供密码、验证码、Cookie、Session 或访问令牌；领地 AI 不会索取或保存这些信息。</p></div>
-          <div class="risk-item"><strong>支付能力尚未接入</strong><p>微信支付与支付宝当前仅为界面预览；收款主体、商户配置、订单履约、退款条件与隐私条款均待确认，未确认前不会部署收款。</p></div>
+          <div class="risk-item"><strong>临时个人收款与人工核对</strong><p>当前二维码为个人收款码，仅作临时过渡，不代表企业支付主体。付款不会自动确认或发货；请通过下方售后渠道人工核对。企业商户收款码接入后将替换本流程。</p></div>
           <div class="risk-item"><strong>注意数据与账号合规</strong><p>不要上传违法、保密或无权处理的数据；团队使用前应确认内部信息安全与账号管理要求。</p></div>
         </div>
       </div>
@@ -257,9 +258,9 @@
       <div class="section-head"><p class="eyebrow">FAQ</p><h2>常见问题</h2></div>
       <div class="faq">
         <details><summary>领地 AI 是什么？</summary><div class="answer">领地 AI 提供第三方 AI 工具的服务说明、场景梳理、选择指引、支付方式预览与售后协调入口。我们不是模型厂商，也不以任何 AI 厂商的官方合作方身份提供本服务。</div></details>
-        <details><summary>本页会直接收款或创建订单吗？</summary><div class="answer">不会。支付服务尚未接入，页面没有支付 SDK、API、支付二维码、商户号、订单表单或账号登录。当前按钮不可付款，也不会模拟支付成功。</div></details>
+        <details><summary>本页如何收款和确认订单？</summary><div class="answer">当前为临时个人收款码与人工核对流程，不会自动创建订单、确认到账或自动发货。付款前请联系售后确认，付款后提供付款时间、金额及不含敏感信息的截图进行人工核对。</div></details>
         <details><summary>当前三档开通价格是多少？</summary><div class="answer">当前核对价格为：ChatGPT Plus 1个月开通 ¥148、GPT 5X 开通 ¥798、GPT 20X 开通 ¥1288。当前为人工核对的静态展示价；价格、库存、功能与条款可能调整，以未来正式开通前页面为准。</div></details>
-        <details><summary>微信支付和支付宝现在可以使用吗？</summary><div class="answer">不可以。两种方式当前仅用于本地前端选择预览。收款公司主体和正式支付服务尚未确定，未接入任何商户配置、支付密钥或支付接口。</div></details>
+        <details><summary>微信支付和支付宝现在可以使用吗？</summary><div class="answer">可以扫描页面展示的临时个人收款码，但这不是企业支付服务，且不自动确认到账。企业收款码、订单与支付接口完成后将替换当前临时流程。</div></details>
         <details><summary>选择方案或支付方式后会传送我的信息吗？</summary><div class="answer">不会。页面选择只改变当前界面状态，不会创建账户、写入 Cookie、保存到本地、创建订单或发送给第三方。</div></details>
         <details><summary>遇到商品或历史订单问题怎么办？</summary><div class="answer">请准备订单号、付款时间和不含敏感凭据的页面截图，通过下方公开售后渠道联系我们。不要发送密码、验证码、Cookie、Session 或令牌。</div></details>
       </div>
@@ -269,12 +270,12 @@
   <section class="section" id="support">
     <div class="wrap">
       <div class="support-card">
-        <div><p class="eyebrow">AFTER-SALES</p><h2>售后联系人 · 王明帅</h2><p>商品咨询或历史订单问题，请提供订单号、付款时间、问题描述，以及不含敏感凭据的截图。当前页面不会生成新的订单号或支付记录。</p><div class="support-meta"><div>QQ · <a href="tencent://message/?uin=1138236138&amp;Site=%E9%A2%86%E5%9C%B0AI&amp;Menu=yes">1138236138</a></div><div>邮箱 · <a href="mailto:1138236138@qq.com?subject=%E9%A2%86%E5%9C%B0%20AI%20%E5%94%AE%E5%90%8E%E5%8D%8F%E5%8A%A9">1138236138@qq.com</a></div></div></div>
+        <div><p class="eyebrow">AFTER-SALES</p><h2>售后联系人 · 王明帅</h2><p>临时个人收款流程请在付款前后联系售后核对：提供方案名称、付款时间、金额及不含敏感凭据的截图。当前页面不会生成订单号、自动确认到账或自动发货。</p><div class="support-meta"><div>QQ · <a href="tencent://message/?uin=1138236138&amp;Site=%E9%A2%86%E5%9C%B0AI&amp;Menu=yes">1138236138</a></div><div>邮箱 · <a href="mailto:1138236138@qq.com?subject=%E9%A2%86%E5%9C%B0%20AI%20%E5%94%AE%E5%90%8E%E5%8D%8F%E5%8A%A9">1138236138@qq.com</a></div></div></div>
         <div class="support-actions"><div class="qr-shell"><img src="/wechat-support-qr.jpg" alt="王明帅微信售后二维码" width="620" height="620"></div><div class="qr-caption">微信扫码联系售后 · 此二维码不是支付码</div><a class="btn btn-secondary" href="mailto:1138236138@qq.com?subject=%E9%A2%86%E5%9C%B0%20AI%20%E5%94%AE%E5%90%8E%E5%8D%8F%E5%8A%A9">发送售后邮件</a></div>
       </div>
       <div class="checkout" style="margin-top:1rem">
-        <div><div class="checkout-title">当前预览：<span data-target-plan>ChatGPT Plus 1个月 · ¥148</span> · <span data-target-payment>微信支付</span></div><p>支付服务待接入。收款主体、商户配置、订单与退款规则确认前，本页不会开放付款。</p></div>
-        <div class="checkout-action"><button class="btn btn-primary payment-preview-cta" type="button" disabled>暂不可支付</button><small>不会收款、创建订单或模拟支付成功。</small></div>
+        <div><div class="checkout-title">当前选择：<span data-target-plan>ChatGPT Plus 1个月 · ¥148</span> · <span data-target-payment>微信支付</span></div><p>当前为临时个人收款与人工核对；请付款后联系售后确认，不会自动创建订单或发货。</p></div>
+        <div class="checkout-action"><a class="btn btn-primary" href="#plans">返回扫码付款</a><small>企业支付服务接入后将替换本临时流程。</small></div>
       </div>
     </div>
   </section>
@@ -327,6 +328,9 @@
       button.setAttribute('aria-pressed',String(button.getAttribute('data-payment-method')===id));
     });
     targetPaymentLabels.forEach(function(labelEl){labelEl.textContent=labels[id]});
+    document.querySelectorAll('[data-payment-qr]').forEach(function(qr){
+      qr.hidden = qr.getAttribute('data-payment-qr') !== id;
+    });
   }
 
   const initialCard = document.querySelector('.plan.selected');
