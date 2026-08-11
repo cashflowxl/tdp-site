@@ -10,8 +10,8 @@ window.LINGDI_AI_PRICING = Object.freeze({
   currency: 'CNY',
   sourceType: 'manual-read-only-check',
   plans: Object.freeze({
-    plus: Object.freeze({displayName: 'ChatGPT Plus 1个月', price: 148}),
+    plus: Object.freeze({displayName: 'ChatGPT Plus 1个月', price: 138}),
     gpt5x: Object.freeze({displayName: 'GPT 5X', price: 798}),
-    gpt20x: Object.freeze({displayName: 'GPT 20X', price: 1288})
+    gpt20x: Object.freeze({displayName: 'GPT 20X', price: 1298})
   })
 });
