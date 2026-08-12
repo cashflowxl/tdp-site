@@ -6,41 +6,42 @@
   <meta name="robots" content="noindex,nofollow">
   <title>领地 AI｜个人中心</title>
   <link rel="stylesheet" href="/lingdi-ui.css">
+  <link rel="stylesheet" href="/lingdi-public-nav.css">
   <style>
     .account-hero{padding:76px 0 44px;background:radial-gradient(circle at 80% 4%,rgba(247,189,78,.30),transparent 22rem),linear-gradient(180deg,#fff 0%,#fbfaf7 100%)}
-    .account-frame{width:min(calc(100% - 48px),960px);margin:0 auto}
+    .account-frame{width:min(calc(100% - 64px),1360px);margin:0 auto}
     .account-hero .account-frame{padding:0 2px}
     .account-hero h1{margin:8px 0 12px;font-size:clamp(38px,5vw,60px)}
     .account-hero p{max-width:650px;margin:0;color:var(--muted);font-size:16px;line-height:1.8}
-    .account-section{padding:42px 0 82px}
-    .account-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:22px}
-    .account-card{min-height:270px;padding:30px;display:flex;flex-direction:column;align-items:flex-start}
+    .account-section{padding:54px 0 96px}
+    .account-grid{display:grid;grid-template-columns:1.18fr 1fr 1fr;gap:18px}
+    .account-card{min-height:250px;padding:32px;display:flex;flex-direction:column;align-items:flex-start}
     .account-card h2{margin:10px 0 12px;font-size:25px}
     .account-card p{margin:0;color:var(--muted);font-size:14px;line-height:1.75}
     .account-card .role{font-weight:750;color:var(--ink)}
     .account-card .button{margin-top:auto}
-    .account-security{margin-top:24px;padding:34px}
+    .account-security{margin-top:18px;padding:32px}
     .account-security .panel-head{display:flex;justify-content:space-between;align-items:end;gap:22px;border-bottom:1px solid var(--line);padding-bottom:20px}
     .account-security h2{margin:0;font-size:28px}.account-security .panel-head p{margin:8px 0 0;color:var(--muted)}
     .roadmap{display:grid;grid-template-columns:repeat(3,1fr);gap:22px;padding-top:24px}
     .road{display:flex;align-items:flex-start;gap:12px}.dot{flex:0 0 28px;width:28px;height:28px;display:grid;place-items:center;border-radius:50%;background:#fff2cf;color:#785200;font-size:12px;font-weight:800}
     .road b{display:block;margin:2px 0 5px}.road p{margin:0;color:var(--muted);font-size:13px;line-height:1.7}
-    @media(max-width:760px){.account-frame{width:min(calc(100% - 30px),960px)}.account-hero{padding:58px 0 34px}.account-section{padding:30px 0 56px}.account-grid,.roadmap{grid-template-columns:1fr}.account-card{min-height:0;padding:25px}.account-card .button{margin-top:22px}.account-security{margin-top:20px;padding:25px}.account-security .panel-head{display:block}.roadmap{gap:18px}.account-hero h1{font-size:42px}}
+    @media(max-width:860px){.account-grid{grid-template-columns:1fr 1fr}.account-card:first-child{grid-column:1/-1}}@media(max-width:760px){.account-frame{width:calc(100% - 30px)}.account-hero{padding:58px 0 34px}.account-section{padding:30px 0 56px}.account-grid,.roadmap{grid-template-columns:1fr}.account-card:first-child{grid-column:auto}.account-card{min-height:0;padding:25px}.account-card .button{margin-top:22px}.account-security{margin-top:20px;padding:25px}.account-security .panel-head{display:block}.roadmap{gap:18px}.account-hero h1{font-size:42px}}
   </style>
 </head>
 <body>
-  <div class="notice">个人中心原型 · 当前不创建账户、不读取订单、不保存个人资料</div>
-  <nav class="nav"><div class="wrap"><a class="brand" href="/"><b class="logo">LD</b>领地 AI <small>AI 商业应用落地服务商</small></a><div class="links"><a href="/#service">服务</a><a href="/lingdi-partner.html">合伙人资格</a><a href="/lingdi-orders.html">订单查询</a></div><a class="button" href="/">返回首页</a></div></nav>
+  <nav class="nav"></nav>
   <main>
-    <section class="account-hero"><div class="account-frame"><div class="kicker">MY LINGDI AI</div><h1>一个账号<br>管理服务与合作身份</h1><p>个人中心将按客户和合伙人权限展示订单、售后、专属链接与结算资料。以下均为界面原型，不对应真实账户、订单或结算。</p></div></section>
+    <section class="account-hero"><div class="account-frame"><div class="kicker">MY LINGDI AI</div><h1>服务、订单与<br>合作资料</h1><p>在这里查看订单进度、发起技术支持咨询，并了解合伙人资格与后续合作资料。</p></div></section>
     <section class="account-section"><div class="account-frame"><div class="account-grid">
-      <article class="panel account-card"><div class="kicker">ACCOUNT PROFILE</div><h2>个人资料</h2><p class="role">演示用户 · 普通客户</p><p>邮箱、登录方式、认证与安全设置将在自有账户服务上线后受控管理。</p><div><a class="button secondary" href="/lingdi-register.html">注册账号（原型）</a> <a class="button secondary" href="/lingdi-login.html">登录（原型）</a></div></article>
-      <article class="panel account-card"><div class="kicker">MY ORDERS</div><h2>我的订单</h2><p class="role">待付款核对 · 履约中 · 已完成</p><p>正式版只显示本人有权限查看的订单、付款状态、交付记录和售后工单。</p><a class="button secondary" href="/lingdi-orders.html">查询订单原型</a></article>
-      <article class="panel account-card"><div class="kicker">PARTNER SPACE</div><h2>合伙人资格</h2><p class="role">资格等级 · 专属链接 · 数据台账</p><p>资格开通后可查看自身归因、订单与结算资料；具体权限以正式规则为准。</p><a class="button secondary" href="/lingdi-partner.html">查看合伙人资格</a></article>
+      <article class="panel account-card"><div class="kicker">ORDER SERVICE</div><h2>订单与服务进度</h2><p class="role">订单查询 · 交付记录 · 售后跟进</p><p>输入订单编号和下单联系方式，可查询当前订单的核对、履约与售后状态。</p><a class="button" href="/lingdi-live-orders.html">查询订单</a></article>
+      <article class="panel account-card"><div class="kicker">TECHNICAL SUPPORT</div><h2>技术支持</h2><p class="role">服务咨询 · 使用问题 · 交付协同</p><p>遇到开通、使用、订单核对或交付问题，可以直接发起在线咨询。</p><a class="button secondary" href="/lingdi-support.html">发起咨询</a></article>
+      <article class="panel account-card"><div class="kicker">PARTNER SPACE</div><h2>合伙人资格</h2><p class="role">资格选择 · 专属链接 · 数据台账</p><p>了解不同合作资格的服务范围、专属链接和后续归因资料。</p><a class="button secondary" href="/lingdi-partner.html">查看资格说明</a></article>
     </div>
-    <section class="panel account-security"><div class="panel-head"><div><div class="kicker">ACCOUNT SECURITY</div><h2>账户安全与权限</h2><p>正式版由服务端执行，账户资料、权限与业务数据按角色隔离。</p></div></div><div class="roadmap"><div class="road"><span class="dot">1</span><div><b>账户与权限</b><p>邮箱验证、密码策略、二次验证、登录记录和角色权限。</p></div></div><div class="road"><span class="dot">2</span><div><b>业务数据隔离</b><p>客户与合伙人仅访问自身被授权的数据范围。</p></div></div><div class="road"><span class="dot">3</span><div><b>留痕与申诉</b><p>订单、结算、退款、工单和关键权限变更均需可审计。</p></div></div></div></section>
+    <section class="panel account-security"><div class="panel-head"><div><div class="kicker">SERVICE GUIDANCE</div><h2>使用说明</h2><p>订单查询、技术支持与合伙人资格分别独立管理；涉及服务范围、价格、交付与结算的事项，以确认页面和双方约定为准。</p></div></div><div class="roadmap"><div class="road"><span class="dot">1</span><div><b>先确认服务范围</b><p>明确所选方案、适用条件与交付安排。</p></div></div><div class="road"><span class="dot">2</span><div><b>查看订单进度</b><p>通过订单查询跟进核对、履约和售后记录。</p></div></div><div class="road"><span class="dot">3</span><div><b>技术支持跟进</b><p>复杂问题由技术支持持续协同处理。</p></div></div></div></section>
     </div></section>
   </main>
-  <footer class="footer"><div class="wrap"><span><b>领地 AI</b> · 个人中心原型</span><span>订单 · 售后 · 合伙人资格</span><span>运营主体：领地（山东）数字科技有限公司</span></div></footer>
+  <footer class="footer"><div class="wrap"><span><b>领地 AI</b> · 服务中心</span><span>订单 · 技术支持 · 合伙人资格</span><span>运营主体：领地（山东）数字科技有限公司</span></div></footer>
+  <script src="/lingdi-public-nav.js"></script>
 </body>
 </html>
