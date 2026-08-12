@@ -13,7 +13,7 @@
 </head>
 <body>
   <div class="notice"><b>内部联通测试</b> · 创建订单后仍需人工核对付款、人工采购和履约；不会自动从上游采购。</div>
-  <nav class="nav"><div class="wrap"><a class="brand" href="/"><b class="logo">AI</b>领地 AI <small>AI 应用服务</small></a><div class="links"><a href="/lingdi-live-orders.html">查订单</a><a href="/lingdi-support.html">售后</a><a href="/lingdi-console.html">管理后台</a></div><a class="button" href="/">返回官网</a></div></nav>
+  <nav class="nav"><div class="wrap"><a class="brand" href="/"><b class="logo">LD</b>领地 AI <small>AI 商业应用落地服务商</small></a><div class="links"><a href="/lingdi-live-orders.html">查订单</a><a href="/lingdi-support.html">售后</a><a href="/lingdi-admin-test.html">管理后台</a></div><a class="button" href="/">返回官网</a></div></nav>
   <main>
     <section class="hero"><div class="wrap"><div class="kicker">CONNECTED ORDER TEST</div><h1>创建测试订单，<br>在后台处理。</h1><p class="sub">本页会把订单写入领地 AI 的测试数据库。仅填写订单通知邮箱；请勿输入任何 ChatGPT 密码、验证码、Cookie、Session 或令牌。</p></div></section>
     <section class="section"><div class="wrap grid"><article class="panel form"><h2>1. 选择服务方案</h2><div class="choice" id="serviceChoices"></div><div class="fields"><div class="field wide"><label for="email">订单通知邮箱</label><input id="email" type="email" placeholder="name@example.com" autocomplete="email"></div></div><div class="service-confirm"><h3>服务确认与退款规则</h3><p>请在继续前确认已理解所选服务的范围、交付方式、价格及人工核对流程。对于已按约完成开通或数字化交付、且不存在法律规定或双方约定退款情形的订单，不因“主观不再需要”等原因办理退款；未交付、错交付、无法履约或依法应退款的情形，按适用规则处理。</p><label for="serviceConfirmed"><input id="serviceConfirmed" type="checkbox">我已阅读并确认上述服务范围与退款规则，知悉当前为人工核对流程。</label></div><button id="createOrder" class="button" disabled>确认服务规则后创建订单</button><p id="message" class="muted" role="status"></p></article>
