@@ -10,7 +10,7 @@
 </head>
 <body>
   <div class="notice"><b>订单进度查询</b> · 仅显示与订单通知邮箱匹配的记录。</div>
-  <nav class="nav"><div class="wrap"><a class="brand" href="/"><b class="logo">AI</b>领地 AI <small>AI 应用服务</small></a><div class="links"><a href="/lingdi-live-test.html">创建订单</a><a href="/lingdi-support.html">售后</a></div><a class="button" href="/">返回官网</a></div></nav>
+  <nav class="nav"><div class="wrap"><a class="brand" href="/"><b class="logo">LD</b>领地 AI <small>AI 商业应用落地服务商</small></a><div class="links"><a href="/lingdi-live-test.html">创建订单</a><a href="/lingdi-support.html">售后</a></div><a class="button" href="/">返回官网</a></div></nav>
   <main><section class="hero"><div class="wrap"><div class="kicker">ORDER LOOKUP</div><h1>查询你的<br>订单进度。</h1><p class="sub">请填写订单号与创建订单时的通知邮箱。不要输入任何账号密码、验证码、Cookie、Session 或令牌。</p></div></section>
   <section class="section"><div class="wrap grid"><article class="panel form"><h2>查询订单</h2><div class="fields"><div class="field wide"><label for="order">订单号</label><input id="order" placeholder="LD-YYYYMMDD-XXXXXXXX"></div><div class="field wide"><label for="email">订单通知邮箱</label><input id="email" type="email" placeholder="name@example.com" autocomplete="email"></div></div><button id="lookup" class="button">查询订单</button><p id="message" class="muted" role="status"></p></article><aside class="panel"><h2>订单状态说明</h2><p><b>待付款核对：</b>等待人工确认。</p><p><b>待履约：</b>运营人员已确认，正在内部安排服务。</p><p><b>已交付：</b>已完成，请留意售后说明。</p></aside></div></section>
   <section class="section" id="result" hidden><div class="wrap panel"><span id="status" class="status warn"></span><h2 id="title"></h2><p id="detail"></p><p id="time" class="muted"></p><a class="button light" href="/lingdi-support.html">需要售后协助</a></div></section></main>
