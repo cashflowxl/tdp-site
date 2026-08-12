@@ -6,7 +6,7 @@
  * 同时按 README.md 的清单同步 HTML 元信息与静态回退文案。
  */
 window.LINGDI_AI_PRICING = Object.freeze({
-  verifiedAt: '2026-08-11',
+  verifiedAt: '2026-08-12',
   currency: 'CNY',
   sourceType: 'manual-read-only-check',
   plans: Object.freeze({
