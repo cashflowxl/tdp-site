@@ -1,0 +1,12 @@
+{
+  "name": "lingdi-ai-operations-api",
+  "private": true,
+  "version": "0.1.0",
+  "scripts": {
+    "start": "node server.cjs",
+    "dev": "node --watch server.cjs"
+  },
+  "engines": {
+    "node": ">=24"
+  }
+}

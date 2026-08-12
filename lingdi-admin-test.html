@@ -1,0 +1,28 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="robots" content="noindex,nofollow">
+  <title>领地 AI｜运营测试后台</title>
+  <link rel="stylesheet" href="/lingdi-ui.css">
+  <link rel="stylesheet" href="/lingdi-vivid.css">
+  <style>.metric{font-size:36px;font-weight:800}.toolbar{display:flex;gap:12px;align-items:end;flex-wrap:wrap}.toolbar input{min-width:260px;padding:12px;border:1px solid var(--line);border-radius:10px}.table button{margin-right:6px}.muted-code{font:12px ui-monospace,SFMono-Regular,Menlo,monospace;color:var(--muted)}</style>
+</head>
+<body>
+  <div class="notice"><b>运营测试后台</b> · 仅限内部人员。请不要把此地址或管理口令公开到群外。</div>
+  <nav class="nav"><div class="wrap"><a class="brand" href="/"><b class="logo">AI</b>领地 AI <small>运营测试</small></a><div class="links"><a href="/lingdi-live-test.html">前台测试页</a><a href="/lingdi-console.html">后台原型</a></div><a class="button" href="/">返回官网</a></div></nav>
+  <main><section class="hero"><div class="wrap"><div class="kicker">OPERATIONS TEST</div><h1>订单、售后，<br>在同一处处理。</h1><p class="sub">此页连接独立测试 API；订单状态变化会实时写回数据库。企业支付、佣金结算和上游采购尚未接入。</p></div></section>
+  <section class="section"><div class="wrap"><div class="panel"><div class="toolbar"><div><label for="token">管理口令</label><input id="token" type="password" placeholder="仅内部测试使用" autocomplete="off"></div><button id="load" class="button">连接后台</button><button id="forget" class="button light">清除本机口令</button></div><p id="message" class="muted" role="status"></p></div></div></section>
+  <section class="section" id="dashboard" hidden><div class="wrap"><div class="grid"><article class="panel"><span class="muted">订单总数</span><div class="metric" id="ordersCount">0</div></article><article class="panel"><span class="muted">待处理订单</span><div class="metric" id="pendingCount">0</div></article><article class="panel"><span class="muted">开放工单</span><div class="metric" id="ticketsCount">0</div></article><article class="panel"><span class="muted">渠道访问</span><div class="metric" id="visitsCount">0</div></article></div>
+  <div class="panel" style="margin-top:18px"><h2>订单队列</h2><div class="table-wrap"><table class="table"><thead><tr><th>订单号</th><th>方案</th><th>金额</th><th>来源</th><th>状态</th><th>操作</th></tr></thead><tbody id="ordersRows"></tbody></table></div></div>
+  <div class="panel" style="margin-top:18px"><h2>售后工单</h2><div class="table-wrap"><table class="table"><thead><tr><th>工单</th><th>订单</th><th>类别</th><th>联系方式</th><th>状态</th><th>操作</th></tr></thead><tbody id="ticketsRows"></tbody></table></div></div></div></section></main>
+  <script>
+  (function(){
+    const api=new URLSearchParams(location.search).get('api')||window.LINGDI_API_BASE||'https://api.terradigitalpower.com'; const tokenInput=document.querySelector('#token'); const message=document.querySelector('#message');
+    tokenInput.value=sessionStorage.getItem('lingdi_admin_test_token')||''; function auth(){return {'authorization':'Bearer '+tokenInput.value}};
+    async function load(){message.textContent='正在读取后台数据…';try{const response=await fetch(api+'/api/admin/dashboard',{headers:auth()});const data=await response.json();if(!response.ok)throw new Error(data.error||'读取失败');sessionStorage.setItem('lingdi_admin_test_token',tokenInput.value);document.querySelector('#dashboard').hidden=false;document.querySelector('#ordersCount').textContent=data.summary.orders;document.querySelector('#pendingCount').textContent=data.summary.pendingOrders;document.querySelector('#ticketsCount').textContent=data.summary.openTickets;document.querySelector('#visitsCount').textContent=data.summary.visits;document.querySelector('#ordersRows').innerHTML=data.recentOrders.map(order=>`<tr><td><b>${order.id}</b></td><td>${order.service_name}</td><td>¥${(order.amount_cents/100).toLocaleString('zh-CN')}</td><td>${order.channel_id||'自然流量'}</td><td>${order.status}</td><td><button class="button light" data-order="${order.id}" data-status="待履约">标为待履约</button><button class="button light" data-order="${order.id}" data-status="已交付">标为已交付</button></td></tr>`).join('')||'<tr><td colspan="6">暂无订单</td></tr>';document.querySelector('#ticketsRows').innerHTML=data.tickets.map(ticket=>`<tr><td><b>${ticket.id}</b></td><td>${ticket.order_id||'—'}</td><td>${ticket.category}</td><td>${ticket.contact}</td><td>${ticket.status}</td><td><button class="button light" data-ticket="${ticket.id}" data-status="处理中">处理中</button><button class="button light" data-ticket="${ticket.id}" data-status="已关闭">关闭</button></td></tr>`).join('')||'<tr><td colspan="6">暂无工单</td></tr>';document.querySelectorAll('[data-order],[data-ticket]').forEach(button=>button.onclick=async()=>{const kind=button.dataset.order?'orders':'tickets';const id=button.dataset.order||button.dataset.ticket;const response=await fetch(`${api}/api/admin/${kind}/${encodeURIComponent(id)}`,{method:'PATCH',headers:{...auth(),'content-type':'application/json'},body:JSON.stringify({status:button.dataset.status})});if(!response.ok){const error=await response.json();message.textContent=error.error||'更新失败';return}load()});message.textContent='后台数据已连接。'}catch(error){message.textContent='暂时无法连接后台：'+error.message}}
+    document.querySelector('#load').onclick=load;document.querySelector('#forget').onclick=()=>{sessionStorage.removeItem('lingdi_admin_test_token');tokenInput.value='';message.textContent='本机口令已清除。'};
+  })();
+  </script>
+</body></html>
