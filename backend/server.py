@@ -136,6 +136,17 @@ def initialise_database():
             FOREIGN KEY(channel_id) REFERENCES channels(id),
             FOREIGN KEY(order_id) REFERENCES orders(id)
           );
+          CREATE TABLE IF NOT EXISTS conversations (
+            id TEXT PRIMARY KEY, contact TEXT NOT NULL, category TEXT NOT NULL,
+            order_id TEXT, status TEXT NOT NULL DEFAULT 'AI 接待中',
+            assigned_to TEXT, created_at TEXT NOT NULL, updated_at TEXT NOT NULL,
+            FOREIGN KEY(order_id) REFERENCES orders(id)
+          );
+          CREATE TABLE IF NOT EXISTS conversation_messages (
+            id TEXT PRIMARY KEY, conversation_id TEXT NOT NULL,
+            sender TEXT NOT NULL, content TEXT NOT NULL, created_at TEXT NOT NULL,
+            FOREIGN KEY(conversation_id) REFERENCES conversations(id)
+          );
         """)
         # Safe additive migrations for databases created by the earlier prototype.
         existing = {row[1] for row in db.execute("PRAGMA table_info(channels)")}
@@ -177,6 +188,7 @@ def admin_payload(db):
         "channels": [dict(row) for row in db.execute("SELECT id,name,status,tier,invite_code,commission_rate_bps,created_at,updated_at FROM channels ORDER BY created_at DESC LIMIT 50")],
         "partnerApplications": [dict(row) for row in db.execute("SELECT id,name,contact,tier,status,channel_id,created_at FROM partner_applications ORDER BY created_at DESC LIMIT 50")],
         "commissions": [dict(row) for row in db.execute("SELECT c.id,c.channel_id,ch.name AS channel_name,c.order_id,c.amount_cents,c.status,c.created_at FROM commissions c LEFT JOIN channels ch ON ch.id=c.channel_id ORDER BY c.created_at DESC LIMIT 100")],
+        "conversations": [dict(row) for row in db.execute("SELECT c.id,c.contact,c.category,c.order_id,c.status,c.assigned_to,c.created_at,c.updated_at,(SELECT content FROM conversation_messages m WHERE m.conversation_id=c.id ORDER BY m.created_at DESC LIMIT 1) AS latest_message FROM conversations c ORDER BY c.updated_at DESC LIMIT 100")],
         "access": {"username": ADMIN_USERNAME, "role": "超级管理员", "permissions": ["订单", "售后", "服务方案", "渠道代理", "合伙人资格", "佣金台账", "页面运营"]},
     }
 
@@ -255,6 +267,16 @@ class Handler(BaseHTTPRequestHandler):
             if not row:
                 return self.error_json(404, "未找到匹配订单")
             return self.send_json(200, {"order": dict(row)})
+        match = re.match(r"^/api/public/conversations/([^/]+)$", parsed.path)
+        if match:
+            conversation_id = unquote(match.group(1))
+            contact = parse_qs(parsed.query).get("contact", [""])[0].strip()
+            with connection() as db:
+                conversation = db.execute("SELECT id,category,status,assigned_to,created_at,updated_at FROM conversations WHERE id=? AND contact=?", (conversation_id, contact)).fetchone()
+                messages = db.execute("SELECT id,sender,content,created_at FROM conversation_messages WHERE conversation_id=? ORDER BY created_at ASC LIMIT 200", (conversation_id,)).fetchall() if conversation else []
+            if not conversation:
+                return self.error_json(404, "未找到咨询会话")
+            return self.send_json(200, {"conversation": dict(conversation), "messages": [dict(row) for row in messages]})
         if parsed.path == "/api/admin/dashboard":
             if not self.require_admin():
                 return
@@ -264,6 +286,17 @@ class Handler(BaseHTTPRequestHandler):
             if not self.require_admin():
                 return
             return self.send_json(200, {"username": ADMIN_USERNAME, "role": "超级管理员", "permissions": ["订单", "售后", "服务方案", "渠道代理", "合伙人资格", "佣金台账", "页面运营"]})
+        match = re.match(r"^/api/admin/conversations/([^/]+)$", parsed.path)
+        if match:
+            if not self.require_admin():
+                return
+            conversation_id = unquote(match.group(1))
+            with connection() as db:
+                conversation = db.execute("SELECT id,contact,category,order_id,status,assigned_to,created_at,updated_at FROM conversations WHERE id=?", (conversation_id,)).fetchone()
+                messages = db.execute("SELECT id,sender,content,created_at FROM conversation_messages WHERE conversation_id=? ORDER BY created_at ASC LIMIT 200", (conversation_id,)).fetchall() if conversation else []
+            if not conversation:
+                return self.error_json(404, "咨询会话不存在")
+            return self.send_json(200, {"conversation": dict(conversation), "messages": [dict(row) for row in messages]})
         return self.error_json(404, "接口不存在")
 
     def do_POST(self):
@@ -312,6 +345,47 @@ class Handler(BaseHTTPRequestHandler):
                     ticket_id, created_at = new_id("SUP"), now()
                     db.execute("INSERT INTO tickets(id,order_id,category,contact,message,status,created_at,updated_at) VALUES(?,?,?,?,?,?,?,?)", (ticket_id, proposed_order if linked else None, category, contact, message, "待处理", created_at, created_at))
                 return self.send_json(201, {"id": ticket_id, "status": "待处理"})
+            if parsed.path == "/api/public/conversations":
+                contact = payload.get("contact", "").strip() if isinstance(payload.get("contact"), str) else ""
+                content = payload.get("content", "").strip() if isinstance(payload.get("content"), str) else ""
+                category = payload.get("category", "咨询").strip() if isinstance(payload.get("category"), str) else "咨询"
+                proposed_order = payload.get("orderId", "").strip() if isinstance(payload.get("orderId"), str) else ""
+                if not contact or not content or len(contact) > 160 or len(content) > 2000:
+                    return self.error_json(400, "请填写联系方式和咨询内容")
+                created_at, conversation_id = now(), new_id("CHAT")
+                with connection() as db:
+                    linked = db.execute("SELECT 1 FROM orders WHERE id=?", (proposed_order,)).fetchone()
+                    db.execute("INSERT INTO conversations(id,contact,category,order_id,status,created_at,updated_at) VALUES(?,?,?,?,?,?,?)", (conversation_id, contact, category, proposed_order if linked else None, "AI 接待中", created_at, created_at))
+                    db.execute("INSERT INTO conversation_messages(id,conversation_id,sender,content,created_at) VALUES(?,?,?,?,?)", (new_id("MSG"), conversation_id, "customer", content, created_at))
+                    greeting = "已收到你的咨询。客服会尽快回复；涉及付款、退款、交付或账号安全的问题将由人工跟进。"
+                    db.execute("INSERT INTO conversation_messages(id,conversation_id,sender,content,created_at) VALUES(?,?,?,?,?)", (new_id("MSG"), conversation_id, "ai", greeting, now()))
+                return self.send_json(201, {"id": conversation_id, "status": "AI 接待中"})
+            match = re.match(r"^/api/public/conversations/([^/]+)/messages$", parsed.path)
+            if match:
+                conversation_id = unquote(match.group(1))
+                contact = payload.get("contact", "").strip() if isinstance(payload.get("contact"), str) else ""
+                content = payload.get("content", "").strip() if isinstance(payload.get("content"), str) else ""
+                if not contact or not content or len(content) > 2000:
+                    return self.error_json(400, "请填写咨询内容")
+                with connection() as db:
+                    exists = db.execute("SELECT 1 FROM conversations WHERE id=? AND contact=?", (conversation_id, contact)).fetchone()
+                    if not exists:
+                        return self.error_json(404, "咨询会话不存在")
+                    db.execute("INSERT INTO conversation_messages(id,conversation_id,sender,content,created_at) VALUES(?,?,?,?,?)", (new_id("MSG"), conversation_id, "customer", content, now()))
+                    db.execute("UPDATE conversations SET updated_at=? WHERE id=?", (now(), conversation_id))
+                return self.send_json(201, {"ok": True})
+            match = re.match(r"^/api/public/conversations/([^/]+)/handoff$", parsed.path)
+            if match:
+                conversation_id = unquote(match.group(1))
+                contact = payload.get("contact", "").strip() if isinstance(payload.get("contact"), str) else ""
+                if not contact:
+                    return self.error_json(400, "请提供联系方式")
+                with connection() as db:
+                    exists = db.execute("SELECT 1 FROM conversations WHERE id=? AND contact=?", (conversation_id, contact)).fetchone()
+                    if not exists:
+                        return self.error_json(404, "咨询会话不存在")
+                    db.execute("UPDATE conversations SET status='待人工接管', updated_at=? WHERE id=?", (now(), conversation_id))
+                return self.send_json(200, {"ok": True, "status": "待人工接管"})
             if parsed.path == "/api/admin/channels":
                 if not self.require_admin():
                     return
@@ -339,6 +413,21 @@ class Handler(BaseHTTPRequestHandler):
                 with connection() as db:
                     db.execute("INSERT INTO partner_applications(id,name,contact,tier,status,created_at,updated_at) VALUES(?,?,?,?,?,?,?)", (item_id, name, contact, tier, "待处理", created_at, created_at))
                 return self.send_json(201, {"id": item_id, "status": "待处理"})
+            match = re.match(r"^/api/admin/conversations/([^/]+)/messages$", parsed.path)
+            if match:
+                if not self.require_admin():
+                    return
+                conversation_id = unquote(match.group(1))
+                content = payload.get("content", "").strip() if isinstance(payload.get("content"), str) else ""
+                if not content or len(content) > 2000:
+                    return self.error_json(400, "请填写回复内容")
+                with connection() as db:
+                    exists = db.execute("SELECT 1 FROM conversations WHERE id=?", (conversation_id,)).fetchone()
+                    if not exists:
+                        return self.error_json(404, "咨询会话不存在")
+                    db.execute("INSERT INTO conversation_messages(id,conversation_id,sender,content,created_at) VALUES(?,?,?,?,?)", (new_id("MSG"), conversation_id, "agent", content, now()))
+                    db.execute("UPDATE conversations SET status='人工接管中', assigned_to=?, updated_at=? WHERE id=?", (ADMIN_USERNAME, now(), conversation_id))
+                return self.send_json(201, {"ok": True, "status": "人工接管中"})
             return self.error_json(404, "接口不存在")
         except ValueError as exc:
             return self.error_json(400, str(exc))
@@ -348,7 +437,7 @@ class Handler(BaseHTTPRequestHandler):
 
     def do_PATCH(self):
         parsed = urlparse(self.path)
-        match = re.match(r"^/api/admin/(orders|tickets|products|channels|partner-applications|commissions)/([^/]+)$", parsed.path)
+        match = re.match(r"^/api/admin/(orders|tickets|products|channels|partner-applications|commissions|conversations)/([^/]+)$", parsed.path)
         if not match:
             return self.error_json(404, "接口不存在")
         if not self.require_admin():
@@ -364,6 +453,7 @@ class Handler(BaseHTTPRequestHandler):
                 "channels": ["active", "paused"],
                 "partner-applications": ["待处理", "已开通", "已拒绝", "已暂停"],
                 "commissions": ["待结算", "已结算", "已暂停"],
+                "conversations": ["AI 接待中", "待人工接管", "人工接管中", "已关闭"],
             }
             if status not in allowed_statuses[table]:
                 return self.error_json(400, "状态不合法")
@@ -386,6 +476,8 @@ class Handler(BaseHTTPRequestHandler):
                     if channel_id and not exists_active_channel(channel_id):
                         return self.error_json(400, "渠道不存在或未启用")
                     cursor = db.execute("UPDATE partner_applications SET status=?, channel_id=COALESCE(?,channel_id), updated_at=? WHERE id=?", (status, channel_id, now(), item_id))
+                elif table == "conversations":
+                    cursor = db.execute("UPDATE conversations SET status=?, assigned_to=CASE WHEN ?='人工接管中' THEN ? ELSE assigned_to END, updated_at=? WHERE id=?", (status, status, ADMIN_USERNAME, now(), item_id))
                 else:
                     cursor = db.execute(f"UPDATE {table} SET status=?, updated_at=? WHERE id=?", (status, now(), item_id))
             if not cursor.rowcount:
