@@ -1,0 +1,33 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="robots" content="noindex,nofollow">
+  <title>领地 AI｜下单测试</title>
+  <link rel="stylesheet" href="/lingdi-ui.css">
+  <link rel="stylesheet" href="/lingdi-vivid.css">
+  <style>
+    .choice{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin:16px 0}.choice button{background:#fff;border:1px solid var(--line);border-radius:16px;padding:16px;text-align:left;cursor:pointer}.choice button[aria-pressed="true"]{border-color:#ff7a00;box-shadow:0 0 0 3px #fff0df}.choice b,.choice span{display:block}.choice span{margin-top:8px;color:var(--muted)}.order-created{display:none}.order-created.show{display:block}.qr{display:grid;grid-template-columns:1fr 1fr;gap:16px}.qr img{display:block;width:min(100%,240px);border-radius:14px;border:1px solid var(--line)}@media(max-width:720px){.choice,.qr{grid-template-columns:1fr}}
+  </style>
+</head>
+<body>
+  <div class="notice"><b>内部联通测试</b> · 创建订单后仍需人工核对付款、人工采购和履约；不会自动从上游采购。</div>
+  <nav class="nav"><div class="wrap"><a class="brand" href="/"><b class="logo">AI</b>领地 AI <small>AI 应用服务</small></a><div class="links"><a href="/lingdi-live-orders.html">查订单</a><a href="/lingdi-support.html">售后</a><a href="/lingdi-console.html">管理后台</a></div><a class="button" href="/">返回官网</a></div></nav>
+  <main>
+    <section class="hero"><div class="wrap"><div class="kicker">CONNECTED ORDER TEST</div><h1>创建测试订单，<br>在后台处理。</h1><p class="sub">本页会把订单写入领地 AI 的测试数据库。仅填写订单通知邮箱；请勿输入任何 ChatGPT 密码、验证码、Cookie、Session 或令牌。</p></div></section>
+    <section class="section"><div class="wrap grid"><article class="panel form"><h2>1. 选择服务方案</h2><div class="choice" id="serviceChoices"></div><div class="fields"><div class="field wide"><label for="email">订单通知邮箱</label><input id="email" type="email" placeholder="name@example.com" autocomplete="email"></div></div><button id="createOrder" class="button">创建订单并进入付款核对</button><p id="message" class="muted" role="status"></p></article>
+      <aside class="panel"><h2>测试规则</h2><p>订单创建后会在管理后台“订单队列”中出现，初始状态为“待付款核对”。运营人员核实到账后，将状态改为“待履约”；然后由你们独立在天策完成采购和交付。</p><p class="note">临时二维码仅用于过渡期人工核对，不是企业自动支付。</p></aside></div></section>
+    <section class="section order-created" id="created"><div class="wrap panel"><span class="status warn">订单已写入测试数据库</span><h2 id="orderTitle"></h2><p id="orderInfo"></p><div class="qr"><div><h3>微信付款核对</h3><img src="/wechat-temporary-payment.jpg" alt="临时微信付款二维码"></div><div><h3>支付宝付款核对</h3><img src="/alipay-temporary-payment.jpg" alt="临时支付宝付款二维码"></div></div><p class="muted">付款后，把订单号和付款截图交给王明帅人工核对；请勿发送任何账户登录凭据。</p><a id="lookupLink" class="button light" href="/lingdi-orders.html">查询订单进度</a></div></section>
+  </main>
+  <script>
+  (function(){
+    const api = new URLSearchParams(location.search).get('api') || window.LINGDI_API_BASE || 'https://api.terradigitalpower.com';
+    const services = {plus:['ChatGPT Plus 1个月','¥138'],gpt5:['GPT 5X','¥798'],gpt20:['GPT 20X','¥1,298']};
+    let selected='plus'; const choices=document.querySelector('#serviceChoices');
+    function draw(){choices.innerHTML=Object.entries(services).map(([key,value])=>`<button type="button" data-service="${key}" aria-pressed="${selected===key}"><b>${value[0]}</b><span>${value[1]}</span></button>`).join('');choices.querySelectorAll('button').forEach(button=>button.onclick=()=>{selected=button.dataset.service;draw()})} draw();
+    document.querySelector('#createOrder').onclick=async()=>{const email=document.querySelector('#email').value.trim();const message=document.querySelector('#message');message.textContent='正在创建订单…';try{const response=await fetch(api+'/api/public/orders',{method:'POST',headers:{'content-type':'application/json'},body:JSON.stringify({serviceCode:selected,customerEmail:email,channelId:new URLSearchParams(location.search).get('ref')||null})});const data=await response.json();if(!response.ok)throw new Error(data.error||'创建失败');document.querySelector('#created').classList.add('show');document.querySelector('#orderTitle').textContent='订单号：'+data.id;document.querySelector('#orderInfo').textContent=`${data.serviceName} · ¥${(data.amountCents/100).toLocaleString('zh-CN')} · ${data.status}`;document.querySelector('#lookupLink').href='/lingdi-live-orders.html?order='+encodeURIComponent(data.id)+'&email='+encodeURIComponent(email);message.textContent='订单已创建，后台现在可以看到。'}catch(error){message.textContent='暂时无法连接订单服务：'+error.message}};
+  })();
+  </script>
+</body>
+</html>
