@@ -1,0 +1,19 @@
+/* 领地 AI 的原创活力主题：用于替换单一黑白的压抑感，不复刻任何第三方页面。 */
+:root{--ink:#18203d;--muted:#64708e;--line:#e7e7ef;--bg:#fcfaf9;--paper:#fff;--dark:#222b66;--green:#0a9a80;--warn:#bb6a11;--orange:#ff7a45;--shadow:0 24px 65px rgba(82,55,62,.13)}
+body{background:radial-gradient(circle at 90% 4%,rgba(255,122,69,.18),transparent 25rem),radial-gradient(circle at 8% 36%,rgba(33,207,179,.10),transparent 25rem),var(--bg)}
+.notice{background:linear-gradient(90deg,#f1f3ff,#f7fcff 48%,#edfffa);border-color:#e2e7f5;color:#566282}
+.logo{background:linear-gradient(135deg,#ff6e42,#fd9846 55%,#f5bf63);box-shadow:0 7px 16px rgba(255,122,69,.25)}
+.nav{background:rgba(255,255,255,.82);border-color:rgba(124,106,224,.10)}
+.navbutton,.button.primary,.button.active{background:linear-gradient(135deg,#f35d3d,#ff874a 58%,#f6b95d)!important;box-shadow:0 10px 22px rgba(243,93,61,.2)}
+.navbutton:hover,.button.primary:hover,.button.active:hover{filter:brightness(1.06)}
+.button.light,.button.secondary{border-color:#d8dcf2;background:rgba(255,255,255,.85);color:#36406c}
+.hero{background:radial-gradient(circle at 80% 12%,rgba(255,121,69,.26),transparent 25rem),radial-gradient(circle at 52% 82%,rgba(31,202,177,.15),transparent 27rem),linear-gradient(145deg,#fff 0%,#fff7f2 50%,#effdff 100%)}
+.hero h1 em,.hero h1{background:linear-gradient(120deg,#1d2852 18%,#e95d3e 57%,#e9953e);-webkit-background-clip:text;background-clip:text;color:transparent}
+.hero-card,.panel,.product,.order-card{border-color:rgba(114,105,210,.15);box-shadow:0 18px 52px rgba(47,55,120,.08)}
+.hero-card-head{background:linear-gradient(90deg,rgba(95,82,226,.08),rgba(29,189,164,.07))}
+.quick-code{background:linear-gradient(135deg,#fff0e8,#e7fffa);color:#e55f3e}
+.product{overflow:hidden}.product:before{content:"";display:block;width:46px;height:5px;border-radius:99px;background:linear-gradient(90deg,#ff7042,#ffb35d,#24c6a8);margin-bottom:14px}.product button{background:#fff0e8;color:#be4e34}.product button:hover{background:#ffe3d5}
+.channel{background:linear-gradient(140deg,#202960,#b8503d 57%,#128f83);box-shadow:0 22px 58px rgba(112,56,64,.2)}
+.status{background:#e7fbf6;color:#07876f}.status.warn{background:#fff0db;color:#a65d0b}
+.footer{background:linear-gradient(105deg,#182043,#30377c 58%,#126f72)}
+.support-qr{display:block;width:min(100%,180px);margin:18px auto 0;border-radius:14px;border:1px solid #e0e3f6;box-shadow:0 10px 28px rgba(47,55,120,.12)}
