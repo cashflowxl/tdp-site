@@ -241,7 +241,7 @@
         </div>
         <aside class="checkout checkout--summary">
           <div><span class="summary-kicker">SERVICE CONFIRMATION</span><div class="checkout-title">确认方案后再安排开通</div><div class="summary-plan">服务范围、价格与交付安排</div><ul class="summary-list"><li>先由技术支持确认适用方案与服务范围</li><li>付款与人工核对仅在独立确认步骤展示</li><li>不在首页展示个人收款二维码或支付信息</li></ul></div>
-          <div class="checkout-action"><a class="btn btn-primary" href="#support">联系技术支持确认</a><small>请勿在公开页面提交密码、验证码或登录凭据。</small></div>
+          <div class="checkout-action"><a class="btn btn-primary" id="launchPayment" href="/lingdi-payment.html?plan=plus">发起支付</a><small>进入独立结算页核对方案、金额与付款方式。</small></div>
         </aside>
       </div>
     </div>
@@ -324,6 +324,8 @@
       const stateLabel = button.querySelector('.choice-state');
       if(stateLabel) stateLabel.textContent = active ? '已选择' : '选择';
     });
+    const paymentLink = document.getElementById('launchPayment');
+    if(paymentLink) paymentLink.href = '/lingdi-payment.html?plan=' + encodeURIComponent(id);
   }
 
   const initialCard = document.querySelector('.plan.selected');
