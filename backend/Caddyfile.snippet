@@ -1,0 +1,6 @@
+# Add this as a separate site block only after api.terradigitalpower.com has
+# been created in DNS and HTTPS can be issued for that hostname.
+api.terradigitalpower.com {
+  encode zstd gzip
+  reverse_proxy 127.0.0.1:8787
+}

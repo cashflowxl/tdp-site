@@ -1,0 +1,17 @@
+services:
+  lingdi-operations-api:
+    build: .
+    container_name: lingdi-operations-api
+    restart: unless-stopped
+    env_file: .env
+    environment:
+      HOST: 0.0.0.0
+      PORT: 8787
+      DATABASE_PATH: /data/lingdi.sqlite
+    ports:
+      - "127.0.0.1:8787:8787"
+    volumes:
+      - lingdi_operations_data:/data
+
+volumes:
+  lingdi_operations_data:
