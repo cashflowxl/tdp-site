@@ -17,7 +17,7 @@
   <main>
     <section class="hero"><div class="wrap"><div class="kicker">CONNECTED ORDER TEST</div><h1>创建测试订单，<br>在后台处理。</h1><p class="sub">本页会把订单写入领地 AI 的测试数据库。仅填写订单通知邮箱；请勿输入任何 ChatGPT 密码、验证码、Cookie、Session 或令牌。</p></div></section>
     <section class="section"><div class="wrap grid"><article class="panel form"><h2>1. 选择服务方案</h2><div class="choice" id="serviceChoices"></div><div class="fields"><div class="field wide"><label for="email">订单通知邮箱</label><input id="email" type="email" placeholder="name@example.com" autocomplete="email"></div></div><button id="createOrder" class="button">创建订单并进入付款核对</button><p id="message" class="muted" role="status"></p></article>
-      <aside class="panel"><h2>测试规则</h2><p>订单创建后会在管理后台“订单队列”中出现，初始状态为“待付款核对”。运营人员核实到账后，将状态改为“待履约”；然后由你们独立在天策完成采购和交付。</p><p class="note">临时二维码仅用于过渡期人工核对，不是企业自动支付。</p></aside></div></section>
+      <aside class="panel"><h2>测试规则</h2><p>订单创建后会在管理后台“订单队列”中出现，初始状态为“待付款核对”。运营人员核实到账后，将状态改为“待履约”；后续采购与交付由内部运营流程处理。</p><p class="note">临时二维码仅用于过渡期人工核对，不是企业自动支付。</p></aside></div></section>
     <section class="section order-created" id="created"><div class="wrap panel"><span class="status warn">订单已写入测试数据库</span><h2 id="orderTitle"></h2><p id="orderInfo"></p><div class="qr"><div><h3>微信付款核对</h3><img src="/wechat-temporary-payment.jpg" alt="临时微信付款二维码"></div><div><h3>支付宝付款核对</h3><img src="/alipay-temporary-payment.jpg" alt="临时支付宝付款二维码"></div></div><p class="muted">付款后，把订单号和付款截图交给王明帅人工核对；请勿发送任何账户登录凭据。</p><a id="lookupLink" class="button light" href="/lingdi-orders.html">查询订单进度</a></div></section>
   </main>
   <script>
