@@ -34,6 +34,13 @@ SERVICES = {
     "gpt20": {"name": "GPT 20X", "amountCents": 129800},
 }
 
+PRODUCT_SEEDS = (
+    ("plus", "ChatGPT Plus 1个月开通", "AI 工具开通支持", 13800, "上架"),
+    ("gpt5", "GPT 5X 开通", "AI 工具开通支持", 79800, "上架"),
+    ("gpt20", "GPT 20X 开通", "AI 工具开通支持", 129800, "上架"),
+)
+PARTNER_TIERS = ("启航合伙人", "进阶合伙人", "领航合伙人")
+
 
 def now():
     return datetime.now(timezone.utc).isoformat()
@@ -111,7 +118,37 @@ def initialise_database():
             id INTEGER PRIMARY KEY AUTOINCREMENT, type TEXT NOT NULL,
             channel_id TEXT, order_id TEXT, created_at TEXT NOT NULL
           );
+          CREATE TABLE IF NOT EXISTS products (
+            id TEXT PRIMARY KEY, name TEXT NOT NULL, category TEXT NOT NULL,
+            list_price_cents INTEGER NOT NULL, status TEXT NOT NULL DEFAULT '上架',
+            stock_note TEXT NOT NULL DEFAULT '人工核对', updated_at TEXT NOT NULL
+          );
+          CREATE TABLE IF NOT EXISTS partner_applications (
+            id TEXT PRIMARY KEY, name TEXT NOT NULL, contact TEXT NOT NULL,
+            tier TEXT NOT NULL, status TEXT NOT NULL DEFAULT '待处理',
+            channel_id TEXT, created_at TEXT NOT NULL, updated_at TEXT NOT NULL,
+            FOREIGN KEY(channel_id) REFERENCES channels(id)
+          );
+          CREATE TABLE IF NOT EXISTS commissions (
+            id TEXT PRIMARY KEY, channel_id TEXT NOT NULL, order_id TEXT NOT NULL,
+            amount_cents INTEGER NOT NULL, status TEXT NOT NULL DEFAULT '待结算',
+            created_at TEXT NOT NULL, updated_at TEXT NOT NULL,
+            FOREIGN KEY(channel_id) REFERENCES channels(id),
+            FOREIGN KEY(order_id) REFERENCES orders(id)
+          );
         """)
+        # Safe additive migrations for databases created by the earlier prototype.
+        existing = {row[1] for row in db.execute("PRAGMA table_info(channels)")}
+        for column, definition in (
+            ("tier", "TEXT NOT NULL DEFAULT '启航合伙人'"),
+            ("invite_code", "TEXT"),
+            ("commission_rate_bps", "INTEGER NOT NULL DEFAULT 1000"),
+            ("updated_at", "TEXT"),
+        ):
+            if column not in existing:
+                db.execute(f"ALTER TABLE channels ADD COLUMN {column} {definition}")
+        for product in PRODUCT_SEEDS:
+            db.execute("INSERT OR IGNORE INTO products(id,name,category,list_price_cents,status,stock_note,updated_at) VALUES(?,?,?,?,?,?,?)", (*product, "人工核对", now()))
 
 
 def exists_active_channel(channel_id):
@@ -119,6 +156,29 @@ def exists_active_channel(channel_id):
         return None
     with connection() as db:
         return channel_id if db.execute("SELECT 1 FROM channels WHERE id=? AND status='active'", (channel_id,)).fetchone() else None
+
+
+def admin_payload(db):
+    summary = {
+        "orders": db.execute("SELECT COUNT(*) FROM orders").fetchone()[0],
+        "pendingOrders": db.execute("SELECT COUNT(*) FROM orders WHERE status IN ('待付款核对','待履约')").fetchone()[0],
+        "openTickets": db.execute("SELECT COUNT(*) FROM tickets WHERE status != '已关闭'").fetchone()[0],
+        "visits": db.execute("SELECT COUNT(*) FROM events WHERE type='visit'").fetchone()[0],
+        "activeProducts": db.execute("SELECT COUNT(*) FROM products WHERE status='上架'").fetchone()[0],
+        "activeChannels": db.execute("SELECT COUNT(*) FROM channels WHERE status='active'").fetchone()[0],
+        "pendingPartners": db.execute("SELECT COUNT(*) FROM partner_applications WHERE status='待处理'").fetchone()[0],
+        "pendingCommissions": db.execute("SELECT COALESCE(SUM(amount_cents),0) FROM commissions WHERE status='待结算'").fetchone()[0],
+    }
+    return {
+        "summary": summary,
+        "recentOrders": [dict(row) for row in db.execute("SELECT id,service_name,amount_cents,channel_id,status,created_at FROM orders ORDER BY created_at DESC LIMIT 50")],
+        "tickets": [dict(row) for row in db.execute("SELECT id,order_id,category,contact,status,created_at FROM tickets ORDER BY created_at DESC LIMIT 50")],
+        "products": [dict(row) for row in db.execute("SELECT id,name,category,list_price_cents,status,stock_note,updated_at FROM products ORDER BY list_price_cents")],
+        "channels": [dict(row) for row in db.execute("SELECT id,name,status,tier,invite_code,commission_rate_bps,created_at,updated_at FROM channels ORDER BY created_at DESC LIMIT 50")],
+        "partnerApplications": [dict(row) for row in db.execute("SELECT id,name,contact,tier,status,channel_id,created_at FROM partner_applications ORDER BY created_at DESC LIMIT 50")],
+        "commissions": [dict(row) for row in db.execute("SELECT c.id,c.channel_id,ch.name AS channel_name,c.order_id,c.amount_cents,c.status,c.created_at FROM commissions c LEFT JOIN channels ch ON ch.id=c.channel_id ORDER BY c.created_at DESC LIMIT 100")],
+        "access": {"username": ADMIN_USERNAME, "role": "超级管理员", "permissions": ["订单", "售后", "服务方案", "渠道代理", "合伙人资格", "佣金台账", "页面运营"]},
+    }
 
 
 class Handler(BaseHTTPRequestHandler):
@@ -199,19 +259,11 @@ class Handler(BaseHTTPRequestHandler):
             if not self.require_admin():
                 return
             with connection() as db:
-                summary = {
-                    "orders": db.execute("SELECT COUNT(*) FROM orders").fetchone()[0],
-                    "pendingOrders": db.execute("SELECT COUNT(*) FROM orders WHERE status IN ('待付款核对','待履约')").fetchone()[0],
-                    "openTickets": db.execute("SELECT COUNT(*) FROM tickets WHERE status != '已关闭'").fetchone()[0],
-                    "visits": db.execute("SELECT COUNT(*) FROM events WHERE type='visit'").fetchone()[0],
-                }
-                result = {
-                    "summary": summary,
-                    "recentOrders": [dict(row) for row in db.execute("SELECT id,service_name,amount_cents,channel_id,status,created_at FROM orders ORDER BY created_at DESC LIMIT 50")],
-                    "tickets": [dict(row) for row in db.execute("SELECT id,order_id,category,contact,status,created_at FROM tickets ORDER BY created_at DESC LIMIT 50")],
-                    "channels": [dict(row) for row in db.execute("SELECT id,name,status,created_at FROM channels ORDER BY created_at DESC LIMIT 50")],
-                }
-            return self.send_json(200, result)
+                return self.send_json(200, admin_payload(db))
+        if parsed.path == "/api/admin/access":
+            if not self.require_admin():
+                return
+            return self.send_json(200, {"username": ADMIN_USERNAME, "role": "超级管理员", "permissions": ["订单", "售后", "服务方案", "渠道代理", "合伙人资格", "佣金台账", "页面运营"]})
         return self.error_json(404, "接口不存在")
 
     def do_POST(self):
@@ -241,6 +293,12 @@ class Handler(BaseHTTPRequestHandler):
                 with connection() as db:
                     db.execute("INSERT INTO orders(id,service_code,service_name,amount_cents,customer_email,channel_id,status,created_at,updated_at) VALUES(?,?,?,?,?,?,?,?,?)", (order_id, payload["serviceCode"], service["name"], service["amountCents"], email, channel_id, "待付款核对", created_at, created_at))
                     db.execute("INSERT INTO events(type,channel_id,order_id,created_at) VALUES(?,?,?,?)", ("order_created", channel_id, order_id, created_at))
+                    if channel_id:
+                        channel = db.execute("SELECT commission_rate_bps FROM channels WHERE id=?", (channel_id,)).fetchone()
+                        if channel:
+                            commission_id = new_id("COM")
+                            amount = max(0, service["amountCents"] * channel["commission_rate_bps"] // 10000)
+                            db.execute("INSERT INTO commissions(id,channel_id,order_id,amount_cents,status,created_at,updated_at) VALUES(?,?,?,?,?,?,?)", (commission_id, channel_id, order_id, amount, "待结算", created_at, created_at))
                 return self.send_json(201, {"id": order_id, "status": "待付款核对", "serviceName": service["name"], "amountCents": service["amountCents"]})
             if parsed.path == "/api/public/tickets":
                 contact = payload.get("contact", "").strip() if isinstance(payload.get("contact"), str) else ""
@@ -260,10 +318,27 @@ class Handler(BaseHTTPRequestHandler):
                 name = payload.get("name", "").strip() if isinstance(payload.get("name"), str) else ""
                 if not name or len(name) > 80:
                     return self.error_json(400, "请填写渠道名称")
+                tier = payload.get("tier", "启航合伙人").strip() if isinstance(payload.get("tier"), str) else "启航合伙人"
+                rate = payload.get("commissionRateBps", 1000)
+                if tier not in PARTNER_TIERS or not isinstance(rate, int) or rate < 0 or rate > 5000:
+                    return self.error_json(400, "合伙人档位或佣金比例不合法")
                 channel_id, created_at = f"LD-{secrets.token_hex(4).upper()}", now()
+                invite_code = f"LD{secrets.token_hex(3).upper()}"
                 with connection() as db:
-                    db.execute("INSERT INTO channels(id,name,status,created_at) VALUES(?,?,?,?)", (channel_id, name, "active", created_at))
-                return self.send_json(201, {"id": channel_id, "name": name, "status": "active"})
+                    db.execute("INSERT INTO channels(id,name,status,created_at,tier,invite_code,commission_rate_bps,updated_at) VALUES(?,?,?,?,?,?,?,?)", (channel_id, name, "active", created_at, tier, invite_code, rate, created_at))
+                return self.send_json(201, {"id": channel_id, "name": name, "status": "active", "tier": tier, "inviteCode": invite_code})
+            if parsed.path == "/api/admin/partner-applications":
+                if not self.require_admin():
+                    return
+                name = payload.get("name", "").strip() if isinstance(payload.get("name"), str) else ""
+                contact = payload.get("contact", "").strip() if isinstance(payload.get("contact"), str) else ""
+                tier = payload.get("tier", "").strip() if isinstance(payload.get("tier"), str) else ""
+                if not name or not contact or len(name) > 80 or len(contact) > 160 or tier not in PARTNER_TIERS:
+                    return self.error_json(400, "请完整填写合伙人信息和档位")
+                item_id, created_at = new_id("PAR"), now()
+                with connection() as db:
+                    db.execute("INSERT INTO partner_applications(id,name,contact,tier,status,created_at,updated_at) VALUES(?,?,?,?,?,?,?)", (item_id, name, contact, tier, "待处理", created_at, created_at))
+                return self.send_json(201, {"id": item_id, "status": "待处理"})
             return self.error_json(404, "接口不存在")
         except ValueError as exc:
             return self.error_json(400, str(exc))
@@ -273,7 +348,7 @@ class Handler(BaseHTTPRequestHandler):
 
     def do_PATCH(self):
         parsed = urlparse(self.path)
-        match = re.match(r"^/api/admin/(orders|tickets)/([^/]+)$", parsed.path)
+        match = re.match(r"^/api/admin/(orders|tickets|products|channels|partner-applications|commissions)/([^/]+)$", parsed.path)
         if not match:
             return self.error_json(404, "接口不存在")
         if not self.require_admin():
@@ -282,11 +357,37 @@ class Handler(BaseHTTPRequestHandler):
             payload = self.body()
             table, item_id = match.group(1), unquote(match.group(2))
             status = payload.get("status", "").strip() if isinstance(payload.get("status"), str) else ""
-            allowed = ["待付款核对", "待履约", "已交付", "已关闭"] if table == "orders" else ["待处理", "处理中", "已关闭"]
-            if status not in allowed:
+            allowed_statuses = {
+                "orders": ["待付款核对", "待履约", "已交付", "已关闭"],
+                "tickets": ["待处理", "处理中", "已关闭"],
+                "products": ["上架", "下架"],
+                "channels": ["active", "paused"],
+                "partner-applications": ["待处理", "已开通", "已拒绝", "已暂停"],
+                "commissions": ["待结算", "已结算", "已暂停"],
+            }
+            if status not in allowed_statuses[table]:
                 return self.error_json(400, "状态不合法")
             with connection() as db:
-                cursor = db.execute(f"UPDATE {table} SET status=?, updated_at=? WHERE id=?", (status, now(), item_id))
+                if table == "channels":
+                    rate = payload.get("commissionRateBps")
+                    if rate is not None and (not isinstance(rate, int) or rate < 0 or rate > 5000):
+                        return self.error_json(400, "佣金比例不合法")
+                    cursor = db.execute("UPDATE channels SET status=?, commission_rate_bps=COALESCE(?,commission_rate_bps), updated_at=? WHERE id=?", (status, rate, now(), item_id))
+                elif table == "products":
+                    price = payload.get("listPriceCents")
+                    note = payload.get("stockNote")
+                    if price is not None and (not isinstance(price, int) or price < 0 or price > 100000000):
+                        return self.error_json(400, "价格不合法")
+                    if note is not None and (not isinstance(note, str) or len(note.strip()) > 80):
+                        return self.error_json(400, "库存说明不合法")
+                    cursor = db.execute("UPDATE products SET status=?, list_price_cents=COALESCE(?,list_price_cents), stock_note=COALESCE(?,stock_note), updated_at=? WHERE id=?", (status, price, note.strip() if isinstance(note, str) else None, now(), item_id))
+                elif table == "partner-applications":
+                    channel_id = payload.get("channelId") if isinstance(payload.get("channelId"), str) else None
+                    if channel_id and not exists_active_channel(channel_id):
+                        return self.error_json(400, "渠道不存在或未启用")
+                    cursor = db.execute("UPDATE partner_applications SET status=?, channel_id=COALESCE(?,channel_id), updated_at=? WHERE id=?", (status, channel_id, now(), item_id))
+                else:
+                    cursor = db.execute(f"UPDATE {table} SET status=?, updated_at=? WHERE id=?", (status, now(), item_id))
             if not cursor.rowcount:
                 return self.error_json(404, "记录不存在")
             return self.send_json(200, {"ok": True, "id": item_id, "status": status})
