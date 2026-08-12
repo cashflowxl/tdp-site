@@ -1,0 +1,17 @@
+[Unit]
+Description=Lingdi AI internal operations test API
+After=network.target
+
+[Service]
+Type=simple
+User=root
+WorkingDirectory=/opt/lingdi-operations-api/backend
+EnvironmentFile=/etc/lingdi-operations-api.env
+ExecStart=/usr/bin/python3 /opt/lingdi-operations-api/backend/server.py
+Restart=on-failure
+RestartSec=3
+NoNewPrivileges=true
+PrivateTmp=true
+
+[Install]
+WantedBy=multi-user.target
