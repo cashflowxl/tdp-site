@@ -189,7 +189,7 @@
 <header class="nav">
   <div class="wrap">
     <a class="brand" href="/" aria-label="领地 AI 首页"><span class="badge">AI</span><span class="brand-name">领地 AI<small>AI 应用落地服务</small></span></a>
-    <nav class="nav-links" aria-label="页面导航"><a href="#service">服务</a><a href="/lingdi-partner.html">渠道代理</a><a href="/lingdi-supplier.html">供应协作</a><a href="/lingdi-account.html">个人中心</a><a href="#support">售后</a><a class="nav-cta" href="#plans">选择方案</a></nav>
+    <nav class="nav-links" aria-label="页面导航"><a href="#service">服务</a><a href="/lingdi-partner.html">渠道代理</a><a href="/lingdi-supplier.html">供应协作</a><a href="/lingdi-account.html">个人中心</a><a href="#support">售后</a><a class="nav-cta" href="/lingdi-live-test.html">创建订单</a></nav>
   </div>
 </header>
 <main>
@@ -198,8 +198,8 @@
       <p class="eyebrow">AI SERVICE ACCESS</p>
       <h1>把开通前的事情，<span>一次说清。</span></h1>
       <p class="hero-copy">领地 AI 为个人与小团队提供第三方 AI 工具的服务说明、使用场景梳理、选择指引与售后协调入口。你可以在本页完成方案与支付方式预览，正式收款能力将在主体和支付服务确认后另行接入。</p>
-      <div class="hero-actions"><a class="btn btn-primary" href="#plans">开始选择</a><a class="btn btn-secondary" href="#support">联系王明帅售后</a><a class="btn btn-secondary" href="#risk">先看风险提示</a></div>
-      <p class="trust-note"><strong>服务边界：</strong>本页不收款、不创建订单、不收集客户资料，也不接入支付 SDK、API、商户号或支付密钥。微信支付与支付宝仅为前端方式预览。</p>
+      <div class="hero-actions"><a class="btn btn-primary" href="/lingdi-live-test.html">创建订单</a><a class="btn btn-secondary" href="#support">联系王明帅售后</a><a class="btn btn-secondary" href="#risk">先看风险提示</a></div>
+      <p class="trust-note"><strong>服务边界：</strong>本页提供方案说明；点击“创建订单”会进入独立测试下单页并写入订单数据库。支付仍是人工核对，不接入支付 SDK、商户号或支付密钥。</p>
       <div class="flow" aria-label="开通流程">
         <div class="flow-item"><span class="flow-num">STEP 01</span><strong>理解服务</strong><p>确认领地 AI 的商品说明、支付状态与服务边界。</p></div>
         <div class="flow-item"><span class="flow-num">STEP 02</span><strong>选择场景</strong><p>按使用频率和协作方式做初步选择。</p></div>
@@ -234,7 +234,7 @@
         </div>
         <aside class="checkout checkout--summary" aria-live="polite">
           <div><span class="summary-kicker">ORDER PREVIEW</span><div class="checkout-title">当前选择</div><div class="summary-plan" id="selectedPlan" data-target-plan>ChatGPT Plus 1个月 · ¥138</div><ul class="summary-list"><li>不自动创建订单或确认到账</li><li>不会收集账号密码、验证码或登录凭据</li><li>当前为个人收款码，企业支付待接入</li></ul><div class="payment-preview"><div class="payment-preview-title">临时支付方式 <span>人工核对</span></div><div class="payment-methods" role="group" aria-label="临时支付方式"><button class="payment-method" type="button" data-payment-method="wechat" aria-pressed="true">微信支付<small>扫码后人工核对</small></button><button class="payment-method" type="button" data-payment-method="alipay" aria-pressed="false">支付宝<small>扫码后人工核对</small></button></div><p class="payment-status"><strong>当前选择：<span data-target-payment>微信支付</span></strong><br>付款前请核对金额；本页不含支付接口、商户号或自动回调。</p></div><div class="temporary-payment"><h4>临时个人收款码</h4><p>仅作过渡使用，不代表企业收款主体。付款后请联系售后，提供付款时间、金额和不含敏感信息的截图。</p><img class="payment-qr" data-payment-qr="wechat" src="/wechat-temporary-payment.jpg" alt="微信临时个人收款码"><img class="payment-qr" data-payment-qr="alipay" src="/alipay-temporary-payment.jpg" alt="支付宝临时个人收款码" hidden><div class="payment-reference">付款备注建议：领地 AI + 当前方案名称</div></div></div>
-          <div class="checkout-action"><a class="btn btn-primary" href="#support">我已付款，联系售后核对</a><small>临时人工核对，不自动发货或确认到账。</small></div>
+          <div class="checkout-action"><a class="btn btn-primary" href="/lingdi-live-test.html">创建订单并进入核对</a><small>临时人工核对，不自动发货或确认到账。</small></div>
         </aside>
       </div>
     </div>
