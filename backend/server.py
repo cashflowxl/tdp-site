@@ -7,12 +7,14 @@ manual until the company has compliant merchant-payment and supplier access.
 """
 
 import hmac
+import hashlib
 import json
 import os
 import re
 import secrets
 import sqlite3
 from datetime import datetime, timezone
+from base64 import urlsafe_b64decode, urlsafe_b64encode
 from http.server import BaseHTTPRequestHandler, ThreadingHTTPServer
 from pathlib import Path
 from urllib.parse import parse_qs, unquote, urlparse
@@ -21,6 +23,9 @@ HOST = os.getenv("HOST", "127.0.0.1")
 PORT = int(os.getenv("PORT", "8787"))
 DATABASE_PATH = Path(os.getenv("DATABASE_PATH", Path(__file__).parent / "data" / "lingdi.sqlite"))
 ADMIN_TOKEN = os.getenv("ADMIN_TOKEN", "")
+ADMIN_USERNAME = os.getenv("ADMIN_USERNAME", "admin")
+ADMIN_PASSWORD_HASH = os.getenv("ADMIN_PASSWORD_HASH", "")
+AUTH_SECRET = os.getenv("AUTH_SECRET", "")
 ALLOWED_ORIGINS = {value.strip() for value in os.getenv("ALLOWED_ORIGINS", "http://127.0.0.1:4174").split(",") if value.strip()}
 
 SERVICES = {
@@ -36,6 +41,41 @@ def now():
 
 def new_id(prefix):
     return f"{prefix}-{datetime.now(timezone.utc).strftime('%Y%m%d')}-{secrets.token_hex(4).upper()}"
+
+
+def password_matches(password):
+    """Verify a PBKDF2 password stored as pbkdf2_sha256$iterations$salt$hash."""
+    try:
+        scheme, iterations, salt, expected = ADMIN_PASSWORD_HASH.split("$", 3)
+        if scheme != "pbkdf2_sha256":
+            return False
+        digest = hashlib.pbkdf2_hmac("sha256", password.encode(), salt.encode(), int(iterations))
+        return hmac.compare_digest(urlsafe_b64encode(digest).decode().rstrip("="), expected)
+    except (AttributeError, ValueError):
+        return False
+
+
+def issue_session():
+    if not AUTH_SECRET:
+        return ""
+    payload = json.dumps({"sub": ADMIN_USERNAME, "nonce": secrets.token_urlsafe(12)}, separators=(",", ":")).encode()
+    encoded = urlsafe_b64encode(payload).decode().rstrip("=")
+    signature = hmac.new(AUTH_SECRET.encode(), encoded.encode(), hashlib.sha256).digest()
+    return f"v1.{encoded}.{urlsafe_b64encode(signature).decode().rstrip('=')}"
+
+
+def session_matches(token):
+    try:
+        version, encoded, signature = token.split(".", 2)
+        if version != "v1" or not AUTH_SECRET:
+            return False
+        expected = urlsafe_b64encode(hmac.new(AUTH_SECRET.encode(), encoded.encode(), hashlib.sha256).digest()).decode().rstrip("=")
+        if not hmac.compare_digest(signature, expected):
+            return False
+        payload = json.loads(urlsafe_b64decode(encoded + "=" * (-len(encoded) % 4)))
+        return payload.get("sub") == ADMIN_USERNAME
+    except (ValueError, json.JSONDecodeError):
+        return False
 
 
 def connection():
@@ -128,8 +168,12 @@ class Handler(BaseHTTPRequestHandler):
 
     def is_admin(self):
         supplied = self.headers.get("Authorization", "")
-        expected = f"Bearer {ADMIN_TOKEN}"
-        return bool(ADMIN_TOKEN) and hmac.compare_digest(supplied, expected)
+        if not supplied.startswith("Bearer "):
+            return False
+        token = supplied.removeprefix("Bearer ")
+        # ADMIN_TOKEN remains valid only as a migration fallback. New browser
+        # sessions are created by /api/admin/login with a password hash.
+        return (bool(ADMIN_TOKEN) and hmac.compare_digest(token, ADMIN_TOKEN)) or session_matches(token)
 
     def require_admin(self):
         if self.is_admin():
@@ -174,6 +218,14 @@ class Handler(BaseHTTPRequestHandler):
         parsed = urlparse(self.path)
         try:
             payload = self.body()
+            if parsed.path == "/api/admin/login":
+                username = payload.get("username", "").strip() if isinstance(payload.get("username"), str) else ""
+                password = payload.get("password", "") if isinstance(payload.get("password"), str) else ""
+                if not ADMIN_PASSWORD_HASH or not AUTH_SECRET:
+                    return self.error_json(503, "管理员账号尚未完成服务器配置")
+                if not hmac.compare_digest(username, ADMIN_USERNAME) or not password_matches(password):
+                    return self.error_json(401, "用户名或密码不正确")
+                return self.send_json(200, {"token": issue_session(), "username": ADMIN_USERNAME})
             if parsed.path == "/api/public/events/visit":
                 channel_id = exists_active_channel(payload.get("channelId") if isinstance(payload.get("channelId"), str) else None)
                 with connection() as db:
