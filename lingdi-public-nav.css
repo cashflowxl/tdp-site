@@ -1,10 +1,10 @@
 /* Shared public navigation. Internal test/admin pages deliberately do not load this file. */
-.nav.lingdi-public-nav{height:auto;min-height:76px;background:rgba(255,255,255,.9);border-bottom:1px solid rgba(0,0,0,.08);backdrop-filter:blur(18px);box-shadow:0 8px 28px rgba(0,0,0,.035)}
-.nav.lingdi-public-nav .wrap{width:min(1440px,calc(100% - 64px));min-height:76px;height:auto;display:flex;align-items:center;justify-content:space-between;gap:28px}
-.lingdi-public-brand{display:flex;align-items:center;gap:11px;min-width:0;font-size:16px;font-weight:800;letter-spacing:-.025em}
-.lingdi-public-brand .logo{display:grid;place-items:center;width:34px;height:34px;border-radius:10px;background:#1d1d1f;color:#f7bd4e;font-size:11px;font-weight:900;letter-spacing:-.04em}
-.lingdi-public-brand small{display:block;margin:2px 0 0;color:#6e6e73;font-size:10px;font-weight:750;letter-spacing:.06em}
-.lingdi-public-nav .lingdi-nav-links{display:flex;align-items:center;justify-content:flex-end;gap:clamp(16px,2vw,32px);color:#4d4d51;font-size:13px;font-weight:650}
+.nav.lingdi-public-nav{position:sticky;top:0;z-index:20;height:auto;min-height:78px;background:rgba(255,255,255,.94);border-bottom:1px solid #e4e4e7;backdrop-filter:blur(18px);box-shadow:0 1px 0 rgba(0,0,0,.02)}
+.nav.lingdi-public-nav .wrap{width:min(1440px,calc(100% - 64px));min-height:78px;height:auto;display:flex;align-items:center;justify-content:space-between;gap:32px}
+.lingdi-public-brand{display:flex;align-items:center;gap:12px;min-width:0;color:#191919;font-family:"SF Pro Display","PingFang SC","Helvetica Neue",Arial,sans-serif;font-size:18px;font-weight:850;letter-spacing:-.035em}
+.lingdi-public-brand .logo{display:grid;place-items:center;width:38px;height:38px;border-radius:11px;background:#1d1d1f;color:#f7bd4e;font-family:inherit;font-size:12px;font-weight:900;letter-spacing:-.06em}
+.lingdi-public-brand small{display:block;margin:3px 0 0;color:#6e6e73;font-family:"SF Pro Display","PingFang SC","Helvetica Neue",Arial,sans-serif;font-size:10px;font-weight:800;letter-spacing:.075em}
+.lingdi-public-nav .lingdi-nav-links{display:flex;align-items:center;justify-content:flex-end;gap:clamp(18px,2.2vw,34px);color:#424245;font-family:"SF Pro Display","PingFang SC","Helvetica Neue",Arial,sans-serif;font-size:.9rem;font-weight:800;letter-spacing:-.01em}
 .lingdi-public-nav .lingdi-nav-links a{min-height:44px;display:inline-flex;align-items:center;white-space:nowrap}
 .lingdi-public-nav .lingdi-nav-links a:hover,.lingdi-public-nav .lingdi-nav-links a[aria-current="page"]{color:#1d1d1f}
-@media(max-width:760px){.nav.lingdi-public-nav{min-height:64px}.nav.lingdi-public-nav .wrap{width:calc(100% - 30px);min-height:64px;gap:14px}.lingdi-public-brand .logo{width:30px;height:30px;border-radius:9px}.lingdi-public-brand small{display:none}.lingdi-public-nav .lingdi-nav-links{gap:15px;font-size:12px}.lingdi-public-nav .lingdi-nav-links a:nth-child(-n+3){display:none}}
+@media(max-width:760px){.nav.lingdi-public-nav{min-height:64px}.nav.lingdi-public-nav .wrap{width:calc(100% - 30px);min-height:64px;gap:14px}.lingdi-public-brand{font-size:16px}.lingdi-public-brand .logo{width:32px;height:32px;border-radius:9px}.lingdi-public-brand small{display:none}.lingdi-public-nav .lingdi-nav-links{gap:15px;font-size:12px}.lingdi-public-nav .lingdi-nav-links a:nth-child(-n+3){display:none}}
