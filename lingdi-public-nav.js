@@ -1,5 +1,14 @@
 (function(){
+  function ensurePublicNavigationStyles(){
+    if(document.querySelector('link[data-lingdi-public-nav]')) return;
+    var stylesheet = document.createElement('link');
+    stylesheet.rel = 'stylesheet';
+    stylesheet.href = '/lingdi-public-nav.css';
+    stylesheet.dataset.lingdiPublicNav = 'true';
+    document.head.appendChild(stylesheet);
+  }
   function setPublicNavigation(){
+    ensurePublicNavigationStyles();
     document.querySelectorAll('.nav').forEach(function(nav){
       if(document.body.dataset.lingdiInternal === 'true' || nav.dataset.publicNav === 'false') return;
       var current = location.pathname.replace(/^\//,'') || 'index.html';
