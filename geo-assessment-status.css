@@ -1,0 +1,18 @@
+.assessment-status{min-height:100svh;padding:150px 0 100px;background:#07110e;color:#f4f6f2}
+.assessment-status .shell{width:min(100% - 48px,980px)}
+.assessment-status h1{max-width:13ch;font-size:clamp(42px,6vw,76px);letter-spacing:-.055em;line-height:.98}
+.assessment-status .lead{max-width:680px;margin-top:26px;color:rgba(244,246,242,.7);line-height:1.7}
+.assessment-card{margin-top:60px;padding:34px 0;border-top:1px solid rgba(244,246,242,.25);border-bottom:1px solid rgba(244,246,242,.18)}
+.assessment-card p{color:rgba(244,246,242,.7);line-height:1.7}
+.assessment-card strong{display:block;margin-top:8px;font-size:clamp(28px,4vw,48px);line-height:1}
+.runs{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:20px;margin-top:38px}
+.runs article,.evidence article{padding:18px 0;border-top:1px solid rgba(244,246,242,.16)}
+.runs span,.evidence span{color:#c8ff3d;font:700 10px/1.4 ui-monospace,monospace;letter-spacing:.1em}
+.runs h2,.evidence h2{margin:12px 0 0;font-size:20px}
+.runs p,.evidence p{margin:8px 0 0;font-size:13px}
+.evidence{display:grid;gap:20px;margin-top:38px}
+.evidence h2{font-size:17px}
+.evidence pre{white-space:pre-wrap;word-break:break-word;margin:12px 0 0;color:rgba(244,246,242,.74);font:13px/1.7 ui-monospace,monospace}
+.notice{margin-top:30px;color:#c8ff3d}
+.error{color:#ffb4a4}
+@media(max-width:700px){.assessment-status{padding-top:110px}.runs{grid-template-columns:1fr}.assessment-card{margin-top:42px}}

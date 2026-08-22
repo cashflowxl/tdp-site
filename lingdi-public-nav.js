@@ -3,7 +3,7 @@
     if(document.querySelector('link[data-lingdi-public-nav],link[href*="/lingdi-public-nav.css"]')) return;
     var stylesheet=document.createElement('link');
     stylesheet.rel='stylesheet';
-    stylesheet.href='/lingdi-public-nav.css?v=20260822-navmobile2';
+    stylesheet.href='/lingdi-public-nav.css?v=20260822-navmobile3';
     stylesheet.dataset.lingdiPublicNav='true';
     document.head.appendChild(stylesheet);
   }
