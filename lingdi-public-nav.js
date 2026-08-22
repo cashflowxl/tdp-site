@@ -3,7 +3,7 @@
     if(document.querySelector('link[data-lingdi-public-nav],link[href*="/lingdi-public-nav.css"]')) return;
     var stylesheet=document.createElement('link');
     stylesheet.rel='stylesheet';
-    stylesheet.href='/lingdi-public-nav.css?v=20260822-navmobile3';
+    stylesheet.href='/lingdi-public-nav.css?v=20260822-navmobile4';
     stylesheet.dataset.lingdiPublicNav='true';
     document.head.appendChild(stylesheet);
   }
@@ -88,16 +88,28 @@
       drawer.setAttribute('aria-label',isEnglish?'Mobile navigation':'移动端导航');
       drawer.innerHTML=mobileLinks;
       nav.appendChild(drawer);
+      function closeMenu(){
+        menu.setAttribute('aria-expanded','false');
+        menu.setAttribute('aria-label',isEnglish?'Open navigation':'打开导航');
+        drawer.hidden=true;
+      }
       menu.addEventListener('click',function(){
         var open=menu.getAttribute('aria-expanded')!=='true';
         menu.setAttribute('aria-expanded',String(open));
+        menu.setAttribute('aria-label',open?(isEnglish?'Close navigation':'关闭导航'):(isEnglish?'Open navigation':'打开导航'));
         drawer.hidden=!open;
       });
       drawer.addEventListener('click',function(event){
-        if(event.target.closest('a')){
-          menu.setAttribute('aria-expanded','false');
-          drawer.hidden=true;
-        }
+        if(event.target.closest('a')) closeMenu();
+      });
+      document.addEventListener('pointerdown',function(event){
+        if(drawer.hidden || nav.contains(event.target)) return;
+        closeMenu();
+      });
+      document.addEventListener('keydown',function(event){
+        if(event.key!=='Escape' || drawer.hidden) return;
+        closeMenu();
+        menu.focus();
       });
     });
     if(immersive){

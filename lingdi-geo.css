@@ -426,9 +426,9 @@ footer{padding:54px 0 30px;background:var(--ink);color:#A9B8B3}
 .space-home .global-capabilities .section-tag{grid-column:1/-1}
 .space-home .global-capabilities .section-heading h2{font-size:clamp(48px,6vw,92px);letter-spacing:-.06em;line-height:.98}
 .space-home .global-capabilities .section-heading>p:last-child{font-size:clamp(16px,1.4vw,20px);line-height:1.85}
-.space-home .capability-grid{margin-top:clamp(70px,9vw,130px);gap:0;border-top:1px solid var(--line)}
-.space-home .capability-grid article{min-height:310px;padding:34px;border:0;border-right:1px solid var(--line);border-radius:0;background:transparent}
-.space-home .capability-grid article:first-child{border-left:1px solid var(--line)}
+.space-home .capability-grid{margin-top:clamp(70px,9vw,130px);gap:clamp(36px,5vw,84px);border:0}
+.space-home .capability-grid article{min-height:310px;padding:34px 0;border:0;border-radius:0;background:transparent}
+.space-home .capability-grid article:first-child{border:0}
 .space-home .market-scope-note{max-width:940px;margin-top:46px;padding:0 0 0 20px;background:transparent}
 
 @media(max-width:980px){
@@ -457,8 +457,8 @@ footer{padding:54px 0 30px;background:var(--ink);color:#A9B8B3}
   .space-home .global-capabilities .section-heading{display:block}
   .space-home .global-capabilities .section-heading h2{margin-top:14px;font-size:42px;line-height:1.02}
   .space-home .global-capabilities .section-heading>p:last-child{margin-top:28px;font-size:15px}
-  .space-home .capability-grid{margin-top:56px;border-top:1px solid var(--line)}
-  .space-home .capability-grid article,.space-home .capability-grid article:first-child{min-height:0;padding:28px 0;border-width:0 0 1px;border-style:solid;border-color:var(--line)}
+  .space-home .capability-grid{margin-top:56px;border:0}
+  .space-home .capability-grid article,.space-home .capability-grid article:first-child{min-height:0;padding:28px 0;border:0}
 }
 @media(prefers-reduced-motion:reduce){
   .space-hero-media video{display:none}
@@ -476,7 +476,7 @@ footer{padding:54px 0 30px;background:var(--ink);color:#A9B8B3}
 .space-scene-note{max-width:660px;margin:46px 0 0 auto;font-size:clamp(18px,1.8vw,27px);font-weight:560;line-height:1.65}
 .space-scene-light{background:var(--paper);color:var(--ink)}
 .space-scene-light .space-scene-index{color:var(--green);opacity:1}
-.space-scene-shift{position:relative;overflow:hidden;min-height:auto;padding:clamp(110px,12vw,176px) 0;background:linear-gradient(145deg,#07110e 0%,#0b1d18 54%,#050807 100%);color:#fff;border-top:1px solid rgba(255,255,255,.12)}
+.space-scene-shift{position:relative;overflow:hidden;min-height:auto;padding:clamp(110px,12vw,176px) 0;background:linear-gradient(145deg,#07110e 0%,#0b1d18 54%,#050807 100%);color:#fff;border:0}
 .space-scene-shift::before{content:"";position:absolute;inset:-24% -15% auto 38%;height:82%;pointer-events:none;background:radial-gradient(circle,rgba(46,142,108,.22),transparent 68%);filter:blur(14px)}
 .space-scene-shift .space-scene-inner{position:relative;z-index:1}
 .space-scene-shift .space-scene-index{color:var(--signal);opacity:1}
@@ -485,7 +485,7 @@ footer{padding:54px 0 30px;background:var(--ink);color:#A9B8B3}
 .space-shift-evidence{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:clamp(28px,4vw,74px);margin-top:clamp(70px,8vw,118px)}
 .space-shift-evidence article{position:relative;min-height:260px;padding:0;background:transparent}
 .space-shift-evidence article:last-child{border-right:0}
-.space-shift-evidence article::before{content:"";position:absolute;top:0;left:0;width:28px;height:1px;background:var(--signal)}
+.space-shift-evidence article::before{content:none}
 .space-shift-evidence span{display:block;color:rgba(255,255,255,.58);font:750 10px/1.4 var(--mono);letter-spacing:.12em;text-transform:uppercase}
 .space-shift-evidence strong{display:block;margin-top:48px;color:#fff;font-size:clamp(42px,4vw,68px);line-height:.9;letter-spacing:-.055em}
 .space-shift-evidence p{min-height:3.4em;margin:22px 0 0;color:#b8c8c2;font-size:13px;line-height:1.65}
@@ -507,12 +507,12 @@ footer{padding:54px 0 30px;background:var(--ink);color:#A9B8B3}
 .space-method-meta{display:grid;grid-template-columns:minmax(0,.82fr) minmax(0,1.15fr) auto;gap:clamp(34px,5vw,80px);align-items:end;margin-top:clamp(58px,7vw,92px);color:#AFC0BA;font-size:13px;line-height:1.8}
 .space-method-meta a{color:#fff;font-weight:800;white-space:nowrap;border:0}
 
-.space-services{position:relative;min-height:100vh;display:flex;align-items:center;padding:clamp(110px,12vw,170px) 0;background:radial-gradient(circle at 72% 18%,rgba(28,105,82,.2),transparent 34%),linear-gradient(145deg,#050807,#07110e 60%,#050807);color:#fff;border-top:1px solid rgba(255,255,255,.14)}
+.space-services{position:relative;min-height:100vh;display:flex;align-items:center;padding:clamp(110px,12vw,170px) 0;background:radial-gradient(circle at 72% 18%,rgba(28,105,82,.2),transparent 34%),linear-gradient(145deg,#050807,#07110e 60%,#050807);color:#fff;border:0}
 .space-services-heading{display:grid;grid-template-columns:.6fr 1.4fr;gap:80px;align-items:end}
 .space-services-heading .space-scene-index{color:var(--signal);opacity:1}
 .space-services-heading h2{font-size:clamp(52px,6.4vw,96px)}
-.space-service-list{margin-top:clamp(60px,8vw,110px);border-top:1px solid var(--green)}
-.space-service-list>a{display:grid;grid-template-columns:54px minmax(0,1fr) minmax(170px,auto) 30px;gap:26px;align-items:center;padding:28px 4px;border-bottom:1px solid rgba(18,60,50,.25);transition:padding .2s ease,background .2s ease}
+.space-service-list{margin-top:clamp(60px,8vw,110px);border:0}
+.space-service-list>a{display:grid;grid-template-columns:54px minmax(0,1fr) minmax(170px,auto) 30px;gap:26px;align-items:center;padding:28px 4px;border:0;transition:padding .2s ease,background .2s ease}
 .space-service-list>a:hover,.space-service-list>a:focus-visible{padding-inline:18px;background:#fff}
 .space-service-list>a>span{color:var(--green);font:800 10px/1 var(--mono)}
 .space-service-list h3{font-size:clamp(25px,2.6vw,38px);line-height:1.1}
@@ -526,11 +526,11 @@ footer{padding:54px 0 30px;background:var(--ink);color:#A9B8B3}
 .space-final h2{max-width:14ch;margin-top:28px}
 .space-final-inner>p:not(.space-scene-index):not(.space-founder-line){margin-top:34px;color:#B8C7C2;font-size:clamp(17px,1.5vw,22px)}
 .space-final-actions{display:flex;align-items:center;gap:34px;margin-top:34px}
-.space-final-actions>a:last-child{padding-bottom:3px;border-bottom:1px solid rgba(255,255,255,.5);font-size:13px;font-weight:800}
+.space-final-actions>a:last-child{padding-bottom:3px;border:0;font-size:13px;font-weight:800}
 .space-cta-dark{border-color:var(--signal)}
-.space-founder-line{margin-top:clamp(80px,10vw,140px);padding-top:24px;border-top:1px solid rgba(255,255,255,.18);color:rgba(255,255,255,.72);font-size:12px;letter-spacing:.03em}
-.space-faq{display:grid;grid-template-columns:repeat(4,1fr);gap:0;margin-top:36px;border-top:1px solid rgba(255,255,255,.18)}
-.space-faq details{padding:22px 20px 22px 0;border-right:1px solid rgba(255,255,255,.14)}
+.space-founder-line{margin-top:clamp(80px,10vw,140px);padding-top:0;border:0;color:rgba(255,255,255,.72);font-size:12px;letter-spacing:.03em}
+.space-faq{display:grid;grid-template-columns:repeat(4,1fr);gap:clamp(22px,3vw,54px);margin-top:36px;border:0}
+.space-faq details{padding:22px 0;border:0}
 .space-faq details+details{padding-left:20px}
 .space-faq summary{cursor:pointer;color:#fff;font-size:12px;font-weight:800;list-style:none}
 .space-faq summary::-webkit-details-marker{display:none}
@@ -591,9 +591,9 @@ footer{padding:54px 0 30px;background:var(--ink);color:#A9B8B3}
   .space-service-list p{font-size:11.5px}
   .space-final{padding:100px 0 72px}
   .space-final-actions{align-items:flex-start;flex-direction:column;gap:22px}
-  .space-founder-line{margin-top:74px;line-height:1.7}
-  .space-faq{grid-template-columns:1fr;margin-top:28px}
-  .space-faq details,.space-faq details+details{padding:18px 0;border-right:0;border-bottom:1px solid rgba(255,255,255,.14)}
+  .space-founder-line{margin-top:74px;padding-top:0;border:0;line-height:1.7}
+  .space-faq{grid-template-columns:1fr;margin-top:28px;border:0}
+  .space-faq details,.space-faq details+details{padding:18px 0;border:0}
   .english-page.space-home .space-hero-inner{padding-top:35vh}
   .english-page.space-home .space-hero h1{max-width:15ch;font-size:clamp(38px,10.5vw,43px);line-height:.98}
   .english-page.space-home .space-hero h1>em{white-space:normal}

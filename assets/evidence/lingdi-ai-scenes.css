@@ -127,10 +127,10 @@
   right: 12px;
   bottom: 16px;
   z-index: 4;
-  padding: 7px 9px;
-  border-radius: 999px;
+  padding: 0;
+  border-radius: 0;
   color: rgba(244, 246, 242, 0.76);
-  background: rgba(5, 8, 7, 0.54);
+  background: transparent;
   font-family: "SFMono-Regular", Consolas, monospace;
   font-size: 9px;
   letter-spacing: .08em;
@@ -144,22 +144,46 @@
   bottom: 13px;
   z-index: 5;
   display: flex;
-  gap: 8px;
+  gap: 22px;
   transform: translateX(-50%);
 }
 
 .lingdi-ai-scenes__carousel-controls button {
-  width: 38px;
-  height: 38px;
-  border: 1px solid rgba(255,255,255,.38);
-  border-radius: 999px;
-  background: rgba(5,8,7,.62);
-  color: #fff;
-  font: 600 17px/1 sans-serif;
+  display: grid;
+  width: 44px;
+  height: 44px;
+  place-items: center;
+  padding: 0;
+  border: 0;
+  border-radius: 0;
+  background: transparent;
+  color: rgba(244,246,242,.88);
+  font: 400 24px/1 "Helvetica Neue",Arial,sans-serif;
+  cursor: pointer;
+  transition: color .2s ease,opacity .2s ease,transform .2s ease;
+}
+
+.lingdi-ai-scenes__carousel-controls button:first-child:hover,
+.lingdi-ai-scenes__carousel-controls button:first-child:focus-visible {
+  color: #c8ff3d;
+  transform: translateX(-3px);
+}
+
+.lingdi-ai-scenes__carousel-controls button:last-child:hover,
+.lingdi-ai-scenes__carousel-controls button:last-child:focus-visible {
+  color: #c8ff3d;
+  transform: translateX(3px);
+}
+
+.lingdi-ai-scenes__carousel-controls button:focus-visible {
+  outline: 1px solid #c8ff3d;
+  outline-offset: -7px;
 }
 
 .lingdi-ai-scenes__carousel-controls button:disabled {
-  opacity: .28;
+  opacity: .2;
+  cursor: default;
+  transform: none;
 }
 
 .lingdi-ai-scenes__video {

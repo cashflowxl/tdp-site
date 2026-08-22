@@ -1,4 +1,4 @@
-.assessment-status{min-height:100svh;padding:150px 0 100px;background:#07110e;color:#f4f6f2}
+.space-detail main.assessment-status{min-height:100svh;padding:150px 0 100px;background:#07110e;color:#f4f6f2}
 .assessment-status .shell{width:min(100% - 48px,980px)}
 .assessment-status h1{max-width:13ch;font-size:clamp(42px,6vw,76px);letter-spacing:-.055em;line-height:.98}
 .assessment-status .lead{max-width:680px;margin-top:26px;color:rgba(244,246,242,.7);line-height:1.7}
@@ -15,4 +15,4 @@
 .evidence pre{white-space:pre-wrap;word-break:break-word;margin:12px 0 0;color:rgba(244,246,242,.74);font:13px/1.7 ui-monospace,monospace}
 .notice{margin-top:30px;color:#c8ff3d}
 .error{color:#ffb4a4}
-@media(max-width:700px){.assessment-status{padding-top:110px}.runs{grid-template-columns:1fr}.assessment-card{margin-top:42px}}
+@media(max-width:700px){.space-detail main.assessment-status{padding-top:110px}.runs{grid-template-columns:1fr}.assessment-card{margin-top:42px}}
