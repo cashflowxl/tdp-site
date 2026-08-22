@@ -591,6 +591,11 @@
   animation: lp-panel-in 360ms ease both;
 }
 
+/* Keep the inactive narratives out of layout; the tab script owns visibility. */
+.lingdi-pathways.is-enhanced .lingdi-pathways__panel[hidden] {
+  display: none !important;
+}
+
 .lingdi-pathways__panel h3 {
   max-width: 13ch;
   font-size: clamp(50px, 5.8vw, 94px);
