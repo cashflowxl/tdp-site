@@ -1,5 +1,7 @@
 # TDP 静态站
 
+> 官网唯一权威工作副本是 `/Users/jackiel/Documents/Codex/2026-08-11/tdp-site/work/repo`。本地预览、部署边界、重复工作树分类、资源许可与单写入者规则见 [`docs/website-workspace-governance.md`](docs/website-workspace-governance.md)。不要把 `/private/tmp` 发布快照或旧语音窗口目录当作源码继续写入。
+
 ## 渠道与订单后台第一版
 
 `lingdi-console.html` 是领地 AI 的内部管理后台**界面与规则原型**。它包含渠道专属链接、访问/转化漏斗、订单处理队列、佣金结算状态、产品库存、代理准入、客服工单、安全与接口边界和上线分期，用于确认业务流程与字段口径。

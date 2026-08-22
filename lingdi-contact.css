@@ -1,0 +1,583 @@
+/* Contact pages only. Keep every rule under .terra-contact. */
+body.terra-contact{
+  --contact-ink:#06110e;
+  --contact-green:#0b3028;
+  --contact-green-deep:#020d0a;
+  --contact-paper:#f3f4ee;
+  --contact-white:#fff;
+  --contact-muted:#65716d;
+  --contact-muted-dark:#aebbb6;
+  --contact-line:rgba(6,17,14,.22);
+  --contact-line-dark:rgba(255,255,255,.2);
+  --contact-signal:#c8ff3d;
+  --contact-shell:1240px;
+  margin:0;
+  overflow-x:hidden;
+  background:var(--contact-paper);
+  color:var(--contact-ink);
+  font-family:"Helvetica Neue","PingFang SC","Noto Sans SC",Arial,sans-serif;
+  line-height:1.62;
+}
+
+.terra-contact *,
+.terra-contact *::before,
+.terra-contact *::after{box-sizing:border-box}
+
+.terra-contact a{color:inherit}
+.terra-contact [hidden]{display:none!important}
+.terra-contact :focus-visible{
+  outline:3px solid var(--contact-signal);
+  outline-offset:4px;
+}
+
+.terra-contact .contact-shell{
+  width:min(calc(100% - 64px),var(--contact-shell));
+  margin-inline:auto;
+}
+
+.terra-contact .skip-link{
+  position:fixed;
+  z-index:120;
+  top:14px;
+  left:16px;
+  min-height:44px;
+  padding:10px 16px;
+  transform:translateY(-160%);
+  border:1px solid var(--contact-ink);
+  background:var(--contact-signal);
+  color:var(--contact-ink);
+  font-size:13px;
+  font-weight:800;
+}
+
+.terra-contact .skip-link:focus-visible{transform:none}
+
+.terra-contact .contact-kicker,
+.terra-contact .contact-chapter{
+  margin:0;
+  color:var(--contact-signal);
+  font:800 11px/1.5 "SFMono-Regular",Consolas,monospace;
+  letter-spacing:.14em;
+  text-transform:uppercase;
+}
+
+.terra-contact .contact-chapter--ink{color:#174b40}
+
+.terra-contact .contact-hero{
+  position:relative;
+  min-height:88svh;
+  display:grid;
+  align-items:end;
+  overflow:hidden;
+  padding:clamp(150px,18vh,230px) 0 clamp(64px,9vh,110px);
+  border-bottom:1px solid var(--contact-line-dark);
+  background:
+    radial-gradient(circle at 78% 36%,rgba(200,255,61,.16),transparent 0 11%,transparent 32%),
+    radial-gradient(circle at 78% 36%,rgba(72,151,126,.28),transparent 0 1%,transparent 23%),
+    linear-gradient(118deg,#020b08 0%,#051611 57%,#0b3028 100%);
+  color:#fff;
+}
+
+.terra-contact .contact-hero::before{
+  content:"";
+  position:absolute;
+  width:min(68vw,960px);
+  aspect-ratio:1;
+  right:-15vw;
+  top:-20vw;
+  border:1px solid rgba(255,255,255,.13);
+  border-radius:50%;
+  box-shadow:
+    0 0 0 7vw rgba(255,255,255,.015),
+    0 0 0 14vw rgba(255,255,255,.012);
+}
+
+.terra-contact .contact-hero::after{
+  content:"01 / CONTACT";
+  position:absolute;
+  right:32px;
+  bottom:24px;
+  color:rgba(255,255,255,.48);
+  font:700 10px/1.5 "SFMono-Regular",Consolas,monospace;
+  letter-spacing:.14em;
+}
+
+.terra-contact .contact-hero__copy{
+  position:relative;
+  z-index:1;
+  max-width:1050px;
+}
+
+.terra-contact .contact-hero__brand-note{
+  max-width:660px;
+  margin:12px 0 0;
+  color:var(--contact-muted-dark);
+  font-size:clamp(13px,1.2vw,16px);
+  letter-spacing:.04em;
+}
+
+.terra-contact .contact-hero h1{
+  max-width:11.5ch;
+  margin:clamp(18px,3vh,34px) 0 26px;
+  font-size:clamp(58px,8.3vw,124px);
+  font-weight:590;
+  line-height:.9;
+  letter-spacing:-.067em;
+  text-wrap:balance;
+}
+
+.terra-contact .contact-hero__lead{
+  max-width:760px;
+  margin:0;
+  color:#c7d2ce;
+  font-size:clamp(16px,1.55vw,22px);
+  line-height:1.58;
+}
+
+.terra-contact .contact-main{
+  padding:clamp(76px,10vw,150px) 0;
+  border-bottom:1px solid var(--contact-line);
+  background:var(--contact-paper);
+}
+
+.terra-contact .contact-grid{
+  display:grid;
+  grid-template-columns:minmax(260px,.72fr) minmax(540px,1.28fr);
+  gap:clamp(48px,8vw,122px);
+  align-items:start;
+}
+
+.terra-contact .explain{
+  position:sticky;
+  top:112px;
+}
+
+.terra-contact .explain h2{
+  max-width:10ch;
+  margin:22px 0 24px;
+  font-size:clamp(42px,5.2vw,72px);
+  font-weight:580;
+  line-height:.98;
+  letter-spacing:-.058em;
+  text-wrap:balance;
+}
+
+.terra-contact .explain>p:not(.contact-chapter):not(.privacy-note){
+  margin:0;
+  color:var(--contact-muted);
+  font-size:15px;
+  line-height:1.8;
+}
+
+.terra-contact .steps{
+  list-style:none;
+  margin:42px 0 0;
+  padding:0;
+  border-top:1px solid var(--contact-line);
+}
+
+.terra-contact .steps li{
+  display:grid;
+  grid-template-columns:46px 1fr;
+  gap:12px;
+  align-items:start;
+  min-height:82px;
+  padding:20px 0;
+  border-bottom:1px solid var(--contact-line);
+}
+
+.terra-contact .steps b{
+  color:#174b40;
+  font:800 11px/2 "SFMono-Regular",Consolas,monospace;
+}
+
+.terra-contact .steps span{
+  font-size:15px;
+  font-weight:760;
+  line-height:1.45;
+}
+
+.terra-contact .privacy-note{
+  margin:30px 0 0;
+  padding:18px 0 18px 20px;
+  border-left:3px solid var(--contact-signal);
+  color:var(--contact-muted);
+  font-size:12px;
+  line-height:1.72;
+}
+
+.terra-contact .contact-boundary-card{
+  min-width:0;
+  padding:clamp(30px,4.5vw,58px);
+  border:1px solid var(--contact-ink);
+  background:var(--contact-white);
+}
+
+.terra-contact .contact-boundary-card .contact-channel__index{
+  margin-bottom:26px;
+  color:#174b40;
+}
+
+.terra-contact .contact-boundary-card h2{
+  max-width:13ch;
+  margin:0;
+  font-size:clamp(34px,4vw,56px);
+  font-weight:590;
+  line-height:1.03;
+  letter-spacing:-.052em;
+  text-wrap:balance;
+}
+
+.terra-contact .contact-boundary-list{
+  list-style:none;
+  margin:38px 0 0;
+  padding:0;
+  border-top:1px solid var(--contact-line);
+}
+
+.terra-contact .contact-boundary-list li{
+  position:relative;
+  padding:18px 0 18px 28px;
+  border-bottom:1px solid var(--contact-line);
+  color:var(--contact-muted);
+  font-size:14px;
+  line-height:1.72;
+}
+
+.terra-contact .contact-boundary-list li::before{
+  content:"";
+  position:absolute;
+  top:27px;
+  left:2px;
+  width:8px;
+  height:8px;
+  background:var(--contact-signal);
+  box-shadow:0 0 0 1px var(--contact-green);
+}
+
+.terra-contact .contact-boundary-card .privacy-note a{
+  color:var(--contact-green);
+  font-weight:760;
+  text-underline-offset:3px;
+}
+
+.terra-contact .contact-direct{
+  padding:clamp(72px,9vw,132px) 0;
+  border-bottom:1px solid var(--contact-line-dark);
+  background:var(--contact-green-deep);
+  color:#fff;
+}
+
+.terra-contact .contact-direct__heading{
+  display:grid;
+  grid-template-columns:minmax(0,1fr) minmax(250px,.55fr);
+  gap:48px;
+  align-items:end;
+  padding-bottom:clamp(40px,6vw,72px);
+}
+
+.terra-contact .contact-direct__heading h2{
+  max-width:12ch;
+  margin:18px 0 0;
+  font-size:clamp(45px,6.4vw,88px);
+  font-weight:570;
+  line-height:.94;
+  letter-spacing:-.06em;
+}
+
+.terra-contact .contact-direct__heading>p{
+  margin:0;
+  color:var(--contact-muted-dark);
+  font-size:15px;
+  line-height:1.78;
+}
+
+.terra-contact .contact-channel-grid{
+  display:grid;
+  grid-template-columns:minmax(0,1.25fr) minmax(280px,.75fr);
+  border-top:1px solid var(--contact-line-dark);
+  border-left:1px solid var(--contact-line-dark);
+}
+
+.terra-contact .contact-channel{
+  min-width:0;
+  padding:clamp(28px,4vw,52px);
+  border-right:1px solid var(--contact-line-dark);
+  border-bottom:1px solid var(--contact-line-dark);
+}
+
+.terra-contact .contact-channel--wecom{
+  display:grid;
+  grid-template-columns:minmax(190px,260px) minmax(0,1fr);
+  gap:clamp(28px,4vw,58px);
+  align-items:center;
+}
+
+.terra-contact .contact-qr-frame{
+  width:min(100%,260px);
+  margin:0;
+  padding:12px;
+  background:#fff;
+}
+
+.terra-contact .contact-qr-frame img{
+  width:100%;
+  height:auto;
+  display:block;
+  image-rendering:auto;
+}
+
+.terra-contact .contact-channel__index{
+  display:block;
+  margin-bottom:28px;
+  color:var(--contact-signal);
+  font:800 11px/1.5 "SFMono-Regular",Consolas,monospace;
+}
+
+.terra-contact .contact-channel h3{
+  max-width:13ch;
+  margin:0;
+  font-size:clamp(29px,3.2vw,48px);
+  font-weight:590;
+  line-height:1.05;
+  letter-spacing:-.045em;
+}
+
+.terra-contact .contact-channel p{
+  max-width:44ch;
+  margin:18px 0 0;
+  color:var(--contact-muted-dark);
+  font-size:14px;
+}
+
+.terra-contact .contact-channel__link{
+  min-height:48px;
+  display:inline-flex;
+  align-items:center;
+  gap:12px;
+  margin-top:38px;
+  border-bottom:1px solid currentColor;
+  color:#fff;
+  font-size:17px;
+  font-weight:720;
+  text-decoration:none;
+}
+
+.terra-contact .contact-channel__link::after{content:"↗";color:var(--contact-signal)}
+
+.terra-privacy .privacy-hero{min-height:72svh}
+.terra-privacy .privacy-hero::after{content:"01 / PRIVACY"}
+.terra-privacy .privacy-hero h1{max-width:12.5ch}
+
+.terra-privacy .privacy-main{
+  padding:clamp(76px,10vw,146px) 0;
+  border-bottom:1px solid var(--contact-line);
+  background:var(--contact-paper);
+}
+
+.terra-privacy .privacy-intro{
+  display:grid;
+  grid-template-columns:minmax(0,1.05fr) minmax(280px,.58fr);
+  gap:clamp(42px,8vw,116px);
+  align-items:end;
+  margin-bottom:clamp(48px,7vw,84px);
+}
+
+.terra-privacy .privacy-intro h2{
+  max-width:14ch;
+  margin:20px 0 0;
+  font-size:clamp(42px,5.7vw,78px);
+  font-weight:580;
+  line-height:.98;
+  letter-spacing:-.058em;
+  text-wrap:balance;
+}
+
+.terra-privacy .privacy-intro>p{
+  margin:0;
+  color:var(--contact-muted);
+  font-size:15px;
+  line-height:1.8;
+}
+
+.terra-privacy .privacy-grid{
+  display:grid;
+  grid-template-columns:repeat(2,minmax(0,1fr));
+  border-top:1px solid var(--contact-line);
+  border-left:1px solid var(--contact-line);
+}
+
+.terra-privacy .privacy-card{
+  min-width:0;
+  padding:clamp(28px,4vw,52px);
+  border-right:1px solid var(--contact-line);
+  border-bottom:1px solid var(--contact-line);
+  background:rgba(255,255,255,.52);
+}
+
+.terra-privacy .privacy-card>span{
+  display:block;
+  margin-bottom:34px;
+  color:#174b40;
+  font:800 11px/1.5 "SFMono-Regular",Consolas,monospace;
+  letter-spacing:.08em;
+}
+
+.terra-privacy .privacy-card h3{
+  max-width:19ch;
+  margin:0;
+  font-size:clamp(27px,3vw,42px);
+  font-weight:590;
+  line-height:1.07;
+  letter-spacing:-.045em;
+  text-wrap:balance;
+}
+
+.terra-privacy .privacy-card p{
+  max-width:62ch;
+  margin:24px 0 0;
+  color:var(--contact-muted);
+  font-size:14px;
+  line-height:1.78;
+}
+
+.terra-privacy .privacy-boundary{
+  padding:clamp(72px,9vw,132px) 0;
+  border-bottom:1px solid var(--contact-line-dark);
+  background:var(--contact-green-deep);
+  color:#fff;
+}
+
+.terra-privacy .privacy-boundary__grid{
+  display:grid;
+  grid-template-columns:minmax(0,1fr) minmax(320px,.7fr);
+  gap:clamp(48px,8vw,120px);
+  align-items:start;
+}
+
+.terra-privacy .privacy-boundary h2{
+  max-width:12ch;
+  margin:18px 0 0;
+  font-size:clamp(44px,6vw,82px);
+  font-weight:570;
+  line-height:.96;
+  letter-spacing:-.058em;
+}
+
+.terra-privacy .privacy-boundary__grid>div:last-child{
+  padding-top:36px;
+  border-top:1px solid var(--contact-line-dark);
+}
+
+.terra-privacy .privacy-boundary p{
+  margin:0;
+  color:var(--contact-muted-dark);
+  font-size:15px;
+  line-height:1.8;
+}
+
+.terra-privacy .privacy-boundary p+p{margin-top:24px}
+
+.terra-contact footer{
+  padding:42px 0;
+  border-top:1px solid var(--contact-line-dark);
+  background:var(--contact-green-deep);
+  color:var(--contact-muted-dark);
+  font-size:12px;
+}
+
+.terra-contact .footer-inner{
+  display:flex;
+  justify-content:space-between;
+  gap:28px;
+  flex-wrap:wrap;
+}
+
+.terra-contact .footer-inner p{margin:0;max-width:760px}
+.terra-contact .footer-inner a{color:#fff;text-underline-offset:3px}
+
+@media(max-width:960px){
+  .terra-contact .contact-grid{grid-template-columns:1fr}
+  .terra-contact .explain{position:static;max-width:760px}
+  .terra-contact .contact-direct__heading{grid-template-columns:1fr}
+  .terra-contact .contact-channel--wecom{grid-template-columns:minmax(200px,260px) minmax(0,1fr)}
+  .terra-privacy .privacy-intro,
+  .terra-privacy .privacy-boundary__grid{grid-template-columns:1fr}
+}
+
+@media(max-width:720px){
+  .terra-contact .contact-shell{width:calc(100% - 36px)}
+  .terra-contact .contact-hero{
+    min-height:82svh;
+    padding:128px 0 58px;
+    align-items:end;
+  }
+  .terra-contact .contact-hero::before{
+    width:112vw;
+    right:-52vw;
+    top:-12vw;
+  }
+  .terra-contact .contact-hero::after{right:18px;bottom:16px}
+  .terra-contact .contact-hero h1{
+    max-width:none;
+    font-size:clamp(40px,10.7vw,58px);
+    line-height:.93;
+    text-wrap:wrap;
+  }
+  .terra-contact .contact-hero__lead{font-size:16px}
+  .terra-contact .contact-main{padding:72px 0 82px}
+  .terra-contact .contact-grid{gap:52px}
+  .terra-contact .explain h2{font-size:clamp(39px,12vw,56px)}
+  .terra-contact .contact-direct__heading h2{font-size:clamp(42px,13vw,62px)}
+  .terra-contact .contact-channel-grid{grid-template-columns:1fr}
+  .terra-contact .contact-channel--wecom{grid-template-columns:1fr}
+  .terra-contact .contact-qr-frame{width:min(100%,260px)}
+  .terra-privacy .privacy-hero{min-height:68svh}
+  .terra-privacy .privacy-main{padding:72px 0 82px}
+  .terra-privacy .privacy-intro{gap:30px}
+  .terra-privacy .privacy-grid{grid-template-columns:1fr}
+  .terra-privacy .privacy-card{padding:30px 22px}
+  .terra-privacy .privacy-boundary h2{font-size:clamp(40px,12vw,58px)}
+  .terra-contact .footer-inner{display:grid}
+}
+
+@media(max-width:420px){
+  .terra-contact .contact-shell{width:calc(100% - 30px)}
+  .terra-contact .contact-hero h1{font-size:clamp(39px,11vw,46px)}
+  .terra-contact .contact-channel{padding:26px 20px}
+}
+
+@media(prefers-reduced-motion:no-preference){
+  .terra-contact .contact-hero__copy{
+    animation:contact-hero-in .7s cubic-bezier(.2,.75,.2,1) both;
+  }
+  .terra-contact .contact-channel__link{transition-duration:.2s}
+  @supports(animation-timeline:view()){
+    .terra-contact .contact-reveal{
+      animation:contact-section-rise both linear;
+      animation-timeline:view();
+      animation-range:entry 0% entry 22%;
+    }
+  }
+}
+
+@media(prefers-reduced-motion:reduce){
+  .terra-contact *,
+  .terra-contact *::before,
+  .terra-contact *::after{
+    scroll-behavior:auto!important;
+    animation-duration:.001ms!important;
+    animation-iteration-count:1!important;
+    transition-duration:.001ms!important;
+  }
+}
+
+@keyframes contact-hero-in{
+  from{opacity:0;transform:translateY(18px)}
+  to{opacity:1;transform:none}
+}
+
+@keyframes contact-section-rise{
+  from{transform:translateY(20px)}
+  to{transform:none}
+}

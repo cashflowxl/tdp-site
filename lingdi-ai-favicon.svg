@@ -1,5 +1,5 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64">
-  <rect width="64" height="64" rx="16" fill="#17213d"/>
-  <rect x="7" y="7" width="50" height="50" rx="12" fill="none" stroke="#e6b027" stroke-width="2"/>
-  <text x="32" y="40" text-anchor="middle" fill="#fffaf0" font-family="Arial,sans-serif" font-size="22" font-weight="700">AI</text>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" width="32" height="32" role="img" aria-label="领地 GEO LD 32 像素微型图标">
+<path d="M4 5H9V23H15V28H4Z" fill="#123C32"/>
+<path d="M17 5H20C25 5 28 8 28 13V20C28 25 25 28 20 28H17ZM20 10H19V23H20C22 23 23 21.8 23 19.7V13.3C23 11.2 22 10 20 10Z" fill="#123C32" fill-rule="evenodd"/>
+<rect x="23" y="4" width="5" height="5" rx="1.25" fill="#C8FF3D"/>
 </svg>

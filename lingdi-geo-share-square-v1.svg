@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 800" width="800" height="800" role="img" aria-label="领地 GEO｜让 AI 推荐你的品牌">
+  <rect width="800" height="800" fill="#123C32"/>
+  <rect x="64" y="64" width="72" height="72" rx="18" fill="#C8FF3D"/>
+  <text x="64" y="206" fill="#C8FF3D" font-family="PingFang SC,Noto Sans CJK SC,Arial,sans-serif" font-size="35" font-weight="800" letter-spacing="6">LINGDI GEO</text>
+  <text x="60" y="430" fill="#FFFFFF" font-family="PingFang SC,Noto Sans CJK SC,Arial,sans-serif" font-size="108" font-weight="900">让 AI 推荐</text>
+  <text x="60" y="558" fill="#FFFFFF" font-family="PingFang SC,Noto Sans CJK SC,Arial,sans-serif" font-size="108" font-weight="900">你的品牌</text>
+  <line x1="64" x2="520" y1="606" y2="606" stroke="#C8FF3D" stroke-width="14" stroke-linecap="round"/>
+  <text x="64" y="688" fill="#C7D3CF" font-family="PingFang SC,Noto Sans CJK SC,Arial,sans-serif" font-size="29">企业 AI 认知与商机增长服务</text>
+</svg>

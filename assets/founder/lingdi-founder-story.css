@@ -1,0 +1,860 @@
+/* Founder story module — isolated from the homepage scene system. */
+.lingdi-founder-story {
+  --lfs-ink: #f4f6f2;
+  --lfs-muted: rgba(244, 246, 242, 0.7);
+  --lfs-line: rgba(244, 246, 242, 0.2);
+  --lfs-green: #c8ff3d;
+  --lfs-bg: #050807;
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+  overflow: clip;
+  color: var(--lfs-ink);
+  background: var(--lfs-bg);
+}
+
+.lingdi-founder-story *,
+.lingdi-founder-story *::before,
+.lingdi-founder-story *::after {
+  box-sizing: border-box;
+}
+
+.lingdi-founder-story__media {
+  position: absolute;
+  inset: 0 0 0 auto;
+  z-index: -3;
+  width: min(54vw, 900px);
+  overflow: hidden;
+  background: #183e61;
+}
+
+.lingdi-founder-story__media picture,
+.lingdi-founder-story__media img {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+
+.lingdi-founder-story__media img {
+  object-fit: cover;
+  object-position: 52% 50%;
+  transform: scale(1.012);
+  animation: lfs-photo-drift 24s ease-in-out infinite alternate;
+}
+
+.lingdi-founder-story__veil {
+  position: absolute;
+  inset: 0;
+  z-index: -2;
+  pointer-events: none;
+  background:
+    linear-gradient(90deg, #050807 0 42%, rgba(5, 8, 7, 0.9) 49%, rgba(5, 8, 7, 0.25) 64%, rgba(5, 8, 7, 0.02) 82%),
+    linear-gradient(180deg, rgba(5, 8, 7, 0.05), rgba(5, 8, 7, 0.14) 76%, #050807 100%);
+}
+
+.lingdi-founder-story__grid {
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+  opacity: 0.36;
+  background: linear-gradient(90deg, transparent 0 6%, rgba(200, 255, 61, 0.68) 6% calc(6% + 1px), transparent calc(6% + 1px) 100%);
+}
+
+.lingdi-founder-story__inner {
+  width: min(100% - 64px, 1440px);
+  min-height: 1480px;
+  margin: 0 auto;
+  padding: 116px 0 46px;
+  position: relative;
+}
+
+.lingdi-founder-story__intro {
+  width: min(49%, 720px);
+  margin-left: 0;
+}
+
+.lingdi-founder-story__chapter,
+.lingdi-founder-story__eyebrow,
+.lingdi-founder-story__identity,
+.lingdi-founder-story__year,
+.lingdi-founder-story__tab-index,
+.lingdi-founder-story__detail-meta,
+.lingdi-founder-story__award {
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+}
+
+.lingdi-founder-story__chapter,
+.lingdi-founder-story__eyebrow {
+  margin: 0;
+  color: var(--lfs-green);
+  font-size: 13px;
+  font-weight: 760;
+}
+
+.lingdi-founder-story__eyebrow {
+  margin-top: 18px;
+  color: var(--lfs-muted);
+}
+
+.lingdi-founder-story__intro h2 {
+  max-width: 720px;
+  margin: 22px 0 24px;
+  font-size: clamp(54px, 5.8vw, 96px);
+  line-height: 0.94;
+  letter-spacing: -0.055em;
+  text-wrap: balance;
+}
+
+.lingdi-founder-story__lead {
+  max-width: 670px;
+  margin: 0;
+  color: rgba(244, 246, 242, 0.85);
+  font-size: clamp(17px, 1.3vw, 21px);
+  line-height: 1.76;
+}
+
+.lingdi-founder-story__identity {
+  margin: 26px 0 0;
+  color: var(--lfs-muted);
+  font-size: 12px;
+  font-weight: 700;
+}
+
+.lingdi-founder-story__cta {
+  display: inline-flex;
+  min-height: 48px;
+  align-items: center;
+  justify-content: center;
+  gap: 18px;
+  margin-top: 28px;
+  padding: 13px 19px;
+  border: 1px solid rgba(244, 246, 242, 0.54);
+  color: var(--lfs-ink);
+  text-decoration: none;
+  font-size: 14px;
+  font-weight: 760;
+  transition: color 180ms ease, background-color 180ms ease, border-color 180ms ease;
+}
+
+.lingdi-founder-story__cta:hover,
+.lingdi-founder-story__cta:focus-visible {
+  color: #07110e;
+  border-color: var(--lfs-green);
+  background: var(--lfs-green);
+}
+
+.lingdi-founder-story__status {
+  display: none;
+}
+
+.lingdi-founder-story__timeline {
+  display: flex;
+  grid-template-columns: repeat(5, minmax(0, 1fr));
+  gap: 0;
+  margin: 82px 0 0;
+  padding: 0;
+  list-style: none;
+  border-top: 1px solid var(--lfs-line);
+  border-bottom: 0;
+}
+
+.lingdi-founder-story__item {
+  min-width: 0;
+  flex: 1 1 0;
+}
+
+.lingdi-founder-story__tab {
+  width: 100%;
+  min-height: 154px;
+  padding: 20px 18px;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 8px;
+  border: 0;
+  border-right: 0;
+  color: var(--lfs-muted);
+  background: transparent;
+  text-align: left;
+  font: inherit;
+  cursor: pointer;
+  transition: color 180ms ease, background-color 180ms ease;
+}
+
+.lingdi-founder-story__item:last-child .lingdi-founder-story__tab {
+  border-right: 0;
+}
+
+.lingdi-founder-story__tab:hover,
+.lingdi-founder-story__tab:focus-visible,
+.lingdi-founder-story__tab[aria-expanded="true"] {
+  color: var(--lfs-ink);
+  background: linear-gradient(180deg, rgba(200,255,61,.11), transparent 70%);
+}
+
+.lingdi-founder-story__tab:focus-visible,
+.lingdi-founder-story__cta:focus-visible {
+  outline: 3px solid var(--lfs-green);
+  outline-offset: 3px;
+}
+
+.lingdi-founder-story__tab-index,
+.lingdi-founder-story__year {
+  font-size: 11px;
+  font-weight: 760;
+}
+
+.lingdi-founder-story__tab-index {
+  color: var(--lfs-green);
+}
+
+.lingdi-founder-story__tab strong {
+  font-size: clamp(15px, 1.25vw, 19px);
+  line-height: 1.24;
+}
+
+.lingdi-founder-story__tab small {
+  font-size: 12px;
+  line-height: 1.45;
+}
+
+.lingdi-founder-story__detail {
+  position: relative;
+  z-index: 2;
+  margin: 30px 0 0;
+  padding: 0 0 0 28px;
+  border-left: 1px solid rgba(200,255,61,.78);
+  background: transparent;
+}
+
+.lingdi-founder-story__detail-meta {
+  margin: 0 0 11px;
+  color: var(--lfs-green);
+  font-size: 11px;
+  font-weight: 760;
+}
+
+.lingdi-founder-story__detail h3 {
+  margin: 0;
+  font-size: clamp(25px, 2.2vw, 38px);
+  line-height: 1.08;
+  letter-spacing: -0.035em;
+}
+
+.lingdi-founder-story__detail > p:last-child {
+  max-width: 760px;
+  margin: 15px 0 0;
+  color: var(--lfs-muted);
+  font-size: 15px;
+  line-height: 1.7;
+}
+
+.lingdi-founder-story__institution-stage {
+  display: grid;
+  grid-template-columns: minmax(0, 1.55fr) minmax(150px, 0.45fr);
+  align-items: stretch;
+  width: min(100%, 660px);
+  min-height: 92px;
+  margin: 18px 0 20px;
+  gap: 28px;
+}
+
+.lingdi-founder-story__institution-mark {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 0;
+  padding: 0;
+  background: transparent;
+}
+
+.lingdi-founder-story__institution-mark + .lingdi-founder-story__institution-mark {
+  border-left: 0;
+}
+
+.lingdi-founder-story__institution-mark img {
+  display: block;
+  max-width: 100%;
+  height: auto;
+  object-fit: contain;
+}
+
+.lingdi-founder-story__institution-mark--msu img {
+  width: min(100%, 390px);
+}
+
+.lingdi-founder-story__institution-mark--umich {
+  padding: 0;
+  background: transparent;
+}
+
+.lingdi-founder-story__institution-mark--umich img {
+  width: 124px;
+}
+
+.lingdi-founder-story__institution-stage--ey {
+  grid-template-columns: 1fr;
+  width: 102px;
+  min-height: 92px;
+  background: transparent;
+}
+
+.lingdi-founder-story__institution-mark--ey {
+  padding: 0;
+  background: transparent;
+}
+
+.lingdi-founder-story__institution-mark--ey img {
+  width: 94px;
+}
+
+.lingdi-founder-story__brand-stage {
+  display: grid;
+  gap: 8px;
+  margin: 18px 0 2px;
+  padding: 0;
+  overflow: visible;
+  position: relative;
+  background: transparent;
+}
+
+.lingdi-founder-story__brand-stage::after {
+  content: none;
+}
+
+.lingdi-founder-story__hey-lockup {
+  display: flex;
+  align-items: center;
+  gap: 2px;
+  padding-top: 0;
+  position: relative;
+  z-index: 1;
+}
+
+.lingdi-founder-story__chameleon {
+  box-sizing: border-box;
+  width: 118px;
+  height: 118px;
+  flex: 0 0 118px;
+  padding: 0;
+  object-fit: contain;
+  object-position: center;
+  transform: translateY(-10px);
+}
+
+.lingdi-founder-story__hey-wordmark {
+  color: #fff;
+  font-size: clamp(31px, 3.2vw, 52px);
+  font-weight: 800;
+  letter-spacing: 0.12em;
+  line-height: 1;
+}
+
+.lingdi-founder-story__award {
+  position: relative;
+  z-index: 1;
+  margin: 0;
+  color: rgba(255, 255, 255, 0.82);
+  font-size: 11px;
+  font-weight: 760;
+}
+
+.lingdi-founder-story__power-mark {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: min(100%, 390px);
+  min-height: 66px;
+  margin: 18px 0 2px;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  box-shadow: none;
+}
+
+.lingdi-founder-story__power-mark img {
+  display: block;
+  width: 100%;
+  height: auto;
+  object-fit: contain;
+  padding: 0;
+  border-radius: 0;
+  background: transparent;
+}
+
+.lingdi-founder-story__disclaimer {
+  margin: 20px 0 0;
+  color: rgba(244, 246, 242, 0.5);
+  font-size: 11px;
+  line-height: 1.55;
+}
+
+@media (min-width: 1200px) {
+  .lingdi-founder-story__media {
+    inset: 0 0 0 auto;
+    width: min(58vw, 940px);
+  }
+
+  .lingdi-founder-story__media img {
+    object-position: 52% 50%;
+  }
+
+  .lingdi-founder-story__veil {
+    background:
+      linear-gradient(90deg, #050807 0%, #050807 30%, rgba(5, 8, 7, 0.94) 44%, rgba(5, 8, 7, 0.48) 65%, rgba(5, 8, 7, 0.12) 88%),
+      linear-gradient(180deg, rgba(5, 8, 7, 0.12), rgba(5, 8, 7, 0.08) 58%, #050807 100%);
+  }
+
+  .lingdi-founder-story__grid {
+    -webkit-mask-image: linear-gradient(90deg, #000 0%, #000 43%, transparent 88%);
+    mask-image: linear-gradient(90deg, #000 0%, #000 43%, transparent 88%);
+  }
+
+  .lingdi-founder-story__inner {
+    padding-top: clamp(124px, 9svh, 152px);
+  }
+
+  .lingdi-founder-story__intro,
+  .lingdi-founder-story.is-enhanced .lingdi-founder-story__detail {
+    width: min(44%, 650px);
+  }
+
+  .lingdi-founder-story__intro {
+    margin-right: auto;
+    margin-left: 0;
+  }
+
+  .lingdi-founder-story__intro h2 {
+    font-size: clamp(52px, 5vw, 80px);
+  }
+
+  html[lang^="en"] .lingdi-founder-story__tab[data-founder-mobile-label="Tianpu"] {
+    min-height: clamp(175px, calc(135px + 3.125vw), 180px);
+  }
+
+  .lingdi-founder-story.is-enhanced .lingdi-founder-story__inner {
+    min-height: 1480px;
+  }
+
+  .lingdi-founder-story.is-enhanced .lingdi-founder-story__timeline {
+    position: absolute;
+    inset: auto 0 46px;
+    margin: 0;
+  }
+
+  .lingdi-founder-story.is-enhanced .lingdi-founder-story__detail {
+    position: absolute;
+    top: auto;
+    right: auto;
+    left: 0;
+    bottom: calc(100% + 28px);
+    width: min(47%, 650px);
+    min-height: 0;
+    margin: 0;
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0);
+    transition: opacity 180ms ease, transform 180ms ease;
+  }
+
+  .lingdi-founder-story.is-enhanced .lingdi-founder-story__detail[hidden] {
+    display: block;
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(14px);
+    pointer-events: none;
+    transition: none;
+  }
+
+  .lingdi-founder-story:not(.is-enhanced) .lingdi-founder-story__timeline {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    border-bottom: 0;
+  }
+
+  .lingdi-founder-story:not(.is-enhanced) .lingdi-founder-story__item {
+    border-bottom: 1px solid var(--lfs-line);
+  }
+
+  .lingdi-founder-story:not(.is-enhanced) .lingdi-founder-story__detail {
+    min-height: 260px;
+    margin: 0;
+  }
+}
+
+@media (max-width: 1199px) {
+  .lingdi-founder-story {
+    padding-top: min(66svh, 660px);
+  }
+
+  .lingdi-founder-story__media {
+    inset: 0 0 auto;
+    width: 100%;
+    height: min(68svh, 680px);
+  }
+
+  .lingdi-founder-story__media img {
+    object-position: 51% 49%;
+  }
+
+  .lingdi-founder-story__veil {
+    background:
+      linear-gradient(180deg, rgba(5, 8, 7, 0.05), rgba(5, 8, 7, 0.12) 46%, #050807 96%),
+      linear-gradient(90deg, rgba(5, 8, 7, 0.05), rgba(5, 8, 7, 0.18));
+  }
+
+  .lingdi-founder-story__grid {
+    opacity: 0.14;
+    -webkit-mask-image: linear-gradient(180deg, transparent 28%, #000 86%);
+    mask-image: linear-gradient(180deg, transparent 28%, #000 86%);
+  }
+
+  .lingdi-founder-story__inner {
+    width: min(100% - 40px, 760px);
+    min-height: 0;
+    padding: 58px 0 70px;
+  }
+
+  .lingdi-founder-story__intro {
+    width: 100%;
+    margin: 0;
+  }
+
+  .lingdi-founder-story__intro h2 {
+    max-width: 13ch;
+    font-size: clamp(45px, 10vw, 76px);
+  }
+
+  .lingdi-founder-story__timeline {
+    grid-template-columns: 1fr;
+    margin-top: 54px;
+    border-bottom: 0;
+  }
+
+  .lingdi-founder-story__item {
+    border-bottom: 1px solid var(--lfs-line);
+  }
+
+  .lingdi-founder-story__tab {
+    min-height: 0;
+    padding: 20px 0;
+    border-right: 0;
+    background: transparent;
+  }
+
+  .lingdi-founder-story__tab:hover,
+  .lingdi-founder-story__tab:focus-visible,
+  .lingdi-founder-story__tab[aria-expanded="true"] {
+    background: transparent;
+  }
+
+  .lingdi-founder-story__tab strong {
+    font-size: clamp(22px, 5.5vw, 34px);
+  }
+
+  .lingdi-founder-story__detail,
+  .lingdi-founder-story__detail[hidden] {
+    display: block;
+    margin: 0 0 24px;
+    padding: 0 0 24px 18px;
+    background: transparent;
+  }
+
+  .lingdi-founder-story__detail h3 {
+    font-size: clamp(26px, 6.2vw, 40px);
+  }
+
+  .lingdi-founder-story__brand-stage {
+    padding: 20px;
+  }
+
+  .lingdi-founder-story__disclaimer {
+    margin-top: 28px;
+  }
+}
+
+@media (max-width: 520px) {
+  .lingdi-founder-story {
+    padding-top: min(58svh, 570px);
+  }
+
+  .lingdi-founder-story__media {
+    height: min(60svh, 590px);
+  }
+
+  .lingdi-founder-story__inner {
+    width: min(100% - 32px, 470px);
+    padding-top: 46px;
+  }
+
+  .lingdi-founder-story__intro h2 {
+    margin-top: 18px;
+    font-size: clamp(43px, 12.6vw, 62px);
+  }
+
+  .lingdi-founder-story__lead {
+    font-size: 16px;
+    line-height: 1.72;
+  }
+
+  .lingdi-founder-story__cta {
+    width: 100%;
+  }
+
+  .lingdi-founder-story__hey-lockup {
+    gap: 7px;
+  }
+
+  .lingdi-founder-story__chameleon {
+    width: 88px;
+    height: 88px;
+    flex-basis: 88px;
+    padding: 0;
+    transform: translateY(-7px);
+  }
+
+  .lingdi-founder-story__hey-wordmark {
+    font-size: clamp(28px, 9vw, 41px);
+    letter-spacing: 0.08em;
+  }
+
+  .lingdi-founder-story__award {
+    line-height: 1.6;
+  }
+}
+
+@media (max-width: 700px) {
+  .lingdi-founder-story.is-enhanced.is-mobile-stage .lingdi-founder-story__status {
+    display: block;
+    margin: 44px 0 10px;
+    color: rgba(244, 246, 242, 0.62);
+    font-size: 11px;
+    font-weight: 720;
+    line-height: 1.5;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+  }
+
+  .lingdi-founder-story.is-enhanced.is-mobile-stage .lingdi-founder-story__timeline {
+    --lfs-mobile-tab-height: 68px;
+    position: relative;
+    display: flex;
+    align-items: flex-start;
+    width: 100%;
+    min-height: calc(var(--lfs-mobile-tab-height) + var(--lfs-mobile-panel-height, 330px));
+    margin-top: 0;
+    padding: 0 0 var(--lfs-mobile-panel-height, 330px);
+    border: 1px solid var(--lfs-line);
+    background: #080b0a;
+    touch-action: pan-y;
+  }
+
+  .lingdi-founder-story.is-enhanced.is-mobile-stage .lingdi-founder-story__timeline::before {
+    content: "";
+    position: absolute;
+    inset: var(--lfs-mobile-tab-height) 0 0;
+    z-index: 0;
+    pointer-events: none;
+    background:
+      radial-gradient(circle at 82% 12%, rgba(200, 255, 61, 0.13), transparent 36%),
+      linear-gradient(145deg, #0a1614, #050807 70%);
+  }
+
+  .lingdi-founder-story[data-founder-active="1"] .lingdi-founder-story__timeline::before {
+    background:
+      radial-gradient(circle at 16% 12%, rgba(200, 255, 61, 0.12), transparent 34%),
+      linear-gradient(145deg, #171914, #050807 72%);
+  }
+
+  .lingdi-founder-story[data-founder-active="2"] .lingdi-founder-story__timeline::before {
+    background:
+      radial-gradient(circle at 82% 16%, rgba(255, 210, 49, 0.17), transparent 34%),
+      linear-gradient(145deg, #17150c, #050807 72%);
+  }
+
+  .lingdi-founder-story[data-founder-active="3"] .lingdi-founder-story__timeline::before {
+    background:
+      radial-gradient(circle at 18% 18%, rgba(105, 190, 180, 0.16), transparent 36%),
+      linear-gradient(145deg, #0b1718, #050807 72%);
+  }
+
+  .lingdi-founder-story[data-founder-active="4"] .lingdi-founder-story__timeline::before {
+    background:
+      radial-gradient(circle at 82% 12%, rgba(71, 143, 219, 0.17), transparent 36%),
+      linear-gradient(145deg, #0a121a, #050807 72%);
+  }
+
+  .lingdi-founder-story.is-enhanced.is-mobile-stage .lingdi-founder-story__item {
+    position: static;
+    flex: 1 1 20%;
+    min-width: 0;
+    border: 0;
+  }
+
+  .lingdi-founder-story.is-enhanced.is-mobile-stage .lingdi-founder-story__tab {
+    position: relative;
+    z-index: 2;
+    width: 100%;
+    min-height: var(--lfs-mobile-tab-height);
+    height: var(--lfs-mobile-tab-height);
+    align-items: center;
+    justify-content: center;
+    padding: 8px 4px;
+    border: 0;
+    border-right: 1px solid var(--lfs-line);
+    color: rgba(244, 246, 242, 0.62);
+    background: rgba(5, 8, 7, 0.84);
+    text-align: center;
+  }
+
+  .lingdi-founder-story.is-enhanced.is-mobile-stage .lingdi-founder-story__item:last-child .lingdi-founder-story__tab {
+    border-right: 0;
+  }
+
+  .lingdi-founder-story.is-enhanced.is-mobile-stage .lingdi-founder-story__tab > * {
+    display: none;
+  }
+
+  .lingdi-founder-story.is-enhanced.is-mobile-stage .lingdi-founder-story__tab::after {
+    content: attr(data-founder-mobile-label);
+    display: block;
+    font-size: clamp(9px, 2.75vw, 12px);
+    font-weight: 760;
+    line-height: 1.24;
+    letter-spacing: -0.01em;
+    overflow-wrap: normal;
+  }
+
+  .lingdi-founder-story.is-enhanced.is-mobile-stage .lingdi-founder-story__tab::before {
+    content: "";
+    position: absolute;
+    right: 10px;
+    bottom: 0;
+    left: 10px;
+    height: 2px;
+    background: transparent;
+  }
+
+  .lingdi-founder-story.is-enhanced.is-mobile-stage .lingdi-founder-story__tab:hover,
+  .lingdi-founder-story.is-enhanced.is-mobile-stage .lingdi-founder-story__tab:focus-visible,
+  .lingdi-founder-story.is-enhanced.is-mobile-stage .lingdi-founder-story__tab[aria-expanded="true"] {
+    color: var(--lfs-ink);
+    background: rgba(20, 57, 49, 0.82);
+  }
+
+  .lingdi-founder-story.is-enhanced.is-mobile-stage .lingdi-founder-story__tab[aria-expanded="true"]::before {
+    background: var(--lfs-green);
+  }
+
+  .lingdi-founder-story.is-enhanced.is-mobile-stage .lingdi-founder-story__detail,
+  .lingdi-founder-story.is-enhanced.is-mobile-stage .lingdi-founder-story__detail[hidden] {
+    position: absolute;
+    top: var(--lfs-mobile-tab-height);
+    right: 0;
+    left: 0;
+    z-index: 1;
+    display: block;
+    width: auto;
+    min-height: var(--lfs-mobile-panel-height, 330px);
+    margin: 0;
+    padding: 26px 18px 28px;
+    border: 0;
+    border-top: 1px solid rgba(200, 255, 61, 0.36);
+    background: transparent;
+  }
+
+  .lingdi-founder-story.is-enhanced.is-mobile-stage .lingdi-founder-story__detail[hidden] {
+    display: none;
+  }
+
+  .lingdi-founder-story.is-enhanced.is-mobile-stage .lingdi-founder-story__detail h3 {
+    font-size: clamp(25px, 7vw, 34px);
+    line-height: 1.08;
+  }
+
+  .lingdi-founder-story.is-enhanced.is-mobile-stage .lingdi-founder-story__detail > p:last-child {
+    margin-top: 14px;
+    font-size: 14px;
+    line-height: 1.66;
+  }
+
+  .lingdi-founder-story.is-enhanced.is-mobile-stage .lingdi-founder-story__institution-stage {
+    grid-template-columns: minmax(0, 1fr) 108px;
+    min-height: 112px;
+    margin: 16px 0 18px;
+  }
+
+  .lingdi-founder-story.is-enhanced.is-mobile-stage .lingdi-founder-story__institution-mark {
+    padding: 14px;
+  }
+
+  .lingdi-founder-story.is-enhanced.is-mobile-stage .lingdi-founder-story__institution-mark--umich {
+    padding: 9px;
+  }
+
+  .lingdi-founder-story.is-enhanced.is-mobile-stage .lingdi-founder-story__institution-mark--umich img {
+    width: 84px;
+  }
+
+  .lingdi-founder-story.is-enhanced.is-mobile-stage .lingdi-founder-story__institution-stage--ey {
+    grid-template-columns: 1fr;
+    width: 104px;
+    min-height: 118px;
+  }
+
+  .lingdi-founder-story.is-enhanced.is-mobile-stage .lingdi-founder-story__institution-mark--ey {
+    padding: 9px;
+  }
+
+  .lingdi-founder-story.is-enhanced.is-mobile-stage .lingdi-founder-story__institution-mark--ey img {
+    width: 76px;
+  }
+
+  .lingdi-founder-story.is-enhanced.is-mobile-stage .lingdi-founder-story__brand-stage {
+    gap: 13px;
+    margin-top: 17px;
+    padding: 15px;
+  }
+
+  .lingdi-founder-story.is-enhanced.is-mobile-stage .lingdi-founder-story__chameleon {
+    width: 82px;
+    height: 82px;
+    flex-basis: 82px;
+    padding: 0;
+    transform: translateY(-7px);
+  }
+
+  .lingdi-founder-story.is-enhanced.is-mobile-stage .lingdi-founder-story__hey-wordmark {
+    font-size: clamp(27px, 9vw, 39px);
+  }
+
+  .lingdi-founder-story.is-enhanced.is-mobile-stage .lingdi-founder-story__power-mark {
+    min-height: 76px;
+    margin-top: 17px;
+    padding: 16px 20px;
+  }
+
+  .lingdi-founder-story.is-enhanced.is-mobile-stage .lingdi-founder-story__disclaimer {
+    margin-top: 22px;
+  }
+}
+
+@keyframes lfs-photo-drift {
+  from { transform: scale(1.012) translate3d(0, 0, 0); }
+  to { transform: scale(1.055) translate3d(-0.35%, -0.25%, 0); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .lingdi-founder-story *,
+  .lingdi-founder-story *::before,
+  .lingdi-founder-story *::after {
+    scroll-behavior: auto !important;
+    animation: none !important;
+    transition: none !important;
+  }
+
+  .lingdi-founder-story__media img {
+    transform: none;
+  }
+}

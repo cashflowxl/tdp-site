@@ -1,0 +1,25 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="630" viewBox="0 0 1200 630" role="img" aria-labelledby="title desc">
+  <title id="title">领地 GEO｜让全球 AI 推荐你的品牌</title>
+  <desc id="desc">生成式引擎优化：证据、内容、技术行动与复测。</desc>
+  <defs>
+    <linearGradient id="lingdi-og-bg" x1="0" y1="0" x2="1" y2="1">
+      <stop stop-color="#07110e"/>
+      <stop offset="1" stop-color="#102b24"/>
+    </linearGradient>
+    <pattern id="lingdi-og-grid" width="54" height="54" patternUnits="userSpaceOnUse">
+      <path d="M54 0H0V54" fill="none" stroke="#315b4d" stroke-width="1" opacity=".34"/>
+    </pattern>
+  </defs>
+  <rect width="1200" height="630" fill="url(#lingdi-og-bg)"/>
+  <rect width="1200" height="630" fill="url(#lingdi-og-grid)"/>
+  <circle cx="1054" cy="70" r="270" fill="none" stroke="#c8ff3d" stroke-opacity=".12" stroke-width="2"/>
+  <circle cx="1054" cy="70" r="180" fill="none" stroke="#c8ff3d" stroke-opacity=".09" stroke-width="2"/>
+  <rect x="76" y="68" width="34" height="34" rx="5" fill="#c8ff3d"/>
+  <text x="134" y="100" fill="#f4f6f2" font-family="PingFang SC, Hiragino Sans GB, Microsoft YaHei, Arial, sans-serif" font-size="40" font-weight="800" letter-spacing="3">领地 GEO</text>
+  <text x="137" y="132" fill="#9eb4aa" font-family="PingFang SC, Hiragino Sans GB, Microsoft YaHei, Arial, sans-serif" font-size="14" font-weight="700" letter-spacing="3">生成式引擎优化</text>
+  <text x="76" y="306" fill="#f4f6f2" font-family="PingFang SC, Hiragino Sans GB, Microsoft YaHei, Arial, sans-serif" font-size="88" font-weight="800" letter-spacing="-2">让全球 AI</text>
+  <text x="76" y="404" fill="#c8ff3d" font-family="PingFang SC, Hiragino Sans GB, Microsoft YaHei, Arial, sans-serif" font-size="88" font-weight="800" letter-spacing="-2">推荐你的品牌。</text>
+  <text x="80" y="500" fill="#d3ddd8" font-family="PingFang SC, Hiragino Sans GB, Microsoft YaHei, Arial, sans-serif" font-size="27" font-weight="500">从中国出发，按全球标准。</text>
+  <line x1="76" y1="554" x2="1124" y2="554" stroke="#638077" stroke-opacity=".56"/>
+  <text x="80" y="592" fill="#9eb4aa" font-family="PingFang SC, Hiragino Sans GB, Microsoft YaHei, Arial, sans-serif" font-size="17" font-weight="700" letter-spacing="3">证据 · 内容 · 技术行动 · 复测</text>
+</svg>

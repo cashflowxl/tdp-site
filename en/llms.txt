@@ -1,0 +1,50 @@
+# TERRA GEO by Terra Digital Power — Global Overview
+
+> Help AI Find, Understand, and Recommend Your Brand.
+
+TERRA GEO is the short public name for TERRA GEO by Terra Digital Power. It provides Generative Engine Optimization built in China and designed to global standards. It supports small and growing businesses across agreed target markets with reproducible AI brand baselines, credible-source readiness, multilingual content and technical adaptation, staged retesting and measurable commercial handoffs.
+
+## Core business lines
+
+1. Standard GEO Service: https://www.terradigitalpower.com/en/standard-geo.html
+2. GEM Commerce Growth: https://www.terradigitalpower.com/en/gem-commerce.html
+3. AI Marketing Training: https://www.terradigitalpower.com/en/ai-marketing-training.html
+
+Standard GEO has three published CNY operating modes: Workflow Deployment at CNY 29,800 as a one-time delivery for client-operated deployment; Guided GEO at CNY 59,800 per year; and Managed GEO at CNY 168,000 per year. Workflow Deployment includes ongoing upgrades to the standard product version, but not ongoing consulting, customization, redeployment, on-site service or managed operations; those are priced separately. Cross-market additions may still require custom scope based on language, target market, accessible AI environments, question set, evidence workload and execution responsibility. No fixed USD price is published.
+
+- GEM Commerce Growth uses custom pricing based on growth objectives and engagement scope. A paid baseline and real attribution validation come first; any technical fee and share of backend-verifiable attributable net GMV are set in writing.
+- AI Marketing Training uses custom pricing based on audience, scale and delivery format.
+
+## Priority observation environments
+
+- China-market projects: Doubao, Qwen, Tencent Yuanbao, DeepSeek, Kimi, ChatGLM (Zhipu AI).
+- International-market projects: ChatGPT, Claude, Google Gemini, Grok.
+- Additional environments such as Perplexity, Microsoft Copilot or DeepSeek may be added when relevant and accessible in the agreed market.
+
+Each sampling run records the platform, visible model/version, language, region, timestamp, account and web-access state, and fixed question set. Platform names define an observation scope only; they do not imply endorsement, official partnership, privileged backend access or control over recommendations.
+
+## Baseline and acceptance
+
+The standard professional baseline uses 30 questions × 4 mutually agreed, currently accessible environments × 2 independent new sessions = 240 theoretical samples. Acceptance covers agreed scope, evidence completeness and reproducibility—not whether the brand is mentioned, ranked or recommended.
+
+## Founder
+
+Liu Xianshen (Jackie) | Founder, TERRA GEO
+
+His professional foundation spans Michigan State University, the University of Michigan, Ann Arbor, and Financial Services Tax at EY New York from 2012 to 2014. After returning to China in 2014, he continuously founded and operated his own companies rather than moving through employed roles: HEY VR from 2014 to 2018, Shandong Tianpu Yunrui Investment Co., Ltd. from 2018 to 2022, and Leading Power from 2022 to the present.
+
+- HEY VR: brought VR into luxury-hotel brand communication at an early stage; the team created the VR advertising film *18° North* for Mandarin Oriental, Sanya, which received the 2017 VIVE Best Immersive Content Award.
+- Shandong Tianpu Yunrui Investment Co., Ltd.: complex asset resolution and debt restructuring; he founded and operated the company and led two projects at the hundred-million-yuan level. No unverified exact amount is published.
+- Leading Power: power trading and sustained operation; he founded from the ground up and continues to operate a Shandong-based electricity retail company serving medium and large industrial and commercial energy users.
+
+Seven years in the United States—five years of undergraduate and graduate-level professional training in finance and accounting, followed by two years at EY New York—built a global perspective, rigorous financial discipline and professional standards shaped inside a world-class professional services firm. Back in China, twelve years of building his own companies and leading projects on the front line of industry followed. These nineteen years of professional and operating experience now converge in TERRA GEO, helping companies build verifiable, sustainable growth paths for the AI era.
+
+## Result boundary
+
+TERRA GEO commits to agreed methods, evidence and actions. It does not guarantee inclusion, ranking, recommendation, exposure, traffic, inquiries, GMV, profit or sales.
+
+## Contracting
+
+The contracting entity is confirmed before engagement based on the client’s location, target market, service scope and applicable compliance requirements.
+
+Verified Hong Kong legal name: TERRA DIGITAL POWER HOLDINGS LIMITED. The public brand name does not create another legal entity, and contracting, banking, invoicing and tax details remain subject to written verification.

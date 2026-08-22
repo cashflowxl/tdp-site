@@ -1,0 +1,492 @@
+/* TERRA GEO four-path cooperation cockpit — fully namespaced. */
+.lingdi-pathways {
+  --lp-ink: #07110e;
+  --lp-paper: #f2f0e8;
+  --lp-night: #050807;
+  --lp-night-soft: #0a1512;
+  --lp-line: rgba(7, 17, 14, 0.2);
+  --lp-night-line: rgba(244, 246, 242, 0.19);
+  --lp-lime: #c8ff3d;
+  overflow: hidden;
+  overflow: clip;
+  border-top: 0;
+}
+
+.lingdi-pathways *,
+.lingdi-pathways *::before,
+.lingdi-pathways *::after {
+  box-sizing: border-box;
+}
+
+.lingdi-pathways .space-services-heading {
+  align-items: start;
+}
+
+.lingdi-pathways__lead {
+  max-width: 720px;
+  margin: 28px 0 0;
+  color: rgba(244, 246, 242, 0.68);
+  font-size: clamp(16px, 1.3vw, 21px);
+  line-height: 1.68;
+}
+
+.lingdi-pathways__cockpit {
+  position: relative;
+  margin-top: clamp(54px, 7vw, 96px);
+  border: 0;
+  background: var(--lp-night);
+  box-shadow: none;
+}
+
+.lingdi-pathways__cockpit::before {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  opacity: 0.55;
+  background: radial-gradient(circle at 78% 38%, rgba(200,255,61,.12), transparent 24%);
+  content: "";
+}
+
+.lingdi-pathways__rail {
+  position: relative;
+  z-index: 2;
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  border-bottom: 0;
+}
+
+.lingdi-pathways__rail button {
+  position: relative;
+  min-width: 0;
+  min-height: 150px;
+  padding: 24px clamp(18px, 2.1vw, 34px) 28px;
+  border: 0;
+  border-left: 0;
+  border-radius: 0;
+  color: rgba(244, 246, 242, 0.7);
+  background: transparent;
+  text-align: left;
+  cursor: pointer;
+  transition: color 180ms ease, background-color 180ms ease;
+}
+
+.lingdi-pathways__rail button:first-child {
+  border-left: 0;
+}
+
+.lingdi-pathways__rail button::after {
+  position: absolute;
+  right: 0;
+  bottom: -1px;
+  left: 0;
+  height: 3px;
+  background: var(--lp-lime);
+  transform: scaleX(0);
+  transform-origin: 0 50%;
+  transition: transform 180ms ease;
+  content: "";
+}
+
+.lingdi-pathways__rail button:hover,
+.lingdi-pathways__rail button:focus-visible,
+.lingdi-pathways__rail button[aria-selected="true"] {
+  color: #fff;
+  background: linear-gradient(180deg, rgba(244, 246, 242, 0.07), transparent 84%);
+}
+
+.lingdi-pathways__rail button:focus-visible {
+  outline: 2px solid var(--lp-lime);
+  outline-offset: -4px;
+}
+
+.lingdi-pathways__rail button[aria-selected="true"]::after {
+  transform: scaleX(1);
+}
+
+.lingdi-pathways__rail button > span,
+.lingdi-pathways__rail button > small {
+  display: block;
+  color: var(--lp-lime);
+  font: 760 10px/1.2 ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+
+.lingdi-pathways__rail button > small {
+  margin-top: 22px;
+  color: rgba(244, 246, 242, 0.48);
+}
+
+.lingdi-pathways__rail button > strong {
+  display: block;
+  margin-top: 8px;
+  font-size: clamp(19px, 1.65vw, 27px);
+  line-height: 1.1;
+  letter-spacing: -0.025em;
+}
+
+.lingdi-pathways__stage {
+  position: relative;
+  z-index: 1;
+  display: grid;
+  gap: 1px;
+  touch-action: pan-y;
+}
+
+.lingdi-pathways.is-enhanced .lingdi-pathways__stage {
+  min-height: 620px;
+}
+
+.lingdi-pathways__panel {
+  position: relative;
+  display: grid;
+  grid-template-columns: minmax(0, 1.28fr) minmax(320px, 0.72fr);
+  grid-template-areas:
+    "meta meta"
+    "title pricing"
+    "facts pricing"
+    "cta pricing";
+  gap: 28px clamp(44px, 7vw, 112px);
+  align-content: center;
+  min-height: 620px;
+  padding: clamp(48px, 6vw, 92px);
+  border-top: 0;
+  color: #f4f6f2;
+  background:
+    radial-gradient(circle at 82% 20%, rgba(29, 112, 86, 0.3), transparent 34%),
+    linear-gradient(138deg, rgba(10, 21, 18, 0.97), rgba(5, 8, 7, 0.99));
+}
+
+.lingdi-pathways__panel:nth-child(2) {
+  background:
+    radial-gradient(circle at 80% 18%, rgba(94, 79, 29, 0.3), transparent 34%),
+    linear-gradient(138deg, rgba(20, 19, 11, 0.98), rgba(5, 8, 7, 0.99));
+}
+
+.lingdi-pathways__panel:nth-child(3) {
+  background:
+    radial-gradient(circle at 82% 18%, rgba(48, 67, 118, 0.3), transparent 35%),
+    linear-gradient(138deg, rgba(10, 16, 28, 0.98), rgba(5, 8, 7, 0.99));
+}
+
+.lingdi-pathways__panel:nth-child(4) {
+  background:
+    radial-gradient(circle at 80% 18%, rgba(76, 112, 94, 0.28), transparent 35%),
+    linear-gradient(138deg, rgba(10, 21, 18, 0.98), rgba(5, 8, 7, 0.99));
+}
+
+.lingdi-pathways__panel:first-child {
+  border-top: 0;
+}
+
+.lingdi-pathways.is-enhanced .lingdi-pathways__panel {
+  border-top: 0;
+  animation: lp-panel-in 360ms ease both;
+}
+
+.lingdi-pathways__panel[hidden] {
+  display: none;
+}
+
+.lingdi-pathways__meta {
+  grid-area: meta;
+  margin: 0;
+  color: var(--lp-lime);
+  font: 760 11px/1.4 ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+  letter-spacing: 0.13em;
+  text-transform: uppercase;
+}
+
+.lingdi-pathways__panel h3 {
+  grid-area: title;
+  max-width: 15ch;
+  margin: 0;
+  font-size: clamp(45px, 5.1vw, 78px);
+  line-height: 0.98;
+  letter-spacing: -0.055em;
+  text-wrap: balance;
+}
+
+.lingdi-pathways__panel dl {
+  grid-area: facts;
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: clamp(28px, 5vw, 72px);
+  max-width: 850px;
+  margin: 8px 0 0;
+  background: transparent;
+}
+
+.lingdi-pathways__panel dl > div {
+  padding: 0;
+  background: transparent;
+}
+
+.lingdi-pathways__panel dt {
+  color: var(--lp-lime);
+  font-size: 11px;
+  font-weight: 760;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+
+.lingdi-pathways__panel dd {
+  margin: 12px 0 0;
+  color: rgba(244, 246, 242, 0.7);
+  font-size: 14px;
+  line-height: 1.68;
+}
+
+.lingdi-pathways__pricing {
+  grid-area: pricing;
+  align-self: stretch;
+  display: flex;
+  align-items: center;
+  border-left: 0;
+  padding-left: 0;
+}
+
+.lingdi-pathways__pricing p {
+  margin: 0;
+}
+
+.lingdi-pathways__pricing small,
+.lingdi-pathways__pricing strong,
+.lingdi-pathways__pricing span {
+  display: block;
+}
+
+.lingdi-pathways__pricing small {
+  color: rgba(244, 246, 242, 0.5);
+  font: 760 10px/1.3 ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+  letter-spacing: 0.11em;
+  text-transform: uppercase;
+}
+
+.lingdi-pathways__pricing strong {
+  margin-top: 12px;
+  color: var(--lp-lime);
+  font-size: clamp(28px, 3vw, 48px);
+  line-height: 1;
+  letter-spacing: -0.045em;
+}
+
+.lingdi-pathways__pricing span {
+  max-width: 32ch;
+  margin-top: 15px;
+  color: rgba(244, 246, 242, 0.66);
+  font-size: 14px;
+  line-height: 1.65;
+}
+
+.lingdi-pathways__pricing--tiers {
+  flex-direction: column;
+  align-items: stretch;
+  justify-content: center;
+  gap: 18px;
+}
+
+.lingdi-pathways__pricing--tiers p + p {
+  padding-top: 12px;
+  border-top: 0;
+}
+
+.lingdi-pathways__pricing--tiers strong {
+  font-size: clamp(20px, 2vw, 31px);
+}
+
+.lingdi-pathways__cta {
+  grid-area: cta;
+  display: inline-flex;
+  align-items: center;
+  justify-content: space-between;
+  width: fit-content;
+  min-height: 0;
+  padding: 7px 0;
+  border: 0;
+  border-bottom: 1px solid rgba(244, 246, 242, 0.5);
+  color: #fff;
+  font-size: 13px;
+  font-weight: 790;
+  transition: color 180ms ease, background-color 180ms ease, border-color 180ms ease;
+}
+
+.lingdi-pathways__cta:hover,
+.lingdi-pathways__cta:focus-visible {
+  border-color: var(--lp-lime);
+  color: var(--lp-lime);
+  background: transparent;
+}
+
+.lingdi-pathways__cta:focus-visible {
+  outline: 2px solid #fff;
+  outline-offset: 3px;
+}
+
+.lingdi-pathways__status {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+.lingdi-pathways .space-service-boundary {
+  max-width: 980px;
+  margin: 30px 0 0;
+  color: rgba(244, 246, 242, 0.56);
+  font-size: 12px;
+  line-height: 1.72;
+}
+
+@media (max-width: 980px) {
+  .lingdi-pathways__panel {
+    grid-template-columns: minmax(0, 1fr) minmax(260px, 0.62fr);
+    gap: 24px 34px;
+    padding: 52px 42px;
+  }
+
+  .lingdi-pathways__panel h3 {
+    font-size: clamp(42px, 6vw, 62px);
+  }
+
+  .lingdi-pathways__panel dl {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 767px) {
+  .lingdi-pathways {
+    min-height: 0;
+    padding: 92px 0;
+  }
+
+  .lingdi-pathways__lead {
+    margin-top: 22px;
+    font-size: 16px;
+  }
+
+  .lingdi-pathways__cockpit {
+    margin-top: 48px;
+    border-right: 0;
+    border-left: 0;
+  }
+
+  .lingdi-pathways__rail {
+    display: flex;
+    width: calc(100vw - 20px);
+    overflow-x: auto;
+    overscroll-behavior-inline: contain;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
+  }
+
+  .lingdi-pathways__rail::-webkit-scrollbar {
+    display: none;
+  }
+
+  .lingdi-pathways__rail button {
+    flex: 0 0 min(64vw, 238px);
+    min-height: 126px;
+    padding: 20px 18px 22px;
+  }
+
+  .lingdi-pathways__rail button:first-child {
+    border-left: 1px solid var(--lp-night-line);
+  }
+
+  .lingdi-pathways__rail button > small {
+    margin-top: 16px;
+  }
+
+  .lingdi-pathways__rail button > strong {
+    font-size: 20px;
+  }
+
+  .lingdi-pathways.is-enhanced .lingdi-pathways__stage {
+    min-height: 0;
+  }
+
+  .lingdi-pathways__panel {
+    grid-template-columns: 1fr;
+    grid-template-areas: "meta" "title" "facts" "pricing" "cta";
+    gap: 24px;
+    min-height: 640px;
+    padding: 38px 20px 42px;
+  }
+
+  .lingdi-pathways__panel h3 {
+    max-width: 13ch;
+    font-size: clamp(39px, 11.6vw, 54px);
+  }
+
+  .lingdi-pathways__panel dl {
+    grid-template-columns: 1fr;
+    margin-top: 0;
+  }
+
+  .lingdi-pathways__panel dl > div {
+    padding: 0;
+  }
+
+  .lingdi-pathways__pricing {
+    align-self: auto;
+    display: block;
+    padding: 4px 0 0;
+    border-top: 0;
+    border-left: 0;
+  }
+
+  .lingdi-pathways__pricing strong {
+    font-size: clamp(28px, 9vw, 40px);
+  }
+
+  .lingdi-pathways__pricing--tiers { display: grid; grid-template-columns: 1fr; gap: 11px; }
+
+  .lingdi-pathways__pricing--tiers p + p {
+    padding: 6px 0 0;
+    border-top: 0;
+    border-left: 0;
+  }
+
+  .lingdi-pathways__pricing--tiers strong {
+    margin-top: 7px;
+    font-size: clamp(20px, 5.5vw, 27px);
+    line-height: 1.1;
+  }
+
+  .lingdi-pathways__cta {
+    width: fit-content;
+  }
+}
+
+@media (max-width: 390px) {
+  .lingdi-pathways__panel {
+    min-height: 680px;
+    padding-inline: 17px;
+  }
+
+  .lingdi-pathways__panel dd {
+    font-size: 13px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .lingdi-pathways *,
+  .lingdi-pathways *::before,
+  .lingdi-pathways *::after {
+    scroll-behavior: auto !important;
+    animation: none !important;
+    transition: none !important;
+  }
+}
+
+@keyframes lp-panel-in {
+  from { opacity: 0; transform: translateY(12px); }
+  to { opacity: 1; transform: translateY(0); }
+}

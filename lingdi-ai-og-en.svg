@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 630" width="1200" height="630" role="img" aria-label="Lingdi GEO | Help AI worldwide recommend your brand">
+  <rect width="1200" height="630" fill="#123C32"/>
+  <rect x="84" y="76" width="58" height="58" rx="14" fill="#C8FF3D"/>
+  <text x="84" y="190" fill="#C8FF3D" font-family="Helvetica Neue,Arial,sans-serif" font-size="27" font-weight="800" letter-spacing="5">LINGDI GEO</text>
+  <text x="80" y="330" fill="#FFFFFF" font-family="Helvetica Neue,Arial,sans-serif" font-size="72" font-weight="800" letter-spacing="-2">HELP AI WORLDWIDE</text>
+  <text x="80" y="425" fill="#FFFFFF" font-family="Helvetica Neue,Arial,sans-serif" font-size="72" font-weight="800" letter-spacing="-2">RECOMMEND YOUR BRAND</text>
+  <line x1="82" x2="930" y1="468" y2="468" stroke="#C8FF3D" stroke-width="12" stroke-linecap="round"/>
+  <text x="84" y="548" fill="#C7D3CF" font-family="Helvetica Neue,Arial,sans-serif" font-size="27">FROM CHINA. BUILT TO GLOBAL STANDARDS.</text>
+</svg>
