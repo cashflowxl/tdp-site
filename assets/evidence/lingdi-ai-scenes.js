@@ -15,20 +15,66 @@
     var status = root.querySelector("[data-ai-scene-status]");
     if (!tabs.length || !video || !frame || !meta || !title || !summary) return;
 
+    var carouselViewport = document.createElement("div");
+    var carouselTrack = document.createElement("div");
+    var carouselFrames = [frame];
+    var carouselVideos = [video];
+    carouselViewport.className = "lingdi-ai-scenes__carousel";
+    carouselTrack.className = "lingdi-ai-scenes__carousel-track";
+    carouselViewport.setAttribute("role", "group");
+    carouselViewport.setAttribute("aria-label", root.getAttribute("data-carousel-label") || "AI 场景横向翻页");
+    frame.parentNode.insertBefore(carouselViewport, frame);
+    carouselViewport.appendChild(carouselTrack);
+    carouselTrack.appendChild(frame);
+    tabs.slice(1).forEach(function (tab) {
+      var clone = frame.cloneNode(true);
+      var cloneVideo = clone.querySelector("[data-ai-scene-video]");
+      var cloneSource = tab.getAttribute("data-src");
+      var clonePoster = tab.getAttribute("data-poster");
+      cloneVideo.setAttribute("src", cloneSource || "");
+      if (clonePoster) cloneVideo.poster = clonePoster;
+      cloneVideo.setAttribute("aria-label", tab.getAttribute("data-video-label") || tab.getAttribute("data-title") || "");
+      cloneVideo.muted = true;
+      cloneVideo.loop = true;
+      cloneVideo.playsInline = true;
+      cloneVideo.controls = false;
+      carouselTrack.appendChild(clone);
+      carouselFrames.push(clone);
+      carouselVideos.push(cloneVideo);
+    });
+    var carouselControls = document.createElement("div");
+    var previousButton = document.createElement("button");
+    var nextButton = document.createElement("button");
+    carouselControls.className = "lingdi-ai-scenes__carousel-controls";
+    previousButton.type = "button";
+    nextButton.type = "button";
+    previousButton.textContent = "←";
+    nextButton.textContent = "→";
+    previousButton.setAttribute("aria-label", "上一条场景");
+    nextButton.setAttribute("aria-label", "下一条场景");
+    carouselControls.appendChild(previousButton);
+    carouselControls.appendChild(nextButton);
+    carouselViewport.appendChild(carouselControls);
+
     var fineHover = window.matchMedia("(hover: hover) and (pointer: fine)");
     var reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)");
     var saveData = Boolean(navigator.connection && navigator.connection.saveData);
     var activeIndex = 0;
     var visible = false;
-    var sceneTimes = Object.create(null);
-    var loadToken = 0;
+    var pointerStart = null;
 
     root.classList.add("is-enhanced");
-    video.muted = true;
-    video.loop = true;
-    video.playsInline = true;
-    video.controls = false;
-    if (saveData) video.preload = "none";
+    carouselVideos.forEach(function (item) {
+      item.muted = true;
+      item.loop = true;
+      item.playsInline = true;
+      item.controls = false;
+      if (saveData) item.preload = "none";
+    });
+
+    function currentVideo() {
+      return carouselVideos[activeIndex] || video;
+    }
 
     function canAutoplay() {
       return !reducedMotion.matches && !saveData && visible && !document.hidden;
@@ -36,18 +82,17 @@
 
     function playIfAllowed() {
       if (!canAutoplay()) return;
-      var attempt = video.play();
+      carouselVideos.forEach(function (item, index) {
+        if (index !== activeIndex) item.pause();
+      });
+      var attempt = currentVideo().play();
       if (attempt && typeof attempt.catch === "function") attempt.catch(function () {});
     }
 
     function selectScene(index, options) {
-      var next = (index + tabs.length) % tabs.length;
+      var next = Math.max(0, Math.min(tabs.length - 1, index));
       var tab = tabs[next];
-      var src = tab.getAttribute("data-src");
-      var poster = tab.getAttribute("data-poster");
-      var wasPlaying = !video.paused;
-      var previousSrc = video.getAttribute("src") || "";
-      if (previousSrc && Number.isFinite(video.currentTime)) sceneTimes[previousSrc] = video.currentTime;
+      var wasPlaying = !currentVideo().paused;
       activeIndex = next;
 
       tabs.forEach(function (item, itemIndex) {
@@ -60,22 +105,9 @@
       title.textContent = tab.getAttribute("data-title") || "";
       summary.textContent = tab.getAttribute("data-summary") || "";
       if (panel && tab.id) panel.setAttribute("aria-labelledby", tab.id);
-      video.setAttribute("aria-label", tab.getAttribute("data-video-label") || tab.getAttribute("data-title") || "");
-
-      if (poster) video.poster = poster;
-      if (src && previousSrc !== src) {
-        loadToken += 1;
-        var expectedToken = loadToken;
-        video.pause();
-        video.setAttribute("src", src);
-        video.load();
-        video.addEventListener("loadedmetadata", function restoreSceneTime() {
-          if (expectedToken !== loadToken || video.getAttribute("src") !== src) return;
-          var savedTime = sceneTimes[src] || 0;
-          if (savedTime > 0 && savedTime < video.duration) video.currentTime = savedTime;
-          if (options && options.autoplay) playIfAllowed();
-        }, { once: true });
-      }
+      carouselTrack.style.transform = "translate3d(-" + (next * 100) + "%, 0, 0)";
+      previousButton.disabled = next === 0;
+      nextButton.disabled = next === tabs.length - 1;
 
       if (status) {
         status.textContent = (root.getAttribute("data-status-prefix") || "Scene") + " " + (next + 1) + " / " + tabs.length + ": " + (tab.getAttribute("data-title") || "");
@@ -83,9 +115,6 @@
 
       if (options && options.focus) tab.focus();
       if ((options && options.autoplay) || wasPlaying) playIfAllowed();
-      if (tab.scrollIntoView && window.innerWidth < 768) {
-        tab.scrollIntoView({ behavior: reducedMotion.matches ? "auto" : "smooth", block: "nearest", inline: "center" });
-      }
     }
 
     tabs.forEach(function (tab, index) {
@@ -109,22 +138,39 @@
       });
     });
 
+    carouselViewport.addEventListener("pointerdown", function (event) {
+      pointerStart = { x: event.clientX, y: event.clientY, id: event.pointerId };
+    });
+
+    carouselViewport.addEventListener("pointerup", function (event) {
+      if (!pointerStart || pointerStart.id !== event.pointerId) return;
+      var dx = event.clientX - pointerStart.x;
+      var dy = event.clientY - pointerStart.y;
+      pointerStart = null;
+      if (Math.abs(dx) < 56 || Math.abs(dx) <= Math.abs(dy) * 1.35) return;
+      selectScene(activeIndex + (dx < 0 ? 1 : -1), { autoplay: true });
+    });
+
+    carouselViewport.addEventListener("pointercancel", function () { pointerStart = null; });
+    previousButton.addEventListener("click", function () { selectScene(activeIndex - 1, { autoplay: true }); });
+    nextButton.addEventListener("click", function () { selectScene(activeIndex + 1, { autoplay: true }); });
+
     if ("IntersectionObserver" in window) {
       var observer = new IntersectionObserver(function (entries) {
         visible = Boolean(entries[0] && entries[0].isIntersecting && entries[0].intersectionRatio >= 0.2);
         if (visible) playIfAllowed();
-        else video.pause();
+        else carouselVideos.forEach(function (item) { item.pause(); });
       }, { threshold: [0, 0.2, 0.5] });
-      observer.observe(frame);
+      observer.observe(carouselViewport);
     }
 
     document.addEventListener("visibilitychange", function () {
-      if (document.hidden) video.pause();
+      if (document.hidden) carouselVideos.forEach(function (item) { item.pause(); });
       else playIfAllowed();
     });
 
     var mediaChange = function () {
-      if (!canAutoplay()) video.pause();
+      if (!canAutoplay()) carouselVideos.forEach(function (item) { item.pause(); });
       else playIfAllowed();
     };
     if (fineHover.addEventListener) fineHover.addEventListener("change", mediaChange);

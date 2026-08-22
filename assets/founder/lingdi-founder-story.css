@@ -219,8 +219,8 @@
   position: relative;
   z-index: 2;
   margin: 30px 0 0;
-  padding: 0 0 0 28px;
-  border-left: 1px solid rgba(200,255,61,.78);
+  padding: 0;
+  border-left: 0;
   background: transparent;
 }
 
@@ -317,12 +317,18 @@
 }
 
 .lingdi-founder-story__hey-lockup {
-  display: flex;
+  display: grid;
   align-items: center;
-  gap: 10px;
+  gap: 8px;
   padding-top: 0;
   position: relative;
   z-index: 1;
+}
+
+.lingdi-founder-story__hey-lockup span {
+  color: rgba(255, 255, 255, 0.62);
+  font-size: 12px;
+  letter-spacing: 0.11em;
 }
 
 .lingdi-founder-story__chameleon {
@@ -347,7 +353,7 @@
 .lingdi-founder-story__award {
   position: relative;
   z-index: 1;
-  margin: 8px 0 0 76px;
+  margin: 12px 0 0;
   color: rgba(255, 255, 255, 0.82);
   font-size: 11px;
   font-weight: 760;
@@ -660,44 +666,29 @@
     min-height: calc(var(--lfs-mobile-tab-height) + var(--lfs-mobile-panel-height, 330px));
     margin-top: 0;
     padding: 0 0 var(--lfs-mobile-panel-height, 330px);
-    border: 1px solid var(--lfs-line);
-    background: #080b0a;
+    border: 0;
+    background: transparent;
     touch-action: pan-y;
   }
 
   .lingdi-founder-story.is-enhanced.is-mobile-stage .lingdi-founder-story__timeline::before {
-    content: "";
-    position: absolute;
-    inset: var(--lfs-mobile-tab-height) 0 0;
-    z-index: 0;
-    pointer-events: none;
-    background:
-      radial-gradient(circle at 82% 12%, rgba(200, 255, 61, 0.13), transparent 36%),
-      linear-gradient(145deg, #0a1614, #050807 70%);
+    content: none;
   }
 
   .lingdi-founder-story[data-founder-active="1"] .lingdi-founder-story__timeline::before {
-    background:
-      radial-gradient(circle at 16% 12%, rgba(200, 255, 61, 0.12), transparent 34%),
-      linear-gradient(145deg, #171914, #050807 72%);
+    background: none;
   }
 
   .lingdi-founder-story[data-founder-active="2"] .lingdi-founder-story__timeline::before {
-    background:
-      radial-gradient(circle at 82% 16%, rgba(255, 210, 49, 0.17), transparent 34%),
-      linear-gradient(145deg, #17150c, #050807 72%);
+    background: none;
   }
 
   .lingdi-founder-story[data-founder-active="3"] .lingdi-founder-story__timeline::before {
-    background:
-      radial-gradient(circle at 18% 18%, rgba(105, 190, 180, 0.16), transparent 36%),
-      linear-gradient(145deg, #0b1718, #050807 72%);
+    background: none;
   }
 
   .lingdi-founder-story[data-founder-active="4"] .lingdi-founder-story__timeline::before {
-    background:
-      radial-gradient(circle at 82% 12%, rgba(71, 143, 219, 0.17), transparent 36%),
-      linear-gradient(145deg, #0a121a, #050807 72%);
+    background: none;
   }
 
   .lingdi-founder-story.is-enhanced.is-mobile-stage .lingdi-founder-story__item {
@@ -717,9 +708,9 @@
     justify-content: center;
     padding: 8px 4px;
     border: 0;
-    border-right: 1px solid var(--lfs-line);
+    border-right: 0;
     color: rgba(244, 246, 242, 0.62);
-    background: rgba(5, 8, 7, 0.84);
+    background: transparent;
     text-align: center;
   }
 
@@ -755,7 +746,7 @@
   .lingdi-founder-story.is-enhanced.is-mobile-stage .lingdi-founder-story__tab:focus-visible,
   .lingdi-founder-story.is-enhanced.is-mobile-stage .lingdi-founder-story__tab[aria-expanded="true"] {
     color: var(--lfs-ink);
-    background: rgba(20, 57, 49, 0.82);
+    background: transparent;
   }
 
   .lingdi-founder-story.is-enhanced.is-mobile-stage .lingdi-founder-story__tab[aria-expanded="true"]::before {
@@ -773,9 +764,9 @@
     width: auto;
     min-height: var(--lfs-mobile-panel-height, 330px);
     margin: 0;
-    padding: 26px 18px 28px;
+    padding: 30px 0 28px;
     border: 0;
-    border-top: 1px solid rgba(200, 255, 61, 0.36);
+    border-top: 0;
     background: transparent;
   }
 

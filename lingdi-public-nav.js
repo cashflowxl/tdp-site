@@ -3,7 +3,7 @@
     if(document.querySelector('link[data-lingdi-public-nav],link[href*="/lingdi-public-nav.css"]')) return;
     var stylesheet=document.createElement('link');
     stylesheet.rel='stylesheet';
-    stylesheet.href='/lingdi-public-nav.css?v=20260822-terra1';
+    stylesheet.href='/lingdi-public-nav.css?v=20260822-navmobile2';
     stylesheet.dataset.lingdiPublicNav='true';
     document.head.appendChild(stylesheet);
   }
@@ -21,6 +21,12 @@
   function setPublicNavigation(){
     ensurePublicNavigationStyles();
     if(!document.body.hasAttribute('data-lingdi-nav')) return;
+    if(document.body.classList.contains('space-home')&&window.matchMedia('(max-width: 767px)').matches&&!location.hash){
+      if('scrollRestoration' in history) history.scrollRestoration='manual';
+      var resetHomeScroll=function(){ window.scrollTo(0,0); };
+      resetHomeScroll();
+      window.addEventListener('pageshow',resetHomeScroll,{once:true});
+    }
     var isEnglish=(document.documentElement.lang||'').toLowerCase().indexOf('en')===0;
     var languagePair=document.body.dataset.langPair||(isEnglish?'/':'/en/');
     var immersive=document.body.dataset.navTheme==='dark';
@@ -62,6 +68,9 @@
       var brandContent=isEnglish
         ? '<span class="terra-brand-lockup terra-brand-lockup--nav" aria-hidden="true"><strong class="terra-brand-lockup__primary">TERRA GEO</strong><small class="terra-brand-lockup__byline">BY TERRA DIGITAL POWER</small></span>'
         : '<img src="'+(immersive?'/lingdi-geo-logo-reverse.svg?v=20260820-v12':'/lingdi-geo-logo.svg?v=20260820-v12')+'" width="160" height="45" alt="领地 GEO">';
+      var mobileLinks=links.map(function(item){
+        return '<a class="'+item[2]+'" href="'+item[0]+'">'+item[1]+'</a>';
+      }).join('');
       nav.innerHTML='<div class="wrap">'+
         '<a class="lingdi-public-brand" href="'+(isEnglish?'/en/':'/')+'" aria-label="'+(isEnglish?'TERRA GEO by Terra Digital Power home':'领地 GEO 首页')+'">'+
           brandContent+
@@ -70,7 +79,26 @@
           var active=isCurrent(item[0])?' aria-current="page"':'';
           return '<a class="'+item[2]+'" href="'+item[0]+'"'+active+'>'+item[1]+'</a>';
         }).join('')+'</div>'+
+        '<button class="lingdi-nav-menu" type="button" aria-expanded="false" aria-label="'+(isEnglish?'Open navigation':'打开导航')+'"><span></span><span></span></button>'+
       '</div>';
+      var menu=nav.querySelector('.lingdi-nav-menu');
+      var drawer=document.createElement('nav');
+      drawer.className='lingdi-nav-drawer';
+      drawer.hidden=true;
+      drawer.setAttribute('aria-label',isEnglish?'Mobile navigation':'移动端导航');
+      drawer.innerHTML=mobileLinks;
+      nav.appendChild(drawer);
+      menu.addEventListener('click',function(){
+        var open=menu.getAttribute('aria-expanded')!=='true';
+        menu.setAttribute('aria-expanded',String(open));
+        drawer.hidden=!open;
+      });
+      drawer.addEventListener('click',function(event){
+        if(event.target.closest('a')){
+          menu.setAttribute('aria-expanded','false');
+          drawer.hidden=true;
+        }
+      });
     });
     if(immersive){
       var syncNav=function(){

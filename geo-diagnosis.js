@@ -49,17 +49,13 @@
   }
   branchSelect.addEventListener('change',updateBranch); updateBranch();
   form.addEventListener('submit',function(event){
-    event.preventDefault(); if(!form.reportValidity()) return;
-    var data=new FormData(form), submit=form.querySelector('[type="submit"]');
+    event.preventDefault();
     if(!assessmentEnabled){
-      result.querySelector('[data-result-brand]').textContent=value(data,'brandName');
-      result.querySelector('[data-diagnosis-id]').textContent='待开通';
-      result.querySelector('[data-result-status]').textContent='人工申请';
-      result.querySelector('[data-task-title]').textContent='真实模型评测正在配置';
-      result.querySelector('[data-task-copy]').textContent='当前不提交或保存此页填写的信息。请通过顾问确认评测范围后再开启真实模型测试。';
-      result.hidden=false; result.focus();
-      result.scrollIntoView({behavior:'smooth',block:'start'}); return;
+      window.location.href='/lingdi-support.html?source=geo-diagnosis-application';
+      return;
     }
+    if(!form.reportValidity()) return;
+    var data=new FormData(form), submit=form.querySelector('[type="submit"]');
     submit.disabled=true; submit.setAttribute('aria-busy','true'); submit.firstChild.textContent='正在创建真实评测任务 ';
     fetch(api+'/api/public/assessments',{method:'POST',headers:{'content-type':'application/json'},body:JSON.stringify(payloadFrom(data))})
       .then(function(response){return response.json().then(function(body){if(!response.ok) throw new Error(body.error||'任务创建失败');return body;});})

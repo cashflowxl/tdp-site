@@ -81,8 +81,8 @@
   color:#fff;
   font-size:clamp(64px,7.5vw,116px);
   font-weight:840;
-  letter-spacing:-.067em;
-  line-height:.92;
+  letter-spacing:-.06em;
+  line-height:1;
   text-wrap:balance;
 }
 .space-detail .detail-hero h1 em{color:#fff;font-style:normal}

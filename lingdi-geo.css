@@ -402,7 +402,7 @@ footer{padding:54px 0 30px;background:var(--ink);color:#A9B8B3}
 .space-hero-inner{width:min(1600px,calc(100% - 80px));min-height:100vh;min-height:100svh;margin-inline:auto;display:flex;align-items:flex-end;justify-content:space-between;gap:72px;padding:clamp(140px,19vh,210px) 0 clamp(94px,12vh,132px)}
 .space-hero-copy{max-width:900px;min-width:0}
 .space-kicker{color:var(--signal);font:800 11px/1.4 var(--mono);letter-spacing:.15em;text-transform:uppercase}
-.space-hero h1{max-width:12ch;margin-top:20px;color:#fff;font-size:clamp(58px,7.2vw,112px);font-weight:830;letter-spacing:-.065em;line-height:.93;text-wrap:balance}
+.space-hero h1{max-width:12ch;margin-top:20px;color:#fff;font-size:clamp(58px,7.2vw,112px);font-weight:830;letter-spacing:-.06em;line-height:1.01;text-wrap:balance}
 .space-hero h1 em{color:#fff;font-style:normal}
 .space-hero h1>span,.space-hero h1>em{display:block}
 .space-hero h1 em::after{display:none}
@@ -444,7 +444,7 @@ footer{padding:54px 0 30px;background:var(--ink);color:#A9B8B3}
   .space-hero-shade{background:linear-gradient(180deg,rgba(7,17,14,.08) 0%,rgba(7,17,14,.06) 32%,rgba(7,17,14,.68) 55%,rgba(7,17,14,.98) 82%,#07110E 100%)}
   .space-hero-inner{width:calc(100% - 40px);min-height:100svh;display:block;padding:39vh 0 76px}
   .space-kicker{font-size:9px;letter-spacing:.12em}
-  .space-hero h1{max-width:none;margin-top:14px;font-size:clamp(40px,11.4vw,47px);line-height:.94;letter-spacing:-.06em}
+  .space-hero h1{max-width:none;margin-top:14px;font-size:clamp(40px,11.4vw,47px);line-height:1.03;letter-spacing:-.055em}
   .space-hero h1>em{white-space:nowrap}
   .space-hero h1 em::before{width:.12em;height:.12em;margin-right:.08em;border-radius:1px}
   .space-hero-lead{margin-top:17px;font-size:15px}

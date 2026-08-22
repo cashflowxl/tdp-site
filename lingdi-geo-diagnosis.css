@@ -313,7 +313,7 @@
 
 @media(max-width:620px){
   :is(.geo-diagnosis-page,.geo-diagnosis-sample-page) .detail-hero{min-height:100svh;padding-top:138px}
-  :is(.geo-diagnosis-page,.geo-diagnosis-sample-page) .detail-hero .hero-copy h1{font-size:clamp(47px,13.4vw,61px)}
+  :is(.geo-diagnosis-page,.geo-diagnosis-sample-page) .detail-hero .hero-copy h1{font-size:clamp(43px,12vw,56px);line-height:1.02;letter-spacing:-.055em}
   :is(.geo-diagnosis-page,.geo-diagnosis-sample-page) .detail-hero .priority-card{margin-top:12px}
   .geo-diagnosis-page .diagnosis-stage{padding:80px 0}
   .geo-diagnosis-page .diagnosis-shell{width:calc(100% - 30px)}
