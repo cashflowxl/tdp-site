@@ -20,7 +20,6 @@
     var saveData = Boolean(navigator.connection && navigator.connection.saveData);
     var activeIndex = 0;
     var visible = false;
-    var pointerStart = null;
     var sceneTimes = Object.create(null);
     var loadToken = 0;
 
@@ -28,6 +27,7 @@
     video.muted = true;
     video.loop = true;
     video.playsInline = true;
+    video.controls = false;
     if (saveData) video.preload = "none";
 
     function canAutoplay() {
@@ -109,31 +109,13 @@
       });
     });
 
-    frame.addEventListener("pointerdown", function (event) {
-      if (fineHover.matches) return;
-      pointerStart = { x: event.clientX, y: event.clientY, id: event.pointerId };
-    });
-
-    frame.addEventListener("pointerup", function (event) {
-      if (!pointerStart || pointerStart.id !== event.pointerId) return;
-      var dx = event.clientX - pointerStart.x;
-      var dy = event.clientY - pointerStart.y;
-      pointerStart = null;
-      if (Math.abs(dx) < 48 || Math.abs(dx) <= Math.abs(dy) * 1.35) return;
-      selectScene(activeIndex + (dx < 0 ? 1 : -1), { autoplay: false });
-    });
-
-    frame.addEventListener("pointercancel", function () {
-      pointerStart = null;
-    });
-
     if ("IntersectionObserver" in window) {
       var observer = new IntersectionObserver(function (entries) {
-        visible = Boolean(entries[0] && entries[0].isIntersecting && entries[0].intersectionRatio >= 0.48);
+        visible = Boolean(entries[0] && entries[0].isIntersecting && entries[0].intersectionRatio >= 0.2);
         if (visible) playIfAllowed();
         else video.pause();
-      }, { threshold: [0, 0.48, 0.75] });
-      observer.observe(root);
+      }, { threshold: [0, 0.2, 0.5] });
+      observer.observe(frame);
     }
 
     document.addEventListener("visibilitychange", function () {

@@ -113,6 +113,9 @@
   object-position: center;
   border-radius: 9% / 4.1%;
   background: #020403;
+  pointer-events: none;
+  user-select: none;
+  -webkit-user-drag: none;
 }
 
 .lingdi-ai-scenes__shell {
