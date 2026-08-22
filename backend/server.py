@@ -13,14 +13,11 @@ import os
 import re
 import secrets
 import sqlite3
-from concurrent.futures import ThreadPoolExecutor
 from datetime import datetime, timezone
 from base64 import urlsafe_b64decode, urlsafe_b64encode
 from http.server import BaseHTTPRequestHandler, ThreadingHTTPServer
 from pathlib import Path
 from urllib.parse import parse_qs, unquote, urlparse
-from urllib.error import HTTPError, URLError
-from urllib.request import Request, urlopen
 
 HOST = os.getenv("HOST", "127.0.0.1")
 PORT = int(os.getenv("PORT", "8787"))
@@ -30,30 +27,6 @@ ADMIN_USERNAME = os.getenv("ADMIN_USERNAME", "admin")
 ADMIN_PASSWORD_HASH = os.getenv("ADMIN_PASSWORD_HASH", "")
 AUTH_SECRET = os.getenv("AUTH_SECRET", "")
 ALLOWED_ORIGINS = {value.strip() for value in os.getenv("ALLOWED_ORIGINS", "http://127.0.0.1:4174").split(",") if value.strip()}
-ASSESSMENT_EXECUTOR = ThreadPoolExecutor(max_workers=3, thread_name_prefix="lingdi-assessment")
-
-# Only official provider endpoints are used. Empty keys intentionally leave a
-# task queued rather than fabricating a model result.
-MODEL_PROVIDERS = {
-    "doubao": {
-        "label": "豆包（火山方舟）",
-        "url": os.getenv("DOUBAO_API_BASE", "https://ark.cn-beijing.volces.com/api/v3/chat/completions"),
-        "key": os.getenv("DOUBAO_API_KEY", ""),
-        "model": os.getenv("DOUBAO_MODEL", ""),
-    },
-    "qwen": {
-        "label": "千问（阿里云百炼）",
-        "url": os.getenv("QWEN_API_BASE", "https://dashscope.aliyuncs.com/compatible-mode/v1/chat/completions"),
-        "key": os.getenv("QWEN_API_KEY", ""),
-        "model": os.getenv("QWEN_MODEL", ""),
-    },
-    "hunyuan": {
-        "label": "混元（腾讯云）",
-        "url": os.getenv("HUNYUAN_API_BASE", "https://api.hunyuan.cloud.tencent.com/v1/chat/completions"),
-        "key": os.getenv("HUNYUAN_API_KEY", ""),
-        "model": os.getenv("HUNYUAN_MODEL", ""),
-    },
-}
 
 SERVICES = {
     "plus": {"name": "ChatGPT Plus 1个月", "amountCents": 13800},
@@ -174,22 +147,6 @@ def initialise_database():
             sender TEXT NOT NULL, content TEXT NOT NULL, created_at TEXT NOT NULL,
             FOREIGN KEY(conversation_id) REFERENCES conversations(id)
           );
-          CREATE TABLE IF NOT EXISTS assessment_tasks (
-            id TEXT PRIMARY KEY, access_token_hash TEXT NOT NULL,
-            brand_name TEXT NOT NULL, branch TEXT NOT NULL, region TEXT NOT NULL,
-            public_url TEXT, competitors TEXT NOT NULL, core_value TEXT NOT NULL,
-            fact_concern TEXT NOT NULL, source_readiness TEXT NOT NULL,
-            contact TEXT NOT NULL, consent_at TEXT NOT NULL,
-            status TEXT NOT NULL DEFAULT '排队中', error_summary TEXT,
-            created_at TEXT NOT NULL, updated_at TEXT NOT NULL
-          );
-          CREATE TABLE IF NOT EXISTS assessment_runs (
-            id TEXT PRIMARY KEY, task_id TEXT NOT NULL, provider TEXT NOT NULL,
-            provider_label TEXT NOT NULL, model TEXT NOT NULL, question_index INTEGER NOT NULL,
-            prompt TEXT NOT NULL, response_text TEXT, status TEXT NOT NULL,
-            started_at TEXT, finished_at TEXT, error_message TEXT,
-            FOREIGN KEY(task_id) REFERENCES assessment_tasks(id)
-          );
         """)
         # Safe additive migrations for databases created by the earlier prototype.
         existing = {row[1] for row in db.execute("PRAGMA table_info(channels)")}
@@ -205,76 +162,11 @@ def initialise_database():
             db.execute("INSERT OR IGNORE INTO products(id,name,category,list_price_cents,status,stock_note,updated_at) VALUES(?,?,?,?,?,?,?)", (*product, "人工核对", now()))
 
 
-def task_access_hash(token):
-    return hashlib.sha256(token.encode("utf-8")).hexdigest()
-
-
-def assessment_questions(task):
-    context = f"品牌或主体：{task['brand_name']}。业务类型：{task['branch']}。主要区域：{task['region']}。核心要点：{task['core_value']}。"
-    competitors = task["competitors"]
-    return [
-        "请以普通客户的角度回答：" + context + "在做选择前，应比较哪些代表性品牌、服务或产品？请说明判断依据，并区分无法确认的内容。",
-        "请以公开可核验信息为限回答：" + context + f"客户给出的比较对象包括：{competitors}。请说明这些对象各自可能的适用场景，并给出任何事实主张的来源类型；若无法确认请明确说明。",
-    ]
-
-
-def run_provider(provider_name, task_id, question_index, prompt):
-    provider = MODEL_PROVIDERS[provider_name]
-    run_id = new_id("RUN")
-    started_at = now()
-    with connection() as db:
-        db.execute("INSERT INTO assessment_runs(id,task_id,provider,provider_label,model,question_index,prompt,status,started_at) VALUES(?,?,?,?,?,?,?,?,?)", (run_id, task_id, provider_name, provider["label"], provider["model"] or "未配置", question_index, prompt, "运行中", started_at))
-    if not provider["key"] or not provider["model"]:
-        with connection() as db:
-            db.execute("UPDATE assessment_runs SET status=?,finished_at=?,error_message=? WHERE id=?", ("待配置", now(), "未配置官方 API 密钥或模型标识", run_id))
-        return
-    request_body = json.dumps({"model": provider["model"], "messages": [{"role": "user", "content": prompt}], "temperature": 0.2}, ensure_ascii=False).encode("utf-8")
-    request = Request(provider["url"], data=request_body, headers={"Authorization": f"Bearer {provider['key']}", "Content-Type": "application/json"}, method="POST")
-    try:
-        with urlopen(request, timeout=75) as response:
-            payload = json.loads(response.read().decode("utf-8"))
-        choices = payload.get("choices") or []
-        content = choices[0].get("message", {}).get("content", "") if choices else ""
-        if not isinstance(content, str) or not content.strip():
-            raise ValueError("官方接口未返回可保存的回答")
-        with connection() as db:
-            db.execute("UPDATE assessment_runs SET response_text=?,status=?,finished_at=? WHERE id=?", (content.strip(), "完成", now(), run_id))
-    except (HTTPError, URLError, TimeoutError, ValueError, json.JSONDecodeError) as exc:
-        with connection() as db:
-            db.execute("UPDATE assessment_runs SET status=?,finished_at=?,error_message=? WHERE id=?", ("失败", now(), str(exc)[:300], run_id))
-
-
-def run_assessment_task(task_id):
-    with connection() as db:
-        task = db.execute("SELECT * FROM assessment_tasks WHERE id=?", (task_id,)).fetchone()
-        if not task:
-            return
-        db.execute("UPDATE assessment_tasks SET status=?,updated_at=? WHERE id=?", ("测试中", now(), task_id))
-    questions = assessment_questions(task)
-    futures = [ASSESSMENT_EXECUTOR.submit(run_provider, provider, task_id, index + 1, question) for provider in MODEL_PROVIDERS for index, question in enumerate(questions)]
-    for future in futures:
-        future.result()
-    with connection() as db:
-        counts = {row["status"]: row["total"] for row in db.execute("SELECT status,COUNT(*) AS total FROM assessment_runs WHERE task_id=? GROUP BY status", (task_id,))}
-        final_status = "已完成" if counts.get("完成", 0) else "待配置"
-        note = None if final_status == "已完成" else "尚未配置可调用的官方模型密钥；未生成任何模型结论。"
-        db.execute("UPDATE assessment_tasks SET status=?,error_summary=?,updated_at=? WHERE id=?", (final_status, note, now(), task_id))
-
-
 def exists_active_channel(channel_id):
     if not channel_id or len(channel_id) >= 80:
         return None
     with connection() as db:
         return channel_id if db.execute("SELECT 1 FROM channels WHERE id=? AND status='active'", (channel_id,)).fetchone() else None
-
-
-def public_task_payload(db, task):
-    runs = [dict(row) for row in db.execute("SELECT provider,provider_label,model,question_index,prompt,response_text,status,finished_at,error_message FROM assessment_runs WHERE task_id=? ORDER BY provider,question_index", (task["id"],))]
-    return {
-        "id": task["id"], "brandName": task["brand_name"], "status": task["status"],
-        "createdAt": task["created_at"], "updatedAt": task["updated_at"],
-        "notice": task["error_summary"], "runs": runs,
-    }
 
 
 def admin_payload(db):
@@ -375,17 +267,6 @@ class Handler(BaseHTTPRequestHandler):
             if not row:
                 return self.error_json(404, "未找到匹配订单")
             return self.send_json(200, {"order": dict(row)})
-        match = re.match(r"^/api/public/assessments/([^/]+)$", parsed.path)
-        if match:
-            task_id = unquote(match.group(1))
-            token = parse_qs(parsed.query).get("token", [""])[0]
-            if not token:
-                return self.error_json(401, "缺少私密查询凭证")
-            with connection() as db:
-                task = db.execute("SELECT * FROM assessment_tasks WHERE id=? AND access_token_hash=?", (task_id, task_access_hash(token))).fetchone()
-                if not task:
-                    return self.error_json(404, "未找到匹配评测任务")
-                return self.send_json(200, {"task": public_task_payload(db, task)})
         match = re.match(r"^/api/public/conversations/([^/]+)$", parsed.path)
         if match:
             conversation_id = unquote(match.group(1))
@@ -452,23 +333,6 @@ class Handler(BaseHTTPRequestHandler):
                             amount = max(0, service["amountCents"] * channel["commission_rate_bps"] // 10000)
                             db.execute("INSERT INTO commissions(id,channel_id,order_id,amount_cents,status,created_at,updated_at) VALUES(?,?,?,?,?,?,?)", (commission_id, channel_id, order_id, amount, "待结算", created_at, created_at))
                 return self.send_json(201, {"id": order_id, "status": "待付款核对", "serviceName": service["name"], "amountCents": service["amountCents"]})
-            if parsed.path == "/api/public/assessments":
-                required = ("brandName", "branch", "region", "competitors", "coreValue", "factConcern", "sourceReadiness", "contact")
-                values = {key: payload.get(key, "").strip() if isinstance(payload.get(key), str) else "" for key in required}
-                if not all(values.values()) or payload.get("consent") is not True:
-                    return self.error_json(400, "请完整填写评测信息并确认授权")
-                if values["branch"] not in ("b2b", "ecommerce", "local"):
-                    return self.error_json(400, "评测分支不合法")
-                if any(len(value) > 600 for value in values.values()):
-                    return self.error_json(400, "提交内容过长")
-                public_url = payload.get("publicUrl", "").strip() if isinstance(payload.get("publicUrl"), str) else ""
-                if public_url and not re.match(r"^https?://", public_url, re.I):
-                    return self.error_json(400, "公开资料链接格式不正确")
-                task_id, token, created_at = new_id("GEO"), secrets.token_urlsafe(24), now()
-                with connection() as db:
-                    db.execute("INSERT INTO assessment_tasks(id,access_token_hash,brand_name,branch,region,public_url,competitors,core_value,fact_concern,source_readiness,contact,consent_at,status,created_at,updated_at) VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)", (task_id, task_access_hash(token), values["brandName"], values["branch"], values["region"], public_url, values["competitors"], values["coreValue"], values["factConcern"], values["sourceReadiness"], values["contact"], created_at, "排队中", created_at, created_at))
-                ASSESSMENT_EXECUTOR.submit(run_assessment_task, task_id)
-                return self.send_json(201, {"id": task_id, "token": token, "status": "排队中"})
             if parsed.path == "/api/public/tickets":
                 contact = payload.get("contact", "").strip() if isinstance(payload.get("contact"), str) else ""
                 message = payload.get("message", "").strip() if isinstance(payload.get("message"), str) else ""
