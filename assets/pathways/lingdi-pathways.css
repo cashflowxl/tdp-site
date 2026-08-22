@@ -490,3 +490,193 @@
   from { opacity: 0; transform: translateY(12px); }
   to { opacity: 1; transform: translateY(0); }
 }
+
+/* Cinematic revision: one open scene per path, never a control-panel grid. */
+.lingdi-pathways {
+  background:
+    radial-gradient(circle at 88% 62%, rgba(160, 118, 42, .13), transparent 20%),
+    #050807;
+}
+
+.lingdi-pathways .space-services-heading {
+  display: block;
+  max-width: 1080px;
+}
+
+.lingdi-pathways .space-services-heading h2 {
+  max-width: 11.5ch;
+  margin: 24px 0 0;
+}
+
+.lingdi-pathways__cockpit {
+  margin-top: clamp(64px, 9vw, 132px);
+  background: transparent;
+}
+
+.lingdi-pathways__cockpit::before {
+  content: none;
+}
+
+.lingdi-pathways__rail {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px clamp(26px, 4.4vw, 72px);
+  width: auto;
+}
+
+.lingdi-pathways__rail button {
+  flex: 0 0 auto;
+  min-height: 0;
+  padding: 0 0 8px;
+  color: rgba(244, 246, 242, .38);
+  background: transparent !important;
+}
+
+.lingdi-pathways__rail button::after {
+  content: none;
+}
+
+.lingdi-pathways__rail button:hover,
+.lingdi-pathways__rail button:focus-visible,
+.lingdi-pathways__rail button[aria-selected="true"] {
+  color: #fff;
+}
+
+.lingdi-pathways__rail button > small {
+  display: none;
+}
+
+.lingdi-pathways__rail button > span {
+  color: inherit;
+  font-size: 10px;
+  opacity: .9;
+}
+
+.lingdi-pathways__rail button > strong {
+  margin-top: 7px;
+  font-size: clamp(16px, 1.4vw, 21px);
+  font-weight: 680;
+  letter-spacing: -.02em;
+}
+
+.lingdi-pathways__stage,
+.lingdi-pathways.is-enhanced .lingdi-pathways__stage {
+  display: block;
+  min-height: 0;
+  margin-top: clamp(54px, 7vw, 104px);
+}
+
+.lingdi-pathways__panel,
+.lingdi-pathways__panel:nth-child(2),
+.lingdi-pathways__panel:nth-child(3),
+.lingdi-pathways__panel:nth-child(4) {
+  display: grid;
+  grid-template-columns: minmax(0, 1.2fr) minmax(230px, .55fr);
+  grid-template-areas:
+    "meta meta"
+    "title pricing"
+    "facts pricing"
+    "cta pricing";
+  gap: 30px clamp(46px, 9vw, 164px);
+  align-content: center;
+  min-height: min(64vw, 760px);
+  padding: clamp(22px, 3vw, 48px) 0;
+  color: #f4f6f2;
+  background: transparent;
+  border: 0;
+}
+
+.lingdi-pathways.is-enhanced .lingdi-pathways__panel {
+  border: 0;
+  animation: lp-panel-in 360ms ease both;
+}
+
+.lingdi-pathways__panel h3 {
+  max-width: 13ch;
+  font-size: clamp(50px, 5.8vw, 94px);
+  line-height: .94;
+}
+
+.lingdi-pathways__panel dl {
+  gap: clamp(24px, 4vw, 66px);
+  margin-top: 8px;
+}
+
+.lingdi-pathways__pricing {
+  align-self: center;
+  padding: 0;
+  border: 0;
+}
+
+.lingdi-pathways__pricing--tiers {
+  gap: 22px;
+}
+
+.lingdi-pathways__pricing--tiers p + p {
+  padding: 0;
+  border: 0;
+}
+
+.lingdi-pathways__cta {
+  min-height: 0;
+  padding: 0;
+  border: 0;
+  color: var(--lp-lime);
+}
+
+.lingdi-pathways__cta:hover,
+.lingdi-pathways__cta:focus-visible {
+  border: 0;
+  color: #fff;
+}
+
+@media (max-width: 767px) {
+  .lingdi-pathways .space-services-heading h2 {
+    max-width: 10.5ch;
+  }
+
+  .lingdi-pathways__cockpit {
+    margin-top: 54px;
+  }
+
+  .lingdi-pathways__rail {
+    flex-wrap: nowrap;
+    gap: 28px;
+    width: calc(100vw - 40px);
+  }
+
+  .lingdi-pathways__rail button,
+  .lingdi-pathways__rail button:first-child {
+    flex: 0 0 auto;
+    min-height: 0;
+    padding: 0 0 7px;
+    border: 0;
+  }
+
+  .lingdi-pathways__stage,
+  .lingdi-pathways.is-enhanced .lingdi-pathways__stage {
+    margin-top: 48px;
+  }
+
+  .lingdi-pathways__panel,
+  .lingdi-pathways__panel:nth-child(2),
+  .lingdi-pathways__panel:nth-child(3),
+  .lingdi-pathways__panel:nth-child(4) {
+    grid-template-columns: 1fr;
+    grid-template-areas: "meta" "title" "facts" "pricing" "cta";
+    gap: 26px;
+    min-height: 0;
+    padding: 16px 0 28px;
+  }
+
+  .lingdi-pathways__panel h3 {
+    max-width: 10.5ch;
+    font-size: clamp(42px, 11.3vw, 57px);
+  }
+
+  .lingdi-pathways__pricing,
+  .lingdi-pathways__pricing--tiers p + p {
+    padding: 0;
+    border: 0;
+  }
+}

@@ -53,12 +53,7 @@
 }
 
 .lingdi-founder-story__grid {
-  position: absolute;
-  inset: 0;
-  z-index: -1;
-  pointer-events: none;
-  opacity: 0.36;
-  background: linear-gradient(90deg, transparent 0 6%, rgba(200, 255, 61, 0.68) 6% calc(6% + 1px), transparent calc(6% + 1px) 100%);
+  display: none;
 }
 
 .lingdi-founder-story__inner {
@@ -252,13 +247,12 @@
 }
 
 .lingdi-founder-story__institution-stage {
-  display: grid;
-  grid-template-columns: minmax(0, 1.55fr) minmax(150px, 0.45fr);
-  align-items: stretch;
-  width: min(100%, 660px);
-  min-height: 92px;
-  margin: 18px 0 20px;
-  gap: 28px;
+  display: flex;
+  align-items: center;
+  width: min(100%, 430px);
+  min-height: 54px;
+  margin: 16px 0 18px;
+  gap: 26px;
 }
 
 .lingdi-founder-story__institution-mark {
@@ -282,7 +276,7 @@
 }
 
 .lingdi-founder-story__institution-mark--msu img {
-  width: min(100%, 390px);
+  width: min(100%, 240px);
 }
 
 .lingdi-founder-story__institution-mark--umich {
@@ -291,13 +285,12 @@
 }
 
 .lingdi-founder-story__institution-mark--umich img {
-  width: 124px;
+  width: 58px;
 }
 
 .lingdi-founder-story__institution-stage--ey {
-  grid-template-columns: 1fr;
-  width: 102px;
-  min-height: 92px;
+  width: 62px;
+  min-height: 54px;
   background: transparent;
 }
 
@@ -307,13 +300,12 @@
 }
 
 .lingdi-founder-story__institution-mark--ey img {
-  width: 94px;
+  width: 62px;
 }
 
 .lingdi-founder-story__brand-stage {
-  display: grid;
-  gap: 8px;
-  margin: 18px 0 2px;
+  display: block;
+  margin: 16px 0 18px;
   padding: 0;
   overflow: visible;
   position: relative;
@@ -327,7 +319,7 @@
 .lingdi-founder-story__hey-lockup {
   display: flex;
   align-items: center;
-  gap: 2px;
+  gap: 10px;
   padding-top: 0;
   position: relative;
   z-index: 1;
@@ -335,18 +327,18 @@
 
 .lingdi-founder-story__chameleon {
   box-sizing: border-box;
-  width: 118px;
-  height: 118px;
-  flex: 0 0 118px;
+  width: 66px;
+  height: 66px;
+  flex: 0 0 66px;
   padding: 0;
   object-fit: contain;
   object-position: center;
-  transform: translateY(-10px);
+  transform: none;
 }
 
 .lingdi-founder-story__hey-wordmark {
   color: #fff;
-  font-size: clamp(31px, 3.2vw, 52px);
+  font-size: clamp(27px, 2.4vw, 40px);
   font-weight: 800;
   letter-spacing: 0.12em;
   line-height: 1;
@@ -355,7 +347,7 @@
 .lingdi-founder-story__award {
   position: relative;
   z-index: 1;
-  margin: 0;
+  margin: 8px 0 0 76px;
   color: rgba(255, 255, 255, 0.82);
   font-size: 11px;
   font-weight: 760;
@@ -365,9 +357,9 @@
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  width: min(100%, 390px);
-  min-height: 66px;
-  margin: 18px 0 2px;
+  width: min(100%, 230px);
+  min-height: 48px;
+  margin: 16px 0 18px;
   padding: 0;
   border: 0;
   background: transparent;
@@ -413,12 +405,13 @@
   }
 
   .lingdi-founder-story__inner {
+    width: min(100% - 96px, 1600px);
     padding-top: clamp(124px, 9svh, 152px);
   }
 
   .lingdi-founder-story__intro,
   .lingdi-founder-story.is-enhanced .lingdi-founder-story__detail {
-    width: min(44%, 650px);
+    width: min(43%, 640px);
   }
 
   .lingdi-founder-story__intro {
@@ -427,7 +420,8 @@
   }
 
   .lingdi-founder-story__intro h2 {
-    font-size: clamp(52px, 5vw, 80px);
+    max-width: 640px;
+    font-size: clamp(50px, 4.6vw, 74px);
   }
 
   html[lang^="en"] .lingdi-founder-story__tab[data-founder-mobile-label="Tianpu"] {
@@ -621,6 +615,27 @@
 
   .lingdi-founder-story__award {
     line-height: 1.6;
+  }
+}
+
+@media (max-width: 899px) {
+  .lingdi-founder-story__intro h2 {
+    max-width: 100%;
+    font-size: clamp(42px, 8.4vw, 60px);
+    line-height: 0.98;
+    text-wrap: pretty;
+  }
+
+  .lingdi-founder-story__lead {
+    max-width: 100%;
+  }
+
+  .lingdi-founder-story__institution-stage {
+    gap: 18px;
+  }
+
+  .lingdi-founder-story__institution-mark--msu img {
+    width: min(100%, 205px);
   }
 }
 
